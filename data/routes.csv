@@ -1,0 +1,229 @@
+"routeNumber","departureICAO","arrivalICAO","aircraft","routeType","notes","estFlightTime","minimumHours","shareable"
+"JX302/JX312","RCMQ","ROAH","Generic Airbus A321","Passenger",,71,0,true
+"JX870","RCTP","ROAH","Generic Airbus A321","Passenger",,68,0,true
+"JX329/JX331","RCMQ","VMMC","Generic Airbus A321","Passenger",,75,0,true
+"JX201/JX205","RCTP","VMMC","Generic Airbus A321","Passenger",,80,0,true
+"JX233/JX235","RCTP","VHHH","Starlux Airlines Airbus A330-900","Passenger",,82,0,true
+"JX789","RCTP","RPLC","Generic Airbus A321","Passenger",,100,0,true
+"JX886","RCTP","RORS","Generic Airbus A321","Passenger",,45,0,true
+"JX840","RCTP","RJFF","Generic Airbus A321","Passenger",,115,0,true
+"JX846","RCTP","RJFT","Starlux Airlines Airbus A330-900","Passenger",,110,0,true
+"JX300","RCMQ","RJOT","Generic Airbus A321","Passenger",,142,0,true
+"JX820/JX822","RCTP","RJBB","Starlux Airbus A350","Passenger",,135,0,true
+"JX834","RCTP","RJBE","Generic Airbus A321","Passenger",,140,0,true
+"JX306","RCMQ","RJBE","Generic Airbus A321","Passenger",,145,0,true
+"JX703","RCTP","VVDN","Generic Airbus A321","Passenger",,145,0,true
+"JX838","RCTP","RJGG","Starlux Airlines Airbus A330-900","Passenger",,155,0,true
+"JX781/783","RCTP","RPVM","Generic Airbus A321","Passenger",,140,0,true
+"JX715/JX717","RCTP","VVNB","Generic Airbus A321","Passenger",,150,0,true
+"JX711/JX713","RCTP","VVTS","Starlux Airbus A350","Passenger",,175,0,true
+"JX800/JX802/JX804","RCTP","RJAA","Starlux Airbus A350","Passenger",,180,0,true
+"JX862","RCTP","RJSS","Starlux Airlines Airbus A330-900","Passenger",,185,0,true
+"JX333","RCMQ","VVPQ","Generic Airbus A321","Passenger",,195,0,true
+"JX705","RCTP","VVPQ","Generic Airbus A321","Passenger",,200,0,true
+"JX751","RCTP","VTCC","Generic Airbus A321","Passenger",,195,0,true
+"JX741/JX745","RCTP","VTBS","Starlux Airbus A350","Passenger",,200,0,true
+"JX860","RCTP","RJCH","Generic Airbus A321","Passenger",,200,0,true
+"JX850","RCTP","RJCC","Starlux Airlines Airbus A330-900","Passenger",,210,0,true
+"JX771","RCTP","WSSS","Starlux Airlines Airbus A330-900","Passenger",,250,0,true
+"JX725","RCTP","WMKK","Generic Airbus A321","Passenger",,265,0,true
+"JX761","RCTP","WIII","Generic Airbus A321","Passenger",,295,0,true
+"JX32","RCTP","KSEA","Starlux Airbus A350","Passenger",,660,0,true
+"JX12","RCTP","KSFO","Starlux Airbus A350","Passenger",,705,0,true
+"JX10","RCTP","KONT","Starlux Airbus A350","Passenger",,720,0,true
+"JX2/JX6","RCTP","KLAX","Starlux Airbus A350","Passenger",,720,0,true
+"JX 26","RCTP","KPHX","Starlux Airbus A350","Passenger","",750,0,true
+"JX785","RCTP","RPLL","Generic Airbus A321","Passenger",,120,0,true
+"JX303/JX313","ROAH","RCMQ","Generic Airbus A321","Passenger",,71,0,true
+"JX871","ROAH","RCTP","Generic Airbus A321","Passenger",,68,0,true
+"JX330/JX332","VMMC","RCMQ","Generic Airbus A321","Passenger",,75,0,true
+"JX202/JX206","VMMC","RCTP","Generic Airbus A321","Passenger",,80,0,true
+"JX234/JX236","VHHH","RCTP","Starlux Airlines Airbus A330-900","Passenger",,82,0,true
+"JX790","RPLC","RCTP","Generic Airbus A321","Passenger",,100,0,true
+"JX887","RORS","RCTP","Generic Airbus A321","Passenger",,45,0,true
+"JX841","RJFF","RCTP","Generic Airbus A321","Passenger",,115,0,true
+"JX847","RJFT","RCTP","Starlux Airlines Airbus A330-900","Passenger",,110,0,true
+"JX301","RJOT","RCMQ","Generic Airbus A321","Passenger",,142,0,true
+"JX821/JX823","RJBB","RCTP","Starlux Airbus A350","Passenger",,135,0,true
+"JX835","RJBE","RCTP","Generic Airbus A321","Passenger",,140,0,true
+"JX307","RJBE","RCMQ","Generic Airbus A321","Passenger",,145,0,true
+"JX704","VVDN","RCTP","Generic Airbus A321","Passenger",,145,0,true
+"JX839","RJGG","RCTP","Starlux Airlines Airbus A330-900","Passenger",,155,0,true
+"JX782/784","RPVM","RCTP","Generic Airbus A321","Passenger",,140,0,true
+"JX716/JX718","VVNB","RCTP","Generic Airbus A321","Passenger",,150,0,true
+"JX712/JX714","VVTS","RCTP","Starlux Airbus A350","Passenger",,175,0,true
+"JX801/JX803/JX805","RJAA","RCTP","Starlux Airbus A350","Passenger",,180,0,true
+"JX863","RJSS","RCTP","Starlux Airlines Airbus A330-900","Passenger",,185,0,true
+"JX334","VVPQ","RCMQ","Generic Airbus A321","Passenger",,195,0,true
+"JX706","VVPQ","RCTP","Generic Airbus A321","Passenger",,200,0,true
+"JX752","VTCC","RCTP","Generic Airbus A321","Passenger",,195,0,true
+"JX742/JX746","VTBS","RCTP","Starlux Airbus A350","Passenger",,200,0,true
+"JX861","RJCH","RCTP","Generic Airbus A321","Passenger",,200,0,true
+"JX851","RJCC","RCTP","Starlux Airlines Airbus A330-900","Passenger",,210,0,true
+"JX772","WSSS","RCTP","Starlux Airlines Airbus A330-900","Passenger",,250,0,true
+"JX726","WMKK","RCTP","Generic Airbus A321","Passenger",,265,0,true
+"JX762","WIII","RCTP","Generic Airbus A321","Passenger",,295,0,true
+"JX31","KSEA","RCTP","Starlux Airbus A350","Passenger",,660,0,true
+"JX11","KSFO","RCTP","Starlux Airbus A350","Passenger",,705,0,true
+"JX9","KONT","RCTP","Starlux Airbus A350","Passenger",,720,0,true
+"JX1/JX5","KLAX","RCTP","Starlux Airbus A350","Passenger",,720,0,true
+"JXXX","KPHX","RCTP","Starlux Airbus A350","Passenger",,750,0,true
+"JX786","RPLL","RCTP","Generic Airbus A321","Passenger",,120,0,true
+"A3 432","LGIR","EDDM","Aegean Airlines - 2020 Airbus A320","Passenger",,175,0,true
+"A3 433","EDDM","LGIR","Aegean Airlines - 2020 Airbus A320","Passenger",,160,0,true
+"A3 436","LGRP","LTFM","Aegean Airlines - 2020 Airbus A320","Passenger",,90,0,true
+"A3 437","LTFM","LGRP","Aegean Airlines - 2020 Airbus A320","Passenger",,90,0,true
+"A3 459","LLBG","LGIR","Aegean Airlines - 2020 Airbus A320","Passenger",,105,0,true
+"A3 458","LGIR","LLBG","Aegean Airlines - 2020 Airbus A320","Passenger",,105,0,true
+"A3 482","LGRP","LGSR","Aegean Airlines - 2020 Airbus A320","Passenger",,55,0,true
+"A3 483","LGSR","LGRP","Aegean Airlines - 2020 Airbus A320","Passenger",,55,0,true
+"A3 490","LGIR","LFRG","Aegean Airlines - 2020 Airbus A320","Passenger",,225,0,true
+"A3 491","LFRG","LGIR","Aegean Airlines - 2020 Airbus A320","Passenger",,210,0,true
+"A3 510","LGTS","EDDS","Generic Airbus A321","Passenger",,145,0,true
+"A3 511","EDDS","LGTS","Generic Airbus A321","Passenger",,130,0,true
+"A3 602","LGAV","EGLL","Aegean Airlines - 2020 Airbus A320","Passenger",,240,0,true
+"A3 601","EGLL","LGAV","Generic Airbus A321","Passenger",,220,0,true
+"A3 614","LGAV","LFPG","Generic Airbus A321","Passenger",,210,0,true
+"A3 613","LFPG","LGAV","Generic Airbus A321","Passenger",,190,0,true
+"A3 630","LGAV","EIDW","Aegean Airlines - 2020 Airbus A320","Passenger",,265,0,true
+"A3 631","EIDW","LGAV","Aegean Airlines - 2020 Airbus A320","Passenger",,245,0,true
+"A3 720","LGAV","LPPT","Aegean Airlines - 2020 Airbus A320","Passenger",,265,0,true
+"A3 721","LPPT","LGAV","Aegean Airlines - 2020 Airbus A320","Passenger",,235,0,true
+"A3 958","LGAV","OMDB","Aegean Airlines - 2020 Airbus A320","Passenger",,270,0,true
+"A3 959","OMDB","LGAV","Aegean Airlines - 2020 Airbus A320","Passenger",,320,0,true
+"OA 472/1/1","YSSY","VTBS","Olympic Boeing 747-200","Passenger",,555,0,true
+"OA 472/1","VTBS","YSSY","Olympic Boeing 747-200","Passenger",,525,0,true
+"AA375","KDFW","KLAX","American Airlines Airbus A321","Passenger",,167,0,true
+"AA615","KDFW","KPHX","American Airlines Airbus A321","Passenger",,125,0,true
+"AA401","KDFW","KMIA","American Airlines Airbus A321","Passenger",,130,0,true
+"AA1879","KCLT","KMCO","American Airlines Airbus A321","Passenger",,70,0,true
+"AA1797","KDFW","KLAS","American Airlines Airbus A321","Passenger",,155,0,true
+"AA2117","KDFW","KLGA","Garuda Indonesia Boeing 737-800","Passenger",,165,0,true
+"AA1207","KDFW","KAUS","Garuda Indonesia Boeing 737-800","Passenger",,49,0,true
+"AA1161","KMIA","KDCA","American Airlines Boeing 737-8 MAX","Passenger",,121,0,true
+"AA1773","KCLT","KTPA","American Airlines Airbus A321","Passenger",,72,0,true
+"AA810","KDFW","KSFO","American Airlines Boeing 737-8 MAX","Passenger",,189,0,true
+"AA100","KJFK","EGLL","American Airlines Boeing 777-300ER","Passenger",,386,0,true
+"AA61","KDFW","RJAA","American Airlines Boeing 777-200ER","Passenger",,771,0,true
+"AA925","KMIA","SBGR","Qatar Airways Boeing 787-8","Passenger",,480,0,true
+"AA933","KMIA","SAEZ","Qatar Airways Boeing 787-8","Passenger",,510,0,true
+"AA704","KCLT","EDDF","American Airlines Boeing 777-200ER","Passenger",,465,0,true
+"AA204","KPHL","EHAM","Qatar Airways Boeing 787-8","Passenger",,390,0,true
+"AA308","KMIA","TXKF","American Airlines Airbus A319","Passenger",,131,0,true
+"AA387","KLAX","KDFW","American Airlines Airbus A321","Passenger",,167,0,true
+"AA737","KPHX","KDFW","American Airlines Airbus A321","Passenger",,125,0,true
+"AA443","KMIA","KDFW","American Airlines Airbus A321","Passenger",,130,0,true
+"AA1896","KMCO","KCLT","American Airlines Airbus A321","Passenger",,70,0,true
+"AA1863","KLAS","KDFW","American Airlines Airbus A321","Passenger",,155,0,true
+"AA2997","KLGA","KDFW","Garuda Indonesia Boeing 737-800","Passenger",,165,0,true
+"AA1390","KAUS","KDFW","Garuda Indonesia Boeing 737-800","Passenger",,49,0,true
+"AA1232","KDCA","KMIA","American Airlines Boeing 737-8 MAX","Passenger",,121,0,true
+"AA1704","KTPA","KCLT","American Airlines Airbus A321","Passenger",,72,0,true
+"AA2177","KSFO","KDFW","American Airlines Boeing 737-8 MAX","Passenger",,189,0,true
+"AA101","EGLL","KJFK","American Airlines Boeing 777-300ER","Passenger",,386,0,true
+"AA60","RJAA","KDFW","American Airlines Boeing 777-200ER","Passenger",,771,0,true
+"AA906","SBGR","KMIA","Qatar Airways Boeing 787-8","Passenger",,480,0,true
+"AA934","SAEZ","KMIA","Qatar Airways Boeing 787-8","Passenger",,510,0,true
+"AA705","EDDF","KCLT","American Airlines Boeing 777-200ER","Passenger",,465,0,true
+"AA203","EHAM","KPHL","Qatar Airways Boeing 787-8","Passenger",,390,0,true
+"AA414","TXKF","KMIA","American Airlines Airbus A319","Passenger",,131,0,true
+"BW5","MKJP","KJFK","American Airlines Boeing 737-8 MAX","Passenger",,235,0,true
+"BW400","TTPP","TNCC","Generic Bombardier Dash 8-Q400","Passenger",,100,0,true
+"BW483","KMCO","TTPP","American Airlines Boeing 737-8 MAX","Passenger",,225,0,true
+"BW476","TTPP","MUHA","American Airlines Boeing 737-8 MAX","Passenger",,180,0,true
+"BW1500","TTPP","TTCP","Generic Bombardier Dash 8-Q400","Passenger",,25,0,true
+"BW291","TTPP","TJSJ","American Airlines Boeing 737-8 MAX","Passenger",,135,0,true
+"BW300","TTPP","SVMI","Generic Bombardier Dash 8-Q400","Passenger",,85,0,true
+"BW600","TTPP","CYYZ","American Airlines Boeing 737-8 MAX","Passenger",,360,0,true
+"BW34","MKJP","KFLL","Generic Bombardier Dash 8-Q400","Passenger",,110,0,true
+"BW6","KJFK","MKJP","American Airlines Boeing 737-8 MAX","Passenger",,235,0,true
+"BW401","TNCC","TTPP","Generic Bombardier Dash 8-Q400","Passenger",,100,0,true
+"BW484","TTPP","KMCO","American Airlines Boeing 737-8 MAX","Passenger",,225,0,true
+"BW477","MUHA","TTPP","American Airlines Boeing 737-8 MAX","Passenger",,180,0,true
+"BW1501","TTCP","TTPP","Generic Bombardier Dash 8-Q400","Passenger",,25,0,true
+"BW292","TJSJ","TTPP","American Airlines Boeing 737-8 MAX","Passenger",,135,0,true
+"BW301","SVMI","TTPP","Generic Bombardier Dash 8-Q400","Passenger",,85,0,true
+"BW601","CYYZ","TTPP","American Airlines Boeing 737-8 MAX","Passenger",,360,0,true
+"BW35","KFLL","MKJP","Generic Bombardier Dash 8-Q400","Passenger",,110,0,true
+"EY690/692/694/696","OMAA","OOMS","American Airlines Airbus A321","Passenger",,65,0,true
+"EY551/553/555/559/995","OMAA","OERK","American Airlines Airbus A321","Passenger",,89,0,true
+"EY581","OMAA","OLBA","American Airlines Airbus A321","Passenger",,222,0,true
+"EY300/302","OMAA","OPIS","American Airlines Airbus A321","Passenger",,211,0,true
+"EY212/214/216/218","OMAA","VIDP","American Airlines Airbus A321","Passenger",,225,0,true
+"EY691/693/695/697","OOMS","OMAA","American Airlines Airbus A321","Passenger",,65,0,true
+"EY552/554/556/560/996","OERK","OMAA","American Airlines Airbus A321","Passenger",,89,0,true
+"EY582","OLBA","OMAA","American Airlines Airbus A321","Passenger",,222,0,true
+"EY301/303","OPIS","OMAA","American Airlines Airbus A321","Passenger",,211,0,true
+"EY213/215/217/219","VIDP","OMAA","American Airlines Airbus A321","Passenger",,225,0,true
+"FJ810","NFFN","KLAX","Starlux Airbus A350","Passenger",,645,0,true
+"FJ870","NFFN","KSFO","Starlux Airbus A350","Passenger",,660,0,true
+"FJ880","NFFN","CYVR","Starlux Airbus A350","Passenger",,720,0,true
+"FJ890","NFFN","KDFW","Starlux Airbus A350","Passenger",,840,0,true
+"FJ360","NFFN","WSSS","Starlux Airbus A350","Passenger",,600,0,true
+"FJ910","NFFN","YSSY","Starlux Airbus A350","Passenger",,225,0,true
+"FJ930","NFFN","YMML","Starlux Airbus A350","Passenger",,300,0,true
+"FJ920","NFFN","YBBN","Starlux Airbus A350","Passenger",,210,0,true
+"FJ410","NFFN","NZAA","Starlux Airbus A350","Passenger",,180,0,true
+"FJ811","KLAX","NFFN","Starlux Airbus A350","Passenger",,645,0,true
+"FJ871","KSFO","NFFN","Starlux Airbus A350","Passenger",,660,0,true
+"FJ881","CYVR","NFFN","Starlux Airbus A350","Passenger",,720,0,true
+"FJ891","KDFW","NFFN","Starlux Airbus A350","Passenger",,840,0,true
+"FJ361","WSSS","NFFN","Starlux Airbus A350","Passenger",,600,0,true
+"FJ911","YSSY","NFFN","Starlux Airbus A350","Passenger",,225,0,true
+"FJ931","YMML","NFFN","Starlux Airbus A350","Passenger",,300,0,true
+"FJ921","YBBN","NFFN","Starlux Airbus A350","Passenger",,210,0,true
+"FJ411","NZAA","NFFN","Starlux Airbus A350","Passenger",,180,0,true
+"KE489","RKSI","VYYY","American Airlines Boeing 777-200ER","Passenger",,310,0,true
+"KE490","VYYY","RKSI","American Airlines Boeing 777-200ER","Passenger",,315,0,true
+"LAN582","SCEL","MMUN","Qatar Airways Boeing 787-8","Passenger",,390,0,true
+"LAN591","MDPC","SCEL","Qatar Airways Boeing 787-8","Passenger",,420,0,true
+"WY143","OOMS","LIMC","Qatar Airways Boeing 787-8","Passenger",,350,0,true
+"WY144","LIMC","OOMS","Qatar Airways Boeing 787-8","Passenger",,350,0,true
+"QR1499A","OTHH","HTKJ","Qatar Airways Boeing 787-8","Passenger",,295,0,true
+"QR1499B","HTKJ","HTDA","Qatar Airways Boeing 787-8","Passenger",,45,0,true
+"QR1499C","HTDA","OTHH","Qatar Airways Boeing 787-8","Passenger",,320,0,true
+"SQ482","WSSS","FAOR","Starlux Airbus A350","Passenger",,640,0,true
+"SQ481","FAOR","WSSS","Starlux Airbus A350","Passenger",,625,0,true
+"SQ 302","WSSS","EGCC","Starlux Airbus A350","Passenger",,845,0,true
+"SQ 301","EGCC","WSSS","Starlux Airbus A350","Passenger",,805,0,true
+"SQ 388","WSSS","LEBL","Starlux Airbus A350","Passenger",,750,0,true
+"SQ 387","LEBL","WSSS","Starlux Airbus A350","Passenger",,747,0,true
+"SQ504","WSSS","VAAH","Starlux Airbus A350","Passenger",,290,0,true
+"SQ505","VAAH","WSSS","Starlux Airbus A350","Passenger",,320,0,true
+"SQ442","WSSS","VNKT","American Airlines Boeing 737-8 MAX","Passenger",,295,0,true
+"SQ441","VNKT","WSSS","American Airlines Boeing 737-8 MAX","Passenger",,300,0,true
+"SQ 868","WSSS","ZSAM","American Airlines Boeing 737-8 MAX","Passenger",,260,0,true
+"SQ 869","ZSAM","WSSS","American Airlines Boeing 737-8 MAX","Passenger",,242,0,true
+"SQ 990","WSSS","WIMM","American Airlines Boeing 737-8 MAX","Passenger",,80,0,true
+"SQ 991","WIMM","WSSS","American Airlines Boeing 737-8 MAX","Passenger",,75,0,true
+"SQ928","WSSS","WARR","American Airlines Boeing 737-8 MAX","Passenger",,140,0,true
+"SQ 927","WARR","WSSS","Starlux Airbus A350","Passenger",,120,0,true
+"SQ 856","WSSS","ZGSZ","American Airlines Boeing 737-8 MAX","Passenger",,225,0,true
+"SQ 857","ZGSZ","WSSS","American Airlines Boeing 737-8 MAX","Passenger",,210,0,true
+"SQ 818","WSSS","ZUCK","American Airlines Boeing 737-8 MAX","Passenger",,320,0,true
+"SQ 819","ZUCK","WSSS","American Airlines Boeing 737-8 MAX","Passenger",,270,0,true
+"SQ 285","WSSS","NZAA","Starlux Airbus A350","Passenger",,595,0,true
+"SQ 286","NZAA","WSSS","Starlux Airbus A350","Passenger",,625,0,true
+"SQ728","WSSS","VTSP","American Airlines Boeing 737-8 MAX","Passenger",,105,0,true
+"SQ727","VTSP","WSSS","American Airlines Boeing 737-8 MAX","Passenger",,110,0,true
+"SQ534","WSSS","VOCI","American Airlines Boeing 737-8 MAX","Passenger",,270,0,true
+"SQ535","VOCI","WSSS","American Airlines Boeing 737-8 MAX","Passenger",,270,0,true
+"SP270","MKJS","KFLL","American Airlines Airbus A321","Passenger",,80,0,true
+"SP290","KDFW","KLAS","American Airlines Airbus A321","Passenger",,150,0,true
+"SP274","TIST","KMCO","American Airlines Airbus A319","Passenger",,160,0,true
+"SP280","KSAP","KMCO","American Airlines Airbus A319","Passenger",,140,0,true
+"SP163","KMCO","KPHL","American Airlines Airbus A319","Passenger",,160,0,true
+"SP290","KMCO","MDSD","American Airlines Airbus A319","Passenger",,155,0,true
+"SP806","KLAS","KATL","American Airlines Airbus A321","Passenger",,215,0,true
+"SP256","MSLP","KIAH","American Airlines Airbus A319","Passenger",,180,0,true
+"SP712","KIAH","KEWR","American Airlines Airbus A319","Passenger",,180,0,true
+"SP193","KIAH","KLAS","American Airlines Airbus A321","Passenger",,165,0,true
+"SP257","KFLL","KIAH","American Airlines Airbus A321","Passenger",,165,0,true
+"JBU1","KJFK","KFLL","American Airlines Airbus A321","Passenger",,187,0,true
+"JBU25","KBOS","TBPB","American Airlines Airbus A321","Passenger",,243,0,true
+"JBU61","KBOS","TJSJ","American Airlines Airbus A321","Passenger",,238,0,true
+"JBU165","KBOS","KRSW","American Airlines Airbus A321","Passenger",,219,0,true
+"JBU2","KFLL","KJFK","American Airlines Airbus A321","Passenger",,187,0,true
+"JBU26","TBPB","KBOS","American Airlines Airbus A321","Passenger",,243,0,true
+"JBU62","TJSJ","KBOS","American Airlines Airbus A321","Passenger",,238,0,true
+"JBU166","KRSW","KBOS","American Airlines Airbus A321","Passenger",,219,0,true

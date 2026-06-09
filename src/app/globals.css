@@ -1,0 +1,293 @@
+@import "tailwindcss";
+
+/* ----------------------------------------------------------------
+   Finnair Virtual — brand system
+   Palette: Twilight Blue #0B1560 · Pure White #FFFFFF · Plum Purple #7E1F89
+   Mood: Nordic minimalism — airy, light canvas, sophisticated clarity.
+   Default theme is LIGHT; adding `.dark` to <html> remaps tokens to a
+   deep-navy night palette (the whole UI flips with no component changes).
+   The token NAMES (gold/rose/ink/cream) are kept from the original system
+   so every utility reflows; only their VALUES are Finnair's.
+------------------------------------------------------------------- */
+
+@theme {
+  /* Brand accents — `gold` = Twilight Blue (primary), `rose` = Plum Purple */
+  --color-gold: #0b1560;
+  --color-gold-soft: #2c3b9e;
+  --color-rose: #7e1f89;
+  --color-rose-soft: #9a3aae;
+  --color-obsidian: #d5dae8;
+
+  /* Canvas (airy, barely-cool whites for Nordic lightness) */
+  --color-ink-950: #f6f8fc; /* page background */
+  --color-ink-900: #ffffff; /* cards / surfaces */
+  --color-ink-850: #f1f4fa; /* inputs / lighter surfaces */
+  --color-ink-800: #e9eef7;
+  --color-ink-700: #dee5f1;
+
+  /* Text (deep Twilight-Blue ink for strong, readable contrast) */
+  --color-cream: #0b1230;
+  --color-cream-dim: #3a4163;
+  --color-cream-faint: #757b96;
+
+  /* Fonts (Inter, wired up in layout via next/font) */
+  --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono), ui-monospace, monospace;
+
+  /* Easing */
+  --ease-lux: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:root {
+  --background: var(--color-ink-950);
+  --foreground: var(--color-cream);
+}
+
+/* ---- Dark mode ----
+   Default is light. Adding `.dark` to <html> remaps the brand tokens to a
+   deep Twilight-Blue night palette; every utility (bg-ink-*, text-cream,
+   border-obsidian, text-gold-soft…) references these variables, so the whole
+   UI flips with no component changes. */
+html.dark {
+  --color-ink-950: #070b22; /* page background (deep navy night) */
+  --color-ink-900: #0c1233; /* cards / surfaces */
+  --color-ink-850: #131a40; /* inputs / lighter surfaces */
+  --color-ink-800: #1a2250;
+  --color-ink-700: #232c5e;
+  --color-obsidian: #2a3360; /* borders */
+
+  --color-cream: #eef1fb; /* primary text */
+  --color-cream-dim: #b9c0de; /* secondary text */
+  --color-cream-faint: #7b83a8;
+
+  --color-gold: #3b49c9; /* brighter Twilight Blue so it reads on navy */
+  --color-gold-soft: #8e97f0; /* accent text legible on dark */
+  --color-rose: #b23bc4; /* brighter Plum Purple */
+  --color-rose-soft: #ce6bdc;
+}
+
+/* Solid brand (Twilight-Blue) buttons keep white text in both themes. */
+.bg-gold {
+  color: #ffffff;
+}
+
+/* Logo swaps between the navy emblem (light bg) and white emblem (dark bg). */
+.logo-dark-theme {
+  display: none;
+}
+html.dark .logo-dark-theme {
+  display: block;
+}
+html.dark .logo-light-theme {
+  display: none;
+}
+
+/* Smooth the swap. */
+body {
+  transition: background-color 0.3s var(--ease-lux), color 0.3s var(--ease-lux);
+}
+
+* {
+  border-color: color-mix(in srgb, var(--color-obsidian) 60%, transparent);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-ink-950);
+  color: var(--color-cream);
+  font-family: var(--font-sans);
+  font-weight: 300; /* Inter Light — body text */
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ---- Brand type weights (Inter) ----
+   Titles: ExtraLight (200) · Navigation: Medium (500) · UI/Buttons: Regular
+   (400) · Body: Light (300, on <body>). The compound selectors override the
+   weight utilities already in the markup so titles read ExtraLight site-wide. */
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 200;
+  letter-spacing: -0.015em;
+}
+.font-display.font-semibold,
+.font-display.font-normal,
+.font-display.font-bold {
+  font-weight: 200;
+}
+
+/* Native UI controls read at Regular. */
+button,
+input,
+select,
+textarea {
+  font-weight: 400;
+}
+
+/* Selection */
+::selection {
+  background: color-mix(in srgb, var(--color-gold) 40%, transparent);
+  color: var(--color-cream);
+}
+
+/* Thin gold scrollbar */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--color-ink-900); }
+::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--color-gold) 55%, var(--color-ink-700));
+  border-radius: 999px;
+  border: 2px solid var(--color-ink-900);
+}
+
+/* ---- Utilities ---- */
+.font-display { font-family: var(--font-display); }
+
+.text-balance { text-wrap: balance; }
+
+.gold-text {
+  background: linear-gradient(105deg, var(--color-gold-soft), var(--color-rose-soft));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hairline {
+  border: 1px solid color-mix(in srgb, var(--color-gold) 22%, transparent);
+}
+
+/* Section gold eyebrow rule */
+.eyebrow {
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--color-gold-soft);
+}
+
+/* Soft fade-up on scroll */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.reveal {
+  opacity: 0;
+  animation: fade-up 0.9s var(--ease-lux) forwards;
+}
+
+@keyframes drift {
+  0%, 100% { transform: translate3d(0,0,0) scale(1.05); }
+  50% { transform: translate3d(-2%, -2%, 0) scale(1.12); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { animation: none; opacity: 1; }
+  * { animation-duration: 0.001ms !important; }
+}
+
+/* ----------------------------------------------------------------
+   Live flight map (Leaflet) — themed to the brand
+------------------------------------------------------------------- */
+.lfm-map {
+  background: var(--color-ink-900);
+  z-index: 0;
+}
+
+/* Airport ground-layout tooltips on the live map */
+.leaflet-tooltip.apt-tip {
+  background: rgba(15, 17, 19, 0.96);
+  border: 1px solid color-mix(in srgb, var(--color-gold) 45%, transparent);
+  border-radius: 8px;
+  padding: 3px 8px;
+  color: #f4f0e9;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+.leaflet-tooltip.apt-tip::before {
+  display: none;
+}
+html.dark .lfm-map {
+  /* deep navy basemap in dark mode — match the page surface */
+  background: var(--color-ink-900);
+}
+
+/* Plane marker */
+.lfm-plane {
+  color: var(--color-gold-soft);
+  filter: drop-shadow(0 0 6px rgba(126, 31, 137, 0.7));
+}
+.lfm-plane-rot {
+  display: block;
+  transform-origin: 50% 50%;
+  transition: transform 0.4s var(--ease-lux);
+}
+.lfm-plane:hover {
+  color: #f4f0e9;
+  z-index: 600 !important;
+}
+
+/* Hover tooltip */
+.leaflet-tooltip.lfm {
+  background: rgba(19, 21, 24, 0.96);
+  border: 1px solid color-mix(in srgb, var(--color-gold) 45%, transparent);
+  border-radius: 10px;
+  padding: 8px 11px;
+  color: #f4f0e9;
+  box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.7);
+  white-space: nowrap;
+}
+.leaflet-tooltip.lfm::before {
+  border-top-color: color-mix(in srgb, var(--color-gold) 45%, transparent);
+}
+.lfm-tip .lfm-cs {
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+}
+.lfm-tip .lfm-route {
+  margin-top: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: #b08a6e;
+}
+.lfm-tip .lfm-route .lfm-arrow {
+  color: #8b877f;
+}
+.lfm-tip .lfm-ac {
+  margin-top: 3px;
+  font-size: 0.72rem;
+  color: #c9c4ba;
+}
+.lfm-tip .lfm-meta {
+  margin-top: 1px;
+  font-size: 0.68rem;
+  color: #8b877f;
+}
+
+/* Controls + attribution, dark */
+.lfm-map .leaflet-control-zoom a {
+  background: rgba(19, 21, 24, 0.9);
+  color: #c9c4ba;
+  border-color: rgba(65, 70, 75, 0.6);
+}
+.lfm-map .leaflet-control-zoom a:hover {
+  background: rgba(37, 41, 46, 0.95);
+  color: #f4f0e9;
+}
+.lfm-map .leaflet-control-attribution {
+  background: rgba(19, 21, 24, 0.7);
+  color: #6b6760;
+}
+.lfm-map .leaflet-control-attribution a {
+  color: #8b877f;
+}

@@ -1,0 +1,71 @@
+import type { Metadata } from "next";
+import { Inter, Geist_Mono } from "next/font/google";
+import Script from "next/script";
+import "./globals.css";
+import { SiteHeader } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/SiteFooter";
+
+/* Brand typeface: Inter across the board — a clean Nordic grotesque standing in
+   for Finnair Sans. ExtraLight (200) titles · Medium (500) nav · Regular (400)
+   UI · Light (300) body. */
+const display = Inter({
+  variable: "--font-display",
+  subsets: ["latin"],
+  weight: ["200", "300", "400"],
+});
+
+const sans = Inter({
+  variable: "--font-sans",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
+});
+
+const mono = Geist_Mono({
+  variable: "--font-mono",
+  subsets: ["latin"],
+});
+
+export const metadata: Metadata = {
+  metadataBase: new URL("https://finnairvirtual.example"),
+  title: {
+    default: "Finnair Virtual — Crew Center",
+    template: "%s · Finnair Virtual",
+  },
+  description:
+    "Crew Center for Finnair Virtual — staff operations: pilot roster, PIREP review, applications, live flights, stats, LOA and reports.",
+  robots: { index: false },
+  keywords: [
+    "virtual airline",
+    "Finnair Virtual",
+    "Infinite Flight",
+    "flight simulation",
+    "VA",
+  ],
+  openGraph: {
+    title: "Finnair Virtual — The Nordic Way to Fly",
+    description:
+      "An independent virtual airline for flight simulation. Nordic design, hospitality and smooth travel across 100+ destinations.",
+    type: "website",
+  },
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
+  return (
+    <html
+      lang="en"
+      className={`${display.variable} ${sans.variable} ${mono.variable} h-full antialiased`}
+    >
+      <body className="min-h-full flex flex-col bg-ink-950 text-cream">
+        {/* Apply saved theme before paint (default light) — avoids a flash.
+            An external file (not an inline script) loaded beforeInteractive,
+            so it runs before hydration without tripping React's script rules. */}
+        <Script src="/theme-init.js" strategy="beforeInteractive" />
+        <SiteHeader />
+        <main className="flex-1">{children}</main>
+        <SiteFooter />
+      </body>
+    </html>
+  );
+}
