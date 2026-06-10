@@ -1,76 +1,38 @@
-import { listLoas, getPilotById, type Loa } from "@/lib/db";
-import { LoaCard } from "@/components/LoaCard";
+import { getSession } from "@/lib/auth";
+import { getCurrentLoa, LOA_MAX_DAYS } from "@/lib/db";
+import { fmtDate } from "@/lib/portal";
+import { LoaForm } from "@/components/portal/LoaForm";
 
+export const metadata = { title: "Leave of Absence" };
 export const dynamic = "force-dynamic";
 
-async function withCallsigns(loas: Loa[]): Promise<{ loa: Loa; callsign: string }[]> {
-  return Promise.all(
-    loas.map(async (loa) => {
-      const pilot = await getPilotById(loa.pilotId);
-      return { loa, callsign: pilot?.callsign ?? `Pilot #${loa.pilotId}` };
-    }),
-  );
-}
-
-export default async function CrewLoa() {
-  const [pendingRaw, activeRaw] = await Promise.all([
-    listLoas("pending"),
-    listLoas("active"),
-  ]);
-  const pending = await withCallsigns(pendingRaw);
-  const active = await withCallsigns(activeRaw);
-
-  // Surface active LOAs with a pending extension request first.
-  active.sort((a, b) => {
-    const ap = a.loa.extStatus === "pending" ? 0 : 1;
-    const bp = b.loa.extStatus === "pending" ? 0 : 1;
-    return ap - bp;
-  });
+export default async function LoaPage() {
+  const session = await getSession();
+  const loa = session ? await getCurrentLoa(session.pilotId).catch(() => null) : null;
 
   return (
-    <section className="mx-auto max-w-7xl px-6 py-10 lg:px-10">
-      <header className="mb-6">
-        <h2 className="font-display text-2xl font-semibold text-cream">
-          Leave of Absence
-        </h2>
-        <p className="mt-1 text-sm text-cream-faint">
-          Approve requests, manage active leaves, and grant extensions (max 2 weeks).
-        </p>
+    <div className="mx-auto max-w-2xl px-5 py-10 lg:px-8">
+      <header className="rise">
+        <p className="eyebrow">Crew admin</p>
+        <h1 className="mt-2 font-display text-4xl font-semibold text-cream">Leave of Absence</h1>
+        <p className="mt-2 text-cream-dim">Taking a break? File an LOA so your activity requirement is paused while you’re away.</p>
       </header>
 
-      <div className="mb-10">
-        <h3 className="eyebrow mb-3">
-          Pending requests {pending.length > 0 && `· ${pending.length}`}
-        </h3>
-        {pending.length === 0 ? (
-          <p className="rounded-2xl border border-obsidian/40 bg-ink-900 p-6 text-sm text-cream-faint">
-            No pending LOA requests.
-          </p>
-        ) : (
-          <div className="grid gap-4">
-            {pending.map(({ loa, callsign }) => (
-              <LoaCard key={loa.id} loa={loa} callsign={callsign} />
-            ))}
+      {loa && (loa.status === "active" || loa.status === "pending") ? (
+        <div className="mt-7 rounded-2xl border border-gold/40 bg-gold/5 p-6">
+          <div className="flex items-center justify-between">
+            <span className="rounded-full bg-gold px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white">{loa.status}</span>
+            <span className="text-sm text-cream-faint">{loa.days} days</span>
           </div>
-        )}
-      </div>
-
-      <div>
-        <h3 className="eyebrow mb-3">
-          Active leaves {active.length > 0 && `· ${active.length}`}
-        </h3>
-        {active.length === 0 ? (
-          <p className="rounded-2xl border border-obsidian/40 bg-ink-900 p-6 text-sm text-cream-faint">
-            No pilots are currently on leave.
-          </p>
-        ) : (
-          <div className="grid gap-4">
-            {active.map(({ loa, callsign }) => (
-              <LoaCard key={loa.id} loa={loa} callsign={callsign} />
-            ))}
-          </div>
-        )}
-      </div>
-    </section>
+          <p className="mt-3 text-sm text-cream-dim">{loa.reason}</p>
+          {loa.endAt && <p className="mt-2 text-xs text-cream-faint">Returns {fmtDate(loa.endAt)}</p>}
+        </div>
+      ) : (
+        <div className="mt-7 rounded-2xl border border-obsidian bg-ink-900 p-6">
+          <LoaForm maxDays={LOA_MAX_DAYS} />
+        </div>
+      )}
+      <p className="mt-4 text-xs text-cream-faint">Maximum {LOA_MAX_DAYS} days. Extensions can be requested in the final week of an active LOA.</p>
+    </div>
   );
 }

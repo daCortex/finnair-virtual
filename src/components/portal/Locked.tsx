@@ -33,7 +33,7 @@ export function Locked({
         </div>
         <p className="mt-2 text-xs text-cream-faint">{toGo.toLocaleString()} more flight hours to go</p>
       </div>
-      <Link href="/file" className="rise mt-6 inline-flex rounded-full bg-gold px-6 py-3 text-sm font-medium text-white">Keep flying</Link>
+      <Link href="/crew/file" className="rise mt-6 inline-flex rounded-full bg-gold px-6 py-3 text-sm font-medium text-white">Keep flying</Link>
     </div>
   );
 }

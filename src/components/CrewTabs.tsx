@@ -4,17 +4,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const TABS = [
-  { href: "/crew", label: "Dashboard" },
-  { href: "/crew/applications", label: "Applications" },
-  { href: "/crew/pilots", label: "Pilots" },
-  { href: "/crew/pireps", label: "PIREPs" },
-  { href: "/crew/flights", label: "Flights" },
-  { href: "/crew/stats", label: "Stats" },
-  { href: "/crew/events", label: "Events" },
-  { href: "/crew/codeshares", label: "Codeshares" },
-  { href: "/crew/operations", label: "Career · Cargo" },
-  { href: "/crew/loa", label: "LOA" },
-  { href: "/crew/reports", label: "Reports" },
+  { href: "/staff", label: "Dashboard" },
+  { href: "/staff/applications", label: "Applications" },
+  { href: "/staff/pilots", label: "Pilots" },
+  { href: "/staff/pireps", label: "PIREPs" },
+  { href: "/staff/flights", label: "Flights" },
+  { href: "/staff/stats", label: "Stats" },
+  { href: "/staff/events", label: "Events" },
+  { href: "/staff/codeshares", label: "Codeshares" },
+  { href: "/staff/operations", label: "Career · Cargo" },
+  { href: "/staff/loa", label: "LOA" },
+  { href: "/staff/reports", label: "Reports" },
 ];
 
 export function CrewTabs() {

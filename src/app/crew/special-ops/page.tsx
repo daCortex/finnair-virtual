@@ -53,7 +53,7 @@ export default async function SpecialOpsPage() {
               <p className="text-xs text-cream-faint">{firstFlightNo(m.route!)} · {m.route!.aircraft.replace(/^Finnair /, "")} · {fmtHours(m.route!.minutes)}</p>
               <div className="mt-4 flex items-center justify-between border-t border-obsidian/70 pt-3.5">
                 <span className="text-sm text-cream-dim">up to <span className="font-display text-lg font-semibold text-cream">✦ {m.ap.toLocaleString()}</span></span>
-                <Link href="/file" className="rounded-full bg-gold px-4 py-2 text-xs font-semibold text-white transition-all hover:brightness-125">Accept mission</Link>
+                <Link href="/crew/file" className="rounded-full bg-gold px-4 py-2 text-xs font-semibold text-white transition-all hover:brightness-125">Accept mission</Link>
               </div>
             </div>
           </div>

@@ -19,12 +19,12 @@ export type NavSummary = {
 };
 
 const PRIMARY = [
-  { href: "/", label: "Dashboard" },
-  { href: "/career", label: "Career" },
-  { href: "/cargo", label: "Cargo" },
-  { href: "/routes", label: "Routes" },
-  { href: "/map", label: "Live Map" },
-  { href: "/logbook", label: "Logbook" },
+  { href: "/crew", label: "Dashboard" },
+  { href: "/crew/career", label: "Career" },
+  { href: "/crew/cargo", label: "Cargo" },
+  { href: "/crew/routes", label: "Routes" },
+  { href: "/crew/map", label: "Live Map" },
+  { href: "/crew/logbook", label: "Logbook" },
 ];
 
 export function PortalNav({ summary }: { summary: NavSummary | null }) {
@@ -56,11 +56,11 @@ export function PortalNav({ summary }: { summary: NavSummary | null }) {
     summary?.callsign.replace(/[^A-Za-z0-9]/g, "").slice(-2).toUpperCase() ?? "FN";
 
   const more = [
-    { href: "/ranks", label: "Rank ladder" },
-    { href: "/special-ops", label: "Special Ops", lock: summary ? !summary.gates.specialOps : true },
-    { href: "/discover", label: "oneworld Discover", lock: summary ? !summary.gates.discover : true },
-    { href: "/leaderboard", label: "Leaderboard" },
-    { href: "/loa", label: "Request LOA" },
+    { href: "/crew/ranks", label: "Rank ladder" },
+    { href: "/crew/special-ops", label: "Special Ops", lock: summary ? !summary.gates.specialOps : true },
+    { href: "/crew/discover", label: "oneworld Discover", lock: summary ? !summary.gates.discover : true },
+    { href: "/crew/leaderboard", label: "Leaderboard" },
+    { href: "/crew/loa", label: "Request LOA" },
   ];
 
   return (
@@ -71,7 +71,7 @@ export function PortalNav({ summary }: { summary: NavSummary | null }) {
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center gap-4 px-5 lg:px-8">
         {/* Brand */}
-        <Link href="/" className="group flex shrink-0 items-center gap-2.5" aria-label="Finnair Virtual">
+        <Link href="/crew" className="group flex shrink-0 items-center gap-2.5" aria-label="Finnair Virtual">
           <Image src="/brand/finnair-emblem-navy.png" alt="" width={1050} height={590}
             className="logo-light-theme h-[18px] w-auto transition-transform duration-500 group-hover:scale-105" priority />
           <Image src="/brand/finnair-emblem-white.png" alt="" width={510} height={287}
@@ -85,7 +85,7 @@ export function PortalNav({ summary }: { summary: NavSummary | null }) {
         {/* Primary nav */}
         <nav className="ml-3 hidden items-center gap-0.5 lg:flex">
           {PRIMARY.map((item) => {
-            const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+            const active = item.href === "/crew" ? pathname === "/crew" : pathname.startsWith(item.href);
             return (
               <Link key={item.href} href={item.href}
                 className={`relative rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors ${
@@ -100,7 +100,7 @@ export function PortalNav({ summary }: { summary: NavSummary | null }) {
         <div className="ml-auto flex items-center gap-2.5">
           {/* AP chip */}
           {summary && (
-            <Link href="/logbook"
+            <Link href="/crew/logbook"
               className="hidden items-center gap-1.5 rounded-full border border-obsidian bg-ink-900 px-3 py-1.5 text-sm lift sm:inline-flex"
               title="Aurora Points balance">
               <span className="shine font-semibold">✦</span>
@@ -110,7 +110,7 @@ export function PortalNav({ summary }: { summary: NavSummary | null }) {
           )}
 
           {/* File PIREP */}
-          <Link href="/file"
+          <Link href="/crew/file"
             className="hidden rounded-full bg-gold px-4 py-2 text-sm font-medium text-white shadow-[0_8px_24px_-10px_rgba(12,2,67,0.8)] transition-all hover:brightness-125 sm:inline-flex">
             File PIREP
           </Link>
@@ -147,7 +147,7 @@ export function PortalNav({ summary }: { summary: NavSummary | null }) {
                       </Link>
                     ))}
                     {summary.isStaff && (
-                      <Link href="/crew" className="flex items-center justify-between px-4 py-2 text-sm text-gold transition-colors hover:bg-ink-850">
+                      <Link href="/staff" className="flex items-center justify-between px-4 py-2 text-sm text-gold transition-colors hover:bg-ink-850">
                         Crew Center <span aria-hidden>→</span>
                       </Link>
                     )}
@@ -173,7 +173,7 @@ export function PortalNav({ summary }: { summary: NavSummary | null }) {
       {/* Mobile drawer */}
       <div className={`overflow-hidden border-t border-obsidian/60 bg-ink-950 transition-all duration-300 lg:hidden ${drawer ? "max-h-[80vh]" : "max-h-0"}`}>
         <nav className="flex flex-col gap-0.5 px-5 py-4">
-          {[...PRIMARY, { href: "/file", label: "File PIREP" }].map((item) => (
+          {[...PRIMARY, { href: "/crew/file", label: "File PIREP" }].map((item) => (
             <Link key={item.href} href={item.href} className="rounded-lg px-3 py-2.5 text-sm font-medium text-cream-dim hover:bg-ink-850 hover:text-cream">{item.label}</Link>
           ))}
           {more.map((m) => (

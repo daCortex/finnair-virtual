@@ -28,7 +28,7 @@ export default async function LogbookPage() {
           <p className="eyebrow">{d.session.callsign}</p>
           <h1 className="mt-2 font-display text-4xl font-semibold text-cream">Logbook</h1>
         </div>
-        <Link href="/file" className="rounded-full bg-gold px-5 py-2.5 text-sm font-medium text-white transition-all hover:brightness-125">File PIREP</Link>
+        <Link href="/crew/file" className="rounded-full bg-gold px-5 py-2.5 text-sm font-medium text-white transition-all hover:brightness-125">File PIREP</Link>
       </header>
 
       {/* summary */}
@@ -52,7 +52,7 @@ export default async function LogbookPage() {
           <span>Route</span><span>Aircraft</span><span>Time</span><span>AP earned</span><span className="text-right">Status</span>
         </div>
         {rows.length === 0 ? (
-          <p className="px-6 py-10 text-center text-sm text-cream-faint">No flights filed yet. <Link href="/file" className="text-gold">File your first PIREP →</Link></p>
+          <p className="px-6 py-10 text-center text-sm text-cream-faint">No flights filed yet. <Link href="/crew/file" className="text-gold">File your first PIREP →</Link></p>
         ) : (
           <ul className="divide-y divide-obsidian/60">
             {rows.map(({ p, ap }) => (

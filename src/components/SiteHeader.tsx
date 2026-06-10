@@ -13,7 +13,7 @@ type Session = {
   demo?: boolean;
 } | null;
 
-/* Slim brand bar for the Crew Center. The crew layout renders its own
+/* Slim brand bar for the Staff. The crew layout renders its own
    title + tabs underneath, so this stays minimal: logo, theme toggle, and
    a sign-out control when a staff session is active. */
 export function SiteHeader() {
@@ -48,7 +48,7 @@ export function SiteHeader() {
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-5 px-6 py-4 lg:px-10">
-        <Link href="/crew" className="group flex shrink-0 items-center gap-2.5" aria-label="Finnair Virtual Crew Center — home">
+        <Link href="/staff" className="group flex shrink-0 items-center gap-2.5" aria-label="Finnair Virtual Staff — home">
           {/* Navy wing-emblem on light backgrounds, white on dark */}
           <Image
             src="/brand/finnair-emblem-navy.png"
@@ -71,7 +71,7 @@ export function SiteHeader() {
             <span className="font-light text-cream-dim"> Virtual</span>
           </span>
           <span className="ml-1 hidden rounded-full border border-gold/40 px-2.5 py-0.5 text-[0.65rem] uppercase tracking-[0.18em] text-gold-soft sm:inline">
-            Crew Center
+            Staff
           </span>
         </Link>
 

@@ -45,7 +45,7 @@ export default async function DiscoverPage() {
         ))}
       </div>
       <div className="mt-8 text-center">
-        <Link href="/file" className="inline-flex rounded-full bg-gold px-6 py-3 text-sm font-medium text-white">Log a Discover flight</Link>
+        <Link href="/crew/file" className="inline-flex rounded-full bg-gold px-6 py-3 text-sm font-medium text-white">Log a Discover flight</Link>
       </div>
     </div>
   );

@@ -53,7 +53,7 @@ export function CrewSearch() {
     let active = true;
     setLoading(true);
     const t = setTimeout(() => {
-      fetch(`/api/crew/search?q=${encodeURIComponent(q)}`, { cache: "no-store" })
+      fetch(`/api/staff/search?q=${encodeURIComponent(q)}`, { cache: "no-store" })
         .then((r) => r.json())
         .then((d) => {
           if (!active) return;
@@ -127,7 +127,7 @@ export function CrewSearch() {
               {pilots.map((p) => (
                 <Link
                   key={p.id}
-                  href="/crew/pilots"
+                  href="/staff/pilots"
                   onClick={() => setOpen(false)}
                   className="block rounded-lg px-2 py-2 transition-colors hover:bg-ink-850"
                 >
@@ -162,7 +162,7 @@ export function CrewSearch() {
               {pireps.map((r) => (
                 <Link
                   key={r.id}
-                  href="/crew/pireps"
+                  href="/staff/pireps"
                   onClick={() => setOpen(false)}
                   className="block rounded-lg px-2 py-2 transition-colors hover:bg-ink-850"
                 >
