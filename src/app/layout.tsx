@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import { Inter, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
-import { SiteHeader } from "@/components/SiteHeader";
-import { SiteFooter } from "@/components/SiteFooter";
 
 /* Brand typeface: Inter across the board — a clean Nordic grotesque standing in
    for Finnair Sans. ExtraLight (200) titles · Medium (500) nav · Regular (400)
@@ -62,9 +60,7 @@ export default function RootLayout({
             An external file (not an inline script) loaded beforeInteractive,
             so it runs before hydration without tripping React's script rules. */}
         <Script src="/theme-init.js" strategy="beforeInteractive" />
-        <SiteHeader />
-        <main className="flex-1">{children}</main>
-        <SiteFooter />
+        {children}
       </body>
     </html>
   );

@@ -1,34 +1,42 @@
 @import "tailwindcss";
 
 /* ----------------------------------------------------------------
-   Finnair Virtual — brand system
-   Palette: Twilight Blue #0B1560 · Pure White #FFFFFF · Plum Purple #7E1F89
-   Mood: Nordic minimalism — airy, light canvas, sophisticated clarity.
-   Default theme is LIGHT; adding `.dark` to <html> remaps tokens to a
-   deep-navy night palette (the whole UI flips with no component changes).
-   The token NAMES (gold/rose/ink/cream) are kept from the original system
-   so every utility reflows; only their VALUES are Finnair's.
+   Finnair Virtual — brand system (v2, pilot portal)
+   Palette: Finnair White #FFFFFF · Finnair Blue #0C0243 · Heather #7F1894
+            Rock #AFAFAF · Black #121212
+   Proportion: ~60% white, ~35% Finnair Blue, the rest as accents.
+   Mood: modern, clean, sleek — white canvas, deep-indigo brand, heather glow.
+   Default theme is LIGHT; `.dark` on <html> remaps tokens to a Finnair-Blue
+   night. Token NAMES (gold/rose/ink/cream) are kept so every utility reflows;
+   `gold` = Finnair Blue (primary), `rose` = Heather (accent).
 ------------------------------------------------------------------- */
 
 @theme {
-  /* Brand accents — `gold` = Twilight Blue (primary), `rose` = Plum Purple */
-  --color-gold: #0b1560;
-  --color-gold-soft: #2c3b9e;
-  --color-rose: #7e1f89;
-  --color-rose-soft: #9a3aae;
-  --color-obsidian: #d5dae8;
+  /* Raw brand colours (use directly when a token isn't enough) */
+  --color-fin-white: #ffffff;
+  --color-fin-blue: #0c0243;
+  --color-heather: #7f1894;
+  --color-rock: #afafaf;
+  --color-fin-black: #121212;
 
-  /* Canvas (airy, barely-cool whites for Nordic lightness) */
-  --color-ink-950: #f6f8fc; /* page background */
+  /* Brand accents — `gold` = Finnair Blue (primary), `rose` = Heather */
+  --color-gold: #0c0243;
+  --color-gold-soft: #3a1f7a;
+  --color-rose: #7f1894;
+  --color-rose-soft: #a634bd;
+  --color-obsidian: #e4e5ee;
+
+  /* Canvas (white-dominant, barely-cool surfaces) */
+  --color-ink-950: #fbfbfd; /* page background */
   --color-ink-900: #ffffff; /* cards / surfaces */
-  --color-ink-850: #f1f4fa; /* inputs / lighter surfaces */
-  --color-ink-800: #e9eef7;
-  --color-ink-700: #dee5f1;
+  --color-ink-850: #f4f5f9; /* inputs / lighter surfaces */
+  --color-ink-800: #eceef4;
+  --color-ink-700: #e2e4ec;
 
-  /* Text (deep Twilight-Blue ink for strong, readable contrast) */
-  --color-cream: #0b1230;
-  --color-cream-dim: #3a4163;
-  --color-cream-faint: #757b96;
+  /* Text (near-black for body, deep indigo for headings) */
+  --color-cream: #14152a;
+  --color-cream-dim: #4c4d5e;
+  --color-cream-faint: #8a8c9c;
 
   /* Fonts (Inter, wired up in layout via next/font) */
   --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
@@ -37,6 +45,7 @@
 
   /* Easing */
   --ease-lux: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 :root {
@@ -50,21 +59,21 @@
    border-obsidian, text-gold-soft…) references these variables, so the whole
    UI flips with no component changes. */
 html.dark {
-  --color-ink-950: #070b22; /* page background (deep navy night) */
-  --color-ink-900: #0c1233; /* cards / surfaces */
-  --color-ink-850: #131a40; /* inputs / lighter surfaces */
-  --color-ink-800: #1a2250;
-  --color-ink-700: #232c5e;
-  --color-obsidian: #2a3360; /* borders */
+  --color-ink-950: #07021c; /* page background (near-black indigo) */
+  --color-ink-900: #0c0243; /* cards / surfaces — Finnair Blue */
+  --color-ink-850: #150a52; /* inputs / lighter surfaces */
+  --color-ink-800: #1d1162;
+  --color-ink-700: #281873;
+  --color-obsidian: #2c2270; /* borders */
 
-  --color-cream: #eef1fb; /* primary text */
-  --color-cream-dim: #b9c0de; /* secondary text */
-  --color-cream-faint: #7b83a8;
+  --color-cream: #f4f4fb; /* primary text */
+  --color-cream-dim: #c2c0dd; /* secondary text */
+  --color-cream-faint: #8688a6;
 
-  --color-gold: #3b49c9; /* brighter Twilight Blue so it reads on navy */
-  --color-gold-soft: #8e97f0; /* accent text legible on dark */
-  --color-rose: #b23bc4; /* brighter Plum Purple */
-  --color-rose-soft: #ce6bdc;
+  --color-gold: #7b6cf0; /* periwinkle so the brand reads on indigo */
+  --color-gold-soft: #a99cff; /* accent text legible on dark */
+  --color-rose: #c451d6; /* brighter Heather */
+  --color-rose-soft: #db83e7;
 }
 
 /* Solid brand (Twilight-Blue) buttons keep white text in both themes. */
@@ -191,8 +200,64 @@ textarea {
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .reveal { animation: none; opacity: 1; }
+  .rise, .pop { animation: none !important; opacity: 1 !important; transform: none !important; }
   * { animation-duration: 0.001ms !important; }
 }
+
+/* ---- Pilot portal — sleek utilities ---------------------------------- */
+
+/* Aurora wash — the brand's signature deep-indigo → heather sweep. */
+.aurora {
+  background:
+    radial-gradient(1100px 480px at 12% -10%, color-mix(in srgb, var(--color-heather) 42%, transparent), transparent 60%),
+    radial-gradient(900px 520px at 92% 0%, color-mix(in srgb, #2b1b8a 55%, transparent), transparent 55%),
+    linear-gradient(135deg, #0c0243 0%, #1a0a52 55%, #2a0f63 100%);
+}
+.aurora-text {
+  background: linear-gradient(105deg, #6a4bd6, var(--color-heather));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Frosted card surface for the dashboard. */
+.glass {
+  background: color-mix(in srgb, var(--color-ink-900) 88%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/* Soft elevation that lifts on hover — used across the portal. */
+.lift {
+  transition: transform 0.35s var(--ease-spring), box-shadow 0.35s var(--ease-lux), border-color 0.3s var(--ease-lux);
+}
+.lift:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 40px -22px color-mix(in srgb, var(--color-fin-blue) 55%, transparent);
+}
+
+/* Entrance animations (staggerable via inline animation-delay). */
+@keyframes rise-in { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+.rise { opacity: 0; animation: rise-in 0.7s var(--ease-lux) forwards; }
+@keyframes pop-in { 0% { opacity: 0; transform: scale(0.94); } 100% { opacity: 1; transform: scale(1); } }
+.pop { opacity: 0; animation: pop-in 0.5s var(--ease-spring) forwards; }
+
+/* Animated progress fill (set --to inline; bar grows on mount). */
+@keyframes grow-bar { from { width: 0; } to { width: var(--to, 0%); } }
+.bar-fill { width: 0; animation: grow-bar 1.1s var(--ease-lux) forwards; }
+
+/* Shimmering value — for the Aurora Points balance. */
+.shine {
+  background: linear-gradient(100deg, var(--color-gold) 30%, var(--color-rose) 50%, var(--color-gold) 70%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 5s linear infinite;
+}
+
+/* Thin tabular figures for stats. */
+.tnum { font-variant-numeric: tabular-nums; font-feature-settings: "tnum"; }
 
 /* ----------------------------------------------------------------
    Live flight map (Leaflet) — themed to the brand

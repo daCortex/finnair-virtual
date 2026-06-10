@@ -274,46 +274,26 @@ export const HUBS: Hub[] = [
   },
 ];
 
-export type Rank = {
-  name: string;
-  hours: number;
-  note?: string;
-  manual?: boolean;
-};
+// The 9-rank career ladder (Aurora → Luminary) lives in lib/career.ts — the
+// single source of truth for the AP economy, licenses and tiers. Re-exported
+// here so existing imports (rank.ts, Crew Center) keep working.
+export { RANKS, type Rank } from "./career";
+import { RANKS as RANK_LIST } from "./career";
 
-// Auto-assigned ranks, earned by approved flight hours (live VA system).
-// Named for the northern sky and Finnish heritage.
-export const RANKS: Rank[] = [
-  { name: "Aurora", hours: 0 },
-  { name: "Polaris", hours: 25 },
-  { name: "Borealis", hours: 75 },
-  { name: "Sisu", hours: 150 },
-  { name: "Revontuli", hours: 300 },
-  { name: "Ursa", hours: 500 },
-  { name: "Vega", hours: 1000 },
-  { name: "Lyra", hours: 1500 },
-  { name: "Sampo", hours: 2000 },
-  { name: "Ilmarinen", hours: 3000 },
-  { name: "Väinämöinen", hours: 4000 },
-  { name: "Louhi", hours: 5000 },
-];
-
-// Manually-assigned rank (not hours-based): the Grade 2 mentorship/training
-// program. Sits BELOW the entry rank Aurora in the ladder.
-export const ACRUX_RANK: Rank = {
-  name: "Taimi",
+// A manual trainee tag staff can assign below the entry rank (not hours-based).
+export const ACRUX_RANK = {
+  name: "Cadet",
   hours: 0,
-  note: "Grade 2 mentorship program — assigned manually by staff.",
+  note: "Trainee — assigned manually by staff before first solo.",
   manual: true,
-};
+} as const;
 
-// The full ladder as displayed (Taimi inserted right before the entry rank).
-// Taimi (Grade-2 training/mentorship) sits BELOW the entry rank Aurora.
-export const RANK_LADDER: Rank[] = [ACRUX_RANK, ...RANKS];
+// The full ladder as displayed (Cadet sits below the entry rank Aurora).
+export const RANK_LADDER = [ACRUX_RANK, ...RANK_LIST];
 
-// Every rank label staff can assign in the Crew Center (auto ranks + Taimi).
+// Every rank label staff can assign in the Crew Center (career ranks + Cadet).
 export const RANK_NAMES: readonly string[] = [
-  ...RANKS.map((r) => r.name),
+  ...RANK_LIST.map((r) => r.name),
   ACRUX_RANK.name,
 ];
 

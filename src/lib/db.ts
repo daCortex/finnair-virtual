@@ -1,5 +1,5 @@
 import { neon } from "@neondatabase/serverless";
-import { SEED_PILOTS } from "./seed";
+import { SEED_PILOTS, SEED_PIREPS } from "./seed";
 
 /* ----------------------------------------------------------------
    Data layer for pilots + PIREPs.
@@ -324,7 +324,7 @@ const mem: MemStore = (g.__sjxMem ??= {
   // each pilot's baseMinutes/basePireps). No individual historical PIREPs —
   // new ones filed via the site/bot accumulate on top.
   pilots: [...SEED_PILOTS],
-  pireps: [],
+  pireps: [...SEED_PIREPS],
   passcodes: {},
   news: [
     {
@@ -340,7 +340,7 @@ const mem: MemStore = (g.__sjxMem ??= {
   loas: [],
   reports: [],
   nextPilotId: SEED_PILOTS.length + 1,
-  nextPirepId: 1,
+  nextPirepId: SEED_PIREPS.length + 1,
   nextNewsId: 2,
   nextLoaId: 1,
   nextReportId: 1,

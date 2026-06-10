@@ -16,9 +16,9 @@ import { createHmac, timingSafeEqual, scryptSync, randomBytes } from "node:crypt
 
 export const authConfigured = !!process.env.DISCORD_CLIENT_ID;
 const dbConfigured = !!process.env.DATABASE_URL;
-const CREW_COOKIE = "sjx_crew";
+const CREW_COOKIE = "fnr_crew";
 
-const SESSION_COOKIE = "sjx_session";
+const SESSION_COOKIE = "fnr_session";
 const SECRET = process.env.SESSION_SECRET || "dev-only-insecure-secret";
 const SCOPES = "identify guilds.members.read";
 const DISCORD_API = "https://discord.com/api";
@@ -36,8 +36,8 @@ export type Session = {
 const DEMO_SESSION: Session = {
   pilotId: 1,
   discordId: "demo-1",
-  callsign: "Galaxy 01",
-  displayName: "Aiden Lin",
+  callsign: "Finnair 001",
+  displayName: "Aarne Korhonen",
   avatar: null,
   isStaff: true,
   demo: true,

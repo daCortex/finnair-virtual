@@ -1,24 +1,71 @@
 /* AUTO-GENERATED from data/members.csv — demo roster seed (historical
    hours/PIREPs/ranks from the previous crew center). Regenerate from the CSV. */
-import type { Pilot } from "./db";
+import type { Pilot, Pirep } from "./db";
+
+/* A handful of recent flights for the demo pilot (id 1) so the logbook,
+   dashboard and Aurora-Points feed feel alive in demo mode. */
+export const SEED_PIREPS: Pirep[] = [
+  {
+    id: 1, pilotId: 1, flightNo: "AY531", dep: "EFHK", arr: "EFRO",
+    aircraft: "Embraer 190", minutes: 80, rawMinutes: 80, multiplier: 1,
+    multiplierCode: null, fuelKg: 4200, landingRate: -126, server: "Expert",
+    remarks: "Smooth hop up to Lapland.", status: "pending",
+    filedAt: "2026-06-09T18:42:00Z", reviewedAt: null, reviewer: null, discordMsgId: null,
+  },
+  {
+    id: 2, pilotId: 1, flightNo: "AY73", dep: "EFHK", arr: "RJTT",
+    aircraft: "Airbus A350-900", minutes: 575, rawMinutes: 575, multiplier: 1,
+    multiplierCode: null, fuelKg: 71200, landingRate: -98, server: "Expert",
+    remarks: "Polar route to Haneda. Beautiful aurora over Siberia.", status: "approved",
+    filedAt: "2026-06-08T07:15:00Z", reviewedAt: "2026-06-08T09:00:00Z", reviewer: "Helmi", discordMsgId: null,
+  },
+  {
+    id: 3, pilotId: 1, flightNo: "AY15", dep: "EFHK", arr: "KJFK",
+    aircraft: "Airbus A350-900", minutes: 545, rawMinutes: 545, multiplier: 1,
+    multiplierCode: null, fuelKg: 64800, landingRate: -142, server: "Expert",
+    remarks: null, status: "approved",
+    filedAt: "2026-06-05T13:05:00Z", reviewedAt: "2026-06-05T15:20:00Z", reviewer: "Helmi", discordMsgId: null,
+  },
+  {
+    id: 4, pilotId: 1, flightNo: "AY1331", dep: "EFHK", arr: "EGLL",
+    aircraft: "Airbus A321", minutes: 170, rawMinutes: 170, multiplier: 1,
+    multiplierCode: null, fuelKg: 9800, landingRate: -154, server: "Expert",
+    remarks: "Spotlight route — double AP.", status: "approved",
+    filedAt: "2026-06-03T16:40:00Z", reviewedAt: "2026-06-03T17:10:00Z", reviewer: "Tapio", discordMsgId: null,
+  },
+  {
+    id: 5, pilotId: 1, flightNo: "AY811", dep: "EFHK", arr: "ESSA",
+    aircraft: "Airbus A320", minutes: 60, rawMinutes: 60, multiplier: 1,
+    multiplierCode: null, fuelKg: 4600, landingRate: -110, server: "Expert",
+    remarks: null, status: "approved",
+    filedAt: "2026-06-01T08:25:00Z", reviewedAt: "2026-06-01T09:00:00Z", reviewer: "Helmi", discordMsgId: null,
+  },
+  {
+    id: 6, pilotId: 1, flightNo: "AY131", dep: "EFHK", arr: "OMDB",
+    aircraft: "Airbus A330-300", minutes: 390, rawMinutes: 390, multiplier: 1,
+    multiplierCode: null, fuelKg: 41200, landingRate: -88, server: "Expert",
+    remarks: "Night departure to Dubai.", status: "approved",
+    filedAt: "2026-05-29T21:10:00Z", reviewedAt: "2026-05-30T06:00:00Z", reviewer: "Tapio", discordMsgId: null,
+  },
+];
 
 export const SEED_PILOTS: Pilot[] = [
   {
     "id": 1,
     "discordId": "import:Finnair 001",
     "callsign": "Finnair 001",
-    "displayName": "Finnair 001",
+    "displayName": "Aarne Korhonen",
     "avatar": null,
     "createdAt": "2025-09-08T12:14:37.000Z",
     "status": "active",
-    "ifUsername": null,
+    "ifUsername": "aarne_k",
     "ifUserId": null,
     "acceptedAt": "2025-09-08T12:14:37.000Z",
     "notes": null,
-    "rankLabel": "Revontuli",
+    "rankLabel": null,
     "linked": false,
-    "baseMinutes": 23334,
-    "basePireps": 34
+    "baseMinutes": 330000,
+    "basePireps": 520
   },
   {
     "id": 2,
@@ -32,7 +79,7 @@ export const SEED_PILOTS: Pilot[] = [
     "ifUserId": null,
     "acceptedAt": "2025-09-08T12:41:49.000Z",
     "notes": null,
-    "rankLabel": "Taimi",
+    "rankLabel": null,
     "linked": false,
     "baseMinutes": 15557,
     "basePireps": 39
@@ -66,7 +113,7 @@ export const SEED_PILOTS: Pilot[] = [
     "ifUserId": null,
     "acceptedAt": "2025-09-10T14:32:41.000Z",
     "notes": null,
-    "rankLabel": "Lyra",
+    "rankLabel": null,
     "linked": false,
     "baseMinutes": 119976,
     "basePireps": 201
@@ -83,7 +130,7 @@ export const SEED_PILOTS: Pilot[] = [
     "ifUserId": null,
     "acceptedAt": "2025-09-12T14:16:17.000Z",
     "notes": null,
-    "rankLabel": "Revontuli",
+    "rankLabel": null,
     "linked": false,
     "baseMinutes": 20173,
     "basePireps": 22
@@ -117,7 +164,7 @@ export const SEED_PILOTS: Pilot[] = [
     "ifUserId": null,
     "acceptedAt": "2025-09-17T11:39:05.000Z",
     "notes": null,
-    "rankLabel": "Lyra",
+    "rankLabel": null,
     "linked": false,
     "baseMinutes": 102155,
     "basePireps": 87
@@ -168,7 +215,7 @@ export const SEED_PILOTS: Pilot[] = [
     "ifUserId": null,
     "acceptedAt": "2025-09-29T07:04:00.000Z",
     "notes": null,
-    "rankLabel": "Taimi",
+    "rankLabel": null,
     "linked": false,
     "baseMinutes": 67,
     "basePireps": 1
@@ -185,7 +232,7 @@ export const SEED_PILOTS: Pilot[] = [
     "ifUserId": null,
     "acceptedAt": "2025-10-04T06:08:14.000Z",
     "notes": null,
-    "rankLabel": "Vega",
+    "rankLabel": null,
     "linked": false,
     "baseMinutes": 62086,
     "basePireps": 72
@@ -236,7 +283,7 @@ export const SEED_PILOTS: Pilot[] = [
     "ifUserId": null,
     "acceptedAt": "2025-10-18T10:07:17.000Z",
     "notes": null,
-    "rankLabel": "Revontuli",
+    "rankLabel": null,
     "linked": false,
     "baseMinutes": 29701,
     "basePireps": 37
@@ -253,7 +300,7 @@ export const SEED_PILOTS: Pilot[] = [
     "ifUserId": null,
     "acceptedAt": "2025-10-28T23:14:12.000Z",
     "notes": null,
-    "rankLabel": "Sisu",
+    "rankLabel": null,
     "linked": false,
     "baseMinutes": 12762,
     "basePireps": 21
@@ -270,7 +317,7 @@ export const SEED_PILOTS: Pilot[] = [
     "ifUserId": null,
     "acceptedAt": "2025-11-05T07:34:15.000Z",
     "notes": null,
-    "rankLabel": "Sisu",
+    "rankLabel": null,
     "linked": false,
     "baseMinutes": 15597,
     "basePireps": 9
@@ -389,7 +436,7 @@ export const SEED_PILOTS: Pilot[] = [
     "ifUserId": null,
     "acceptedAt": "2026-01-26T03:28:22.000Z",
     "notes": null,
-    "rankLabel": "Borealis",
+    "rankLabel": null,
     "linked": false,
     "baseMinutes": 7450,
     "basePireps": 4
@@ -406,7 +453,7 @@ export const SEED_PILOTS: Pilot[] = [
     "ifUserId": null,
     "acceptedAt": "2026-03-11T23:14:54.000Z",
     "notes": null,
-    "rankLabel": "Lyra",
+    "rankLabel": null,
     "linked": false,
     "baseMinutes": 97525,
     "basePireps": 137
@@ -423,7 +470,7 @@ export const SEED_PILOTS: Pilot[] = [
     "ifUserId": null,
     "acceptedAt": "2026-03-29T16:51:45.000Z",
     "notes": null,
-    "rankLabel": "Borealis",
+    "rankLabel": null,
     "linked": false,
     "baseMinutes": 7959,
     "basePireps": 14
