@@ -21,22 +21,22 @@
 
   /* Brand accents — `gold` = Finnair Blue (primary), `rose` = Heather */
   --color-gold: #0c0243;
-  --color-gold-soft: #3a1f7a;
-  --color-rose: #7f1894;
-  --color-rose-soft: #a634bd;
-  --color-obsidian: #e4e5ee;
+  --color-gold-soft: #34187a; /* accent text — darker for AA on white */
+  --color-rose: #7c1791;
+  --color-rose-soft: #9c2bb4;
+  --color-obsidian: #d6d8e4; /* borders — stronger for scannability */
 
   /* Canvas (white-dominant, barely-cool surfaces) */
-  --color-ink-950: #fbfbfd; /* page background */
+  --color-ink-950: #f5f6fa; /* page background — a touch cooler so white cards lift */
   --color-ink-900: #ffffff; /* cards / surfaces */
-  --color-ink-850: #f4f5f9; /* inputs / lighter surfaces */
-  --color-ink-800: #eceef4;
-  --color-ink-700: #e2e4ec;
+  --color-ink-850: #eef0f6; /* inputs / lighter surfaces */
+  --color-ink-800: #e6e8f1;
+  --color-ink-700: #dadce8;
 
-  /* Text (near-black for body, deep indigo for headings) */
-  --color-cream: #14152a;
-  --color-cream-dim: #4c4d5e;
-  --color-cream-faint: #8a8c9c;
+  /* Text — tuned for AA contrast on white (body 9:1, meta ~6:1) */
+  --color-cream: #14152a; /* primary */
+  --color-cream-dim: #3c3e52; /* secondary / body */
+  --color-cream-faint: #61637a; /* labels / meta */
 
   /* Fonts (Inter, wired up in layout via next/font) */
   --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
@@ -234,6 +234,10 @@ textarea {
 .lift:hover {
   transform: translateY(-3px);
   box-shadow: 0 18px 40px -22px color-mix(in srgb, var(--color-fin-blue) 55%, transparent);
+}
+/* In light mode, give cards a soft resting shadow for depth & scannability. */
+html:not(.dark) .lift {
+  box-shadow: 0 1px 2px -1px rgba(12, 2, 67, 0.06), 0 6px 16px -12px rgba(12, 2, 67, 0.1);
 }
 
 /* Entrance animations (staggerable via inline animation-delay). */
