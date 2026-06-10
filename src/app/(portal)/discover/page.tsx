@@ -1,8 +1,7 @@
 import Link from "next/link";
 import { getPilotDashboard, fmtHours } from "@/lib/portal";
-import { ROUTES } from "@/lib/routes";
 import { computeAp } from "@/lib/career";
-import { firstFlightNo } from "@/lib/ops";
+import { firstFlightNo, allRoutes } from "@/lib/ops";
 import { airportCity } from "@/lib/airports";
 import { Locked } from "@/components/portal/Locked";
 
@@ -16,7 +15,7 @@ export default async function DiscoverPage() {
     return <Locked title="oneworld Discover" rank="Sovereign" hours={2500} current={d.totalHours} blurb="Explore the wider oneworld alliance — partner metal on codeshare sectors across the globe. Reserved for Sovereign aviators." accent="rose" />;
   }
 
-  const routes = ROUTES.filter((r) => r.airline !== "Finnair").map((r) => ({
+  const routes = allRoutes().filter((r) => r.airline !== "Finnair").map((r) => ({
     ...r,
     ap: computeAp(r.minutes, { rankMultiplier: d.rankMultiplier }).net,
   }));

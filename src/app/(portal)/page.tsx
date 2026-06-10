@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getPilotDashboard, fmtHours, fmtDate, timeAgo } from "@/lib/portal";
 import { computeAp } from "@/lib/career";
 import { getRotw, getSpotlightRoutes, getDispatches, isSpotlight, firstFlightNo } from "@/lib/ops";
+import { listNews } from "@/lib/db";
 import { CountUp } from "@/components/portal/CountUp";
 
 export const dynamic = "force-dynamic";
@@ -26,6 +27,7 @@ export default async function Dashboard() {
     : [];
   const rotwAp = computeAp(rotw.minutes, { spotlight: isSpotlight(rotw.routeNumber), rankMultiplier: d.rankMultiplier }).net;
   const firstName = d.session.displayName.split(" ")[0];
+  const events = (await listNews(6)).filter((e) => e.category !== "Route of the Week");
 
   return (
     <div className="mx-auto max-w-7xl px-5 py-8 lg:px-8 lg:py-10">
@@ -138,6 +140,27 @@ export default async function Dashboard() {
           <p className="mt-3 text-xs text-cream-faint">Spotlight sectors earn double Aurora Points. Rotated 1–3× a week.</p>
         </div>
       </section>
+
+      {/* ============ EVENTS & GROUP FLIGHTS ============ */}
+      {events.length > 0 && (
+        <section className="mt-5">
+          <div className="mb-3 flex items-center justify-between">
+            <h2 className="font-display text-lg font-semibold text-cream">Events & group flights</h2>
+          </div>
+          <div className="grid gap-4 md:grid-cols-3">
+            {events.slice(0, 3).map((e, i) => (
+              <div key={e.id} className="rise rounded-2xl border border-obsidian bg-ink-900 p-5 lift" style={{ animationDelay: `${i * 60}ms` }}>
+                <div className="flex items-center justify-between">
+                  <span className={`rounded-full px-2.5 py-0.5 text-[0.65rem] font-semibold uppercase tracking-wide ${e.category === "Group Flight" ? "bg-rose/10 text-rose" : e.category === "Event" ? "bg-emerald-500/12 text-emerald-600" : "bg-ink-800 text-cream-faint"}`}>{e.category}</span>
+                  {e.eventAt && <span className="text-xs text-cream-faint">{new Date(e.eventAt).toLocaleDateString("en-GB", { day: "numeric", month: "short" })}</span>}
+                </div>
+                <h3 className="mt-2.5 font-display text-base font-semibold text-cream">{e.title}</h3>
+                <p className="mt-1 line-clamp-2 text-sm text-cream-dim">{e.body}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* ============ DISPATCH BOARD (career) ============ */}
       <section className="mt-5">

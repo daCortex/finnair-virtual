@@ -10,10 +10,11 @@ const TABS = [
   { href: "/crew/pireps", label: "PIREPs" },
   { href: "/crew/flights", label: "Flights" },
   { href: "/crew/stats", label: "Stats" },
-  { href: "/crew/rotw", label: "ROTW" },
+  { href: "/crew/events", label: "Events" },
+  { href: "/crew/codeshares", label: "Codeshares" },
+  { href: "/crew/operations", label: "Career · Cargo" },
   { href: "/crew/loa", label: "LOA" },
   { href: "/crew/reports", label: "Reports" },
-  { href: "/crew/news", label: "News" },
 ];
 
 export function CrewTabs() {

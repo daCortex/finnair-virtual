@@ -79,10 +79,11 @@ export type NewsPost = {
   id: number;
   title: string;
   body: string;
-  category: string; // Announcement · Event · Route · Update …
+  category: string; // Route of the Week · Group Flight · Event · Announcement …
   imageUrl: string | null; // optional banner image URL
   author: string;
   createdAt: string;
+  eventAt: string | null; // optional scheduled date/time for events & group flights
 };
 
 export type NewNews = {
@@ -91,6 +92,7 @@ export type NewNews = {
   category: string;
   imageUrl: string | null;
   author: string;
+  eventAt?: string | null;
 };
 
 /* ---- Leave of Absence ---- */
@@ -194,6 +196,7 @@ async function ensureSchema() {
       author TEXT,
       created_at TIMESTAMPTZ DEFAULT now()
     )`;
+  await sql`ALTER TABLE news ADD COLUMN IF NOT EXISTS event_at TIMESTAMPTZ`;
   await sql`
     CREATE TABLE IF NOT EXISTS loas (
       id SERIAL PRIMARY KEY,
@@ -335,6 +338,7 @@ const mem: MemStore = (g.__sjxMem ??= {
       imageUrl: null,
       author: "Finnair Virtual",
       createdAt: "2026-06-01T12:00:00Z",
+      eventAt: null,
     },
   ],
   loas: [],
@@ -1212,6 +1216,7 @@ function rowToNews(r: any): NewsPost {
     imageUrl: r.image_url ?? null,
     author: r.author ?? "",
     createdAt: new Date(r.created_at).toISOString(),
+    eventAt: r.event_at ? new Date(r.event_at).toISOString() : null,
   };
 }
 /* eslint-enable @typescript-eslint/no-explicit-any */
@@ -1241,8 +1246,8 @@ export async function createNews(input: NewNews): Promise<NewsPost> {
   if (sql) {
     await ensureSchema();
     const rows = await sql`
-      INSERT INTO news (title, body, category, image_url, author)
-      VALUES (${input.title}, ${input.body}, ${input.category}, ${input.imageUrl}, ${input.author})
+      INSERT INTO news (title, body, category, image_url, author, event_at)
+      VALUES (${input.title}, ${input.body}, ${input.category}, ${input.imageUrl}, ${input.author}, ${input.eventAt ?? null})
       RETURNING *`;
     return rowToNews(rows[0]);
   }
@@ -1254,6 +1259,7 @@ export async function createNews(input: NewNews): Promise<NewsPost> {
     imageUrl: input.imageUrl,
     author: input.author,
     createdAt: new Date().toISOString(),
+    eventAt: input.eventAt ?? null,
   };
   mem.news.unshift(post);
   return post;

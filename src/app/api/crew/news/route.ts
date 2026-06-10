@@ -3,7 +3,7 @@ import { createNews, deleteNews } from "@/lib/db";
 
 export const runtime = "nodejs";
 
-const CATEGORIES = ["Announcement", "Event", "Route", "Update", "Recruitment"];
+const CATEGORIES = ["Route of the Week", "Group Flight", "Event", "Announcement", "Update"];
 
 export async function POST(request: Request) {
   if (!(await hasCrewAccess())) {
@@ -48,6 +48,8 @@ export async function POST(request: Request) {
   }
 
   const category = CATEGORIES.includes(categoryIn) ? categoryIn : "Announcement";
+  const eventAtIn = String(body.eventAt ?? "").trim();
+  const eventAt = eventAtIn && !Number.isNaN(Date.parse(eventAtIn)) ? new Date(eventAtIn).toISOString() : null;
   const session = await getSession();
   const author = session?.callsign ?? "Finnair Staff";
 
@@ -57,6 +59,7 @@ export async function POST(request: Request) {
     category,
     imageUrl: imageUrl || null,
     author,
+    eventAt,
   });
   return Response.json({ ok: true, post });
 }
