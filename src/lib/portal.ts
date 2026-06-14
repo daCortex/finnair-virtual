@@ -15,8 +15,8 @@ import {
 } from "./db";
 import {
   rankForHours,
-  licenseForHours,
-  authorizedFleet,
+  licenseForAp,
+  authorizedFleetByAp,
   estimateApFromHours,
   computeAp,
   tierForAp,
@@ -42,7 +42,7 @@ export type PilotDashboard = {
   lastPirepAt: string | null;
   rank: RankProgress;
   rankMultiplier: number;
-  license: ReturnType<typeof licenseForHours>;
+  license: ReturnType<typeof licenseForAp>;
   fleet: string[];
   apBalance: number;
   tier: ReturnType<typeof tierForAp>;
@@ -67,8 +67,6 @@ export async function getPilotDashboard(): Promise<PilotDashboard | null> {
 
   const rank = rankForHours(totalHours);
   const rankMultiplier = rank.current.apMultiplier ?? 1;
-  const license = licenseForHours(totalHours);
-  const fleet = authorizedFleet(totalHours);
 
   // AP = estimate from historical hours + AP from approved filed flights.
   const earned = filed
@@ -76,6 +74,10 @@ export async function getPilotDashboard(): Promise<PilotDashboard | null> {
     .reduce((sum, p) => sum + computeAp(p.minutes, { rankMultiplier }).net, 0);
   const apBalance = estimateApFromHours(baseMin / 60) + earned;
   const tier = tierForAp(apBalance);
+
+  // Licences and fleet access are purchased with Aurora Points.
+  const license = licenseForAp(apBalance);
+  const fleet = authorizedFleetByAp(apBalance);
 
   const gates: Gates = {
     career: hasRankAtLeast(totalHours, GATES.careerMode),

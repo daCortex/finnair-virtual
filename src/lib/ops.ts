@@ -8,11 +8,13 @@
 ------------------------------------------------------------------- */
 
 import { ROUTES, type Route } from "./routes";
+import { AIRPORT_COORDS } from "./airports";
 import {
   computeAp,
   categoryForMinutes,
   computeLc,
   cargoCertForHours,
+  CARGO_HUBS,
   type FlightCategory,
   type CargoRisk,
 } from "./career";
@@ -200,37 +202,57 @@ export type CargoContract = {
   minutes: number;
   risk: CargoRisk;
   riskLabel: string;
+  scenario: string;
   lc: number;
+  lcMin: number; // floor after a possible high-risk deduction
   cert: string;
 };
 
-const CARGO_TYPES = ["E190-F", "A321-F", "B777-F", "B747-8F"];
+const CARGO_TYPES = ["E190-F", "A321 Cargo", "B777-F", "B747-8F"];
+const CARGO_DESTS = ["EFHK", "EKCH", "ESSA", "ENGM", "EDDF", "LFPG", "LIRF", "LEMD", "OMDB", "OTHH", "KJFK", "RJTT", "VHHH", "WSSS", "VABB", "KMIA"];
+const SCENARIOS: Record<CargoRisk, string[]> = {
+  low: ["General consignment", "Automotive parts", "Industrial machinery", "Consumer electronics", "Apparel & textiles"],
+  medium: ["Fresh produce", "Cut flowers", "Chilled seafood", "Dairy shipment", "Live tropical fish"],
+  high: ["Pharmaceuticals, temp-controlled", "Medical instruments", "Aircraft engine (oversize)", "Hazardous materials", "Time-critical sports equipment"],
+};
 
-export function getCargoContracts(pilotId: number, cargoHours = 0, d = new Date()): CargoContract[] {
+function blockMinutes(a: string, b: string): number {
+  const p = AIRPORT_COORDS[a], q = AIRPORT_COORDS[b];
+  if (!p || !q) return 120;
+  const toRad = (x: number) => (x * Math.PI) / 180;
+  const dLat = toRad(q[0] - p[0]), dLon = toRad(q[1] - p[1]);
+  const h = Math.sin(dLat / 2) ** 2 + Math.cos(toRad(p[0])) * Math.cos(toRad(q[0])) * Math.sin(dLon / 2) ** 2;
+  const nm = 3440 * 2 * Math.asin(Math.sqrt(h));
+  return Math.max(75, Math.round((nm / 460) * 60) + 25); // ~460kt + taxi/climb
+}
+
+export function getCargoContracts(pilotId: number, cargoHours = 0, cargoLc = 0, d = new Date()): CargoContract[] {
   const r = rng((pilotId + 7) * 40503 + dayIndex(d));
-  const cert = cargoCertForHours(cargoHours).name;
-  const pool = finnairRoutes.filter((rt) => rt.minutes >= 90); // freight = meaningful sectors
+  const cert = cargoCertForHours(cargoHours, cargoLc);
+  const limit = cert.dailyLimit; // 2 at Entry (1 per hub), 3 at Load Master+
   const risks: CargoRisk[] = ["low", "low", "medium", "medium", "high"];
   const out: CargoContract[] = [];
   const used = new Set<string>();
   let guard = 0;
-  while (out.length < 3 && guard++ < 200 && pool.length) {
-    const rt = pool[Math.floor(r() * pool.length)];
-    if (used.has(rt.routeNumber)) continue;
-    used.add(rt.routeNumber);
+  while (out.length < limit && guard++ < 200) {
+    const dep = CARGO_HUBS[out.length % CARGO_HUBS.length]; // alternate Brussels / London
+    const arr = CARGO_DESTS[Math.floor(r() * CARGO_DESTS.length)];
+    const key = `${dep}-${arr}`;
+    if (arr === dep || used.has(key)) continue;
+    used.add(key);
+    const minutes = blockMinutes(dep, arr);
     const risk = risks[Math.floor(r() * risks.length)];
-    const ac = CARGO_TYPES[Math.min(CARGO_TYPES.length - 1, Math.floor((rt.minutes / 600) * CARGO_TYPES.length))];
+    const ac = CARGO_TYPES[Math.min(CARGO_TYPES.length - 1, Math.floor((minutes / 600) * CARGO_TYPES.length))];
+    const lc = computeLc(risk);
     out.push({
-      id: `C-${rt.routeNumber}-${dayIndex(d)}`,
-      flightNo: "AY8" + firstFlightNo(rt).replace(/\D/g, "").padStart(3, "0").slice(-3),
-      dep: rt.dep,
-      arr: rt.arr,
-      aircraft: ac,
-      minutes: rt.minutes,
-      risk,
+      id: `C-${dep}-${arr}-${dayIndex(d)}`,
+      flightNo: "FX" + (100 + Math.floor(r() * 800)),
+      dep, arr, aircraft: ac, minutes, risk,
       riskLabel: risk === "low" ? "Standard" : risk === "medium" ? "Perishable" : "Specialized",
-      lc: computeLc(risk).net,
-      cert,
+      scenario: SCENARIOS[risk][Math.floor(r() * SCENARIOS[risk].length)],
+      lc: lc.net,
+      lcMin: lc.min,
+      cert: cert.name,
     });
   }
   return out.sort((a, b) => b.lc - a.lc);

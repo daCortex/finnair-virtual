@@ -72,38 +72,52 @@ export function hasRankAtLeast(totalHours: number, rankName: string): boolean {
 export type License = {
   name: string; // "Private Pilot License"
   short: string; // "PPL"
-  hours: number;
+  apCost: number; // AP cost to unlock this licence (PPL is free)
+  cumulativeAp: number; // total AP needed to hold it
+  maxHours: number; // max flight duration the licence permits
   fleet: string[];
 };
 
+/* Licences are PURCHASED with Aurora Points (per the Ops Handbook):
+   PPL free · CPL 2,000 AP · Command +1,000 AP. */
 export const LICENSES: License[] = [
-  { name: "Private Pilot License", short: "PPL", hours: 0, fleet: ["Embraer 190"] },
-  { name: "Commercial Pilot License", short: "CPL", hours: 150, fleet: ["A319", "A320", "A320neo", "A321"] },
-  { name: "Command License", short: "Command", hours: 500, fleet: ["A330", "A350-900"] },
-  { name: "Captain", short: "Captain", hours: 1500, fleet: ["Boeing 737", "Boeing 787", "Boeing 777", "Boeing 747"] },
+  { name: "Private Pilot License", short: "PPL", apCost: 0, cumulativeAp: 0, maxHours: 2, fleet: ["Embraer 190"] },
+  { name: "Commercial Pilot License", short: "CPL", apCost: 2000, cumulativeAp: 2000, maxHours: 6, fleet: ["A319", "A320", "A321"] },
+  { name: "Command License", short: "Command", apCost: 1000, cumulativeAp: 3000, maxHours: 14, fleet: ["A330", "A350-900"] },
 ];
 
-export function licenseForHours(totalHours: number): {
+export function licenseForAp(ap: number): {
   current: License;
   next: License | null;
   pct: number;
-  hoursToNext: number | null;
+  apToNext: number | null;
 } {
   let idx = 0;
-  for (let i = 0; i < LICENSES.length; i++) if (totalHours >= LICENSES[i].hours) idx = i;
+  for (let i = 0; i < LICENSES.length; i++) if (ap >= LICENSES[i].cumulativeAp) idx = i;
   const current = LICENSES[idx];
   const next = LICENSES[idx + 1] ?? null;
-  if (!next) return { current, next: null, pct: 100, hoursToNext: null };
-  const span = next.hours - current.hours;
-  const into = totalHours - current.hours;
+  if (!next) return { current, next: null, pct: 100, apToNext: null };
+  const span = next.cumulativeAp - current.cumulativeAp;
+  const into = ap - current.cumulativeAp;
   const pct = span > 0 ? Math.min(100, Math.round((into / span) * 100)) : 0;
-  return { current, next, pct, hoursToNext: Math.max(0, next.hours - totalHours) };
+  return { current, next, pct, apToNext: Math.max(0, next.cumulativeAp - ap) };
 }
 
-/* All fleet a pilot is authorised to fly at their hours. */
-export function authorizedFleet(totalHours: number): string[] {
-  return LICENSES.filter((l) => totalHours >= l.hours).flatMap((l) => l.fleet);
+/* All fleet a pilot is authorised to fly given their AP balance. */
+export function authorizedFleetByAp(ap: number): string[] {
+  return LICENSES.filter((l) => ap >= l.cumulativeAp).flatMap((l) => l.fleet);
 }
+
+/* ---- Career codeshares (unlocked with AP) ---- */
+export const CODESHARE_UNLOCK_AP = 50000; // AP needed to initiate codeshares
+export type Codeshare = { name: string; cost: number; free?: boolean };
+export const CAREER_CODESHARES: Codeshare[] = [
+  { name: "Jet Airways", cost: 0, free: true },
+  { name: "Air Asia", cost: 10000 },
+  { name: "Cathay Pacific", cost: 30000 },
+  { name: "Air India", cost: 35000 },
+  { name: "Qatar Airways", cost: 80000 },
+];
 
 /* ======================= AURORA POINTS (AP) ======================= */
 
@@ -113,9 +127,9 @@ export const AP_TABLE: Record<
   FlightCategory,
   { label: string; maxHours: number | null; gross: number; overhead: number; net: number }
 > = {
-  regional: { label: "Regional (<2h)", maxHours: 2, gross: 350, overhead: 50, net: 300 },
-  continental: { label: "Continental (2–6h)", maxHours: 6, gross: 1440, overhead: 200, net: 1240 },
-  longhaul: { label: "Long-Haul (>6h)", maxHours: null, gross: 4200, overhead: 500, net: 3700 },
+  regional: { label: "E190 · ≤2h", maxHours: 2, gross: 350, overhead: 50, net: 300 },
+  continental: { label: "A319/320/321 · ≤6h", maxHours: 6, gross: 1300, overhead: 60, net: 1240 },
+  longhaul: { label: "A330/A350 · 6–14h", maxHours: 14, gross: 4000, overhead: 300, net: 3700 },
 };
 
 export const PUNCTUALITY_MULTIPLIER = 1.25;
@@ -207,38 +221,54 @@ export function tierForAp(ap: number): { current: Tier; next: Tier | null; pct: 
 
 /* ======================= CARGO — LOGISTICS COMMAND ======================= */
 
-export type CargoCert = { name: string; hours: number; fleet: string[] };
+/* Cargo hubs (per the Ops Handbook) and the daily dispatch limits. */
+export const CARGO_HUBS = ["EBBR", "EGLL"] as const; // Brussels & London
+
+export type CargoCert = {
+  name: string;
+  hours: number; // cargo hours required
+  lcReq: number; // LC required (Freight Architect needs 150,000 LC too)
+  dailyLimit: number; // contracts dispatched per day
+  fleet: string[];
+};
 
 export const CARGO_CERTS: CargoCert[] = [
-  { name: "Handler", hours: 0, fleet: ["E190-F"] },
-  { name: "Loadmaster", hours: 250, fleet: ["A321-F"] },
-  { name: "Freight Architect", hours: 750, fleet: ["B777-F", "B747-8F"] },
+  { name: "Entry", hours: 0, lcReq: 0, dailyLimit: 2, fleet: ["E190-F"] },
+  { name: "Load Master", hours: 250, lcReq: 0, dailyLimit: 3, fleet: ["A321 Cargo"] },
+  { name: "Freight Architect", hours: 750, lcReq: 150000, dailyLimit: 3, fleet: ["B777-F", "B747-8F"] },
 ];
 
 export type CargoRisk = "low" | "medium" | "high";
 
 export const CARGO_TABLE: Record<
   CargoRisk,
-  { label: string; net: number; adjustment: number; incentive: number }
+  { label: string; net: number; multiplier: number; deduction: number }
 > = {
-  low: { label: "Low · Standard", net: 1400, adjustment: 0, incentive: 1.0 },
-  medium: { label: "Medium · Perishable", net: 3000, adjustment: -0.1, incentive: 1.25 },
-  high: { label: "High · Specialized", net: 5500, adjustment: -0.2, incentive: 1.3 },
+  low: { label: "Low · Standard", net: 1400, multiplier: 1.0, deduction: 0 },
+  medium: { label: "Medium · Perishable", net: 3000, multiplier: 1.2, deduction: 0 },
+  high: { label: "High · Specialized", net: 5500, multiplier: 1.3, deduction: 0.2 },
 };
 
-export function cargoCertForHours(cargoHours: number): CargoCert {
+export function cargoCertForHours(cargoHours: number, lc = 0): CargoCert {
   let c = CARGO_CERTS[0];
-  for (const cert of CARGO_CERTS) if (cargoHours >= cert.hours) c = cert;
+  for (const cert of CARGO_CERTS) if (cargoHours >= cert.hours && lc >= cert.lcReq) c = cert;
   return c;
 }
 
-/* Logistics Credits for a cargo contract, with variance + incentive applied. */
-export function computeLc(risk: CargoRisk, performance = true): { base: number; adjusted: number; net: number } {
+/* Logistics Credits for a cargo contract — the headline payout per risk band.
+   High-risk contracts are subject to a potential 20% deduction. */
+export function computeLc(risk: CargoRisk): { net: number; min: number } {
   const row = CARGO_TABLE[risk];
-  const adjusted = Math.round(row.net * (1 + row.adjustment));
-  const net = Math.round(adjusted * (performance ? row.incentive : 1));
-  return { base: row.net, adjusted, net };
+  return { net: row.net, min: Math.round(row.net * (1 - row.deduction)) };
 }
+
+/* ---- Cargo codeshares (unlocked with LC at Freight Architect) ---- */
+export const CARGO_CODESHARES: Codeshare[] = [
+  { name: "UPS", cost: 20000 },
+  { name: "Saudia Cargo", cost: 30000 },
+  { name: "FedEx", cost: 35000 },
+  { name: "Qatar Cargo", cost: 40000 },
+];
 
 /* ======================= GATES ======================= */
 

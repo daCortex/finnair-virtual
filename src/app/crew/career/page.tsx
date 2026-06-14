@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { getPilotDashboard, fmtHours } from "@/lib/portal";
 import { getDispatches } from "@/lib/ops";
-import { AP_TABLE, LICENSES } from "@/lib/career";
+import { AP_TABLE, LICENSES, CAREER_CODESHARES, CODESHARE_UNLOCK_AP } from "@/lib/career";
 import { airportCity } from "@/lib/airports";
 import { Locked } from "@/components/portal/Locked";
 
@@ -72,18 +72,35 @@ export default async function CareerPage() {
           <p className="mt-3 text-xs text-cream-faint">Multipliers stack — punctuality ×1.25, spotlight ×2{d.rankMultiplier > 1 ? `, your ${d.rank.current.name} rank ×${d.rankMultiplier}` : ""}.</p>
         </div>
         <div className="rounded-2xl border border-obsidian bg-ink-900 p-6">
-          <h3 className="font-display text-base font-semibold text-cream">Licence & fleet access</h3>
+          <h3 className="font-display text-base font-semibold text-cream">Licences (purchased with AP)</h3>
           <ul className="mt-3 space-y-2 text-sm">
             {LICENSES.map((l) => {
-              const have = d.totalHours >= l.hours;
+              const have = d.apBalance >= l.cumulativeAp;
               return (
                 <li key={l.short} className="flex items-start justify-between gap-3 border-t border-obsidian/60 pt-2">
-                  <div><span className={`font-semibold ${have ? "text-cream" : "text-cream-faint"}`}>{l.short}</span> <span className="text-xs text-cream-faint">· {l.hours}h+</span><p className="text-xs text-cream-faint">{l.fleet.join(" · ")}</p></div>
-                  {have && <span className="text-xs text-gold">✓</span>}
+                  <div><span className={`font-semibold ${have ? "text-cream" : "text-cream-faint"}`}>{l.short}</span> <span className="text-xs text-cream-faint">· {l.apCost === 0 ? "free" : `${l.apCost.toLocaleString()} AP`} · ≤{l.maxHours}h</span><p className="text-xs text-cream-faint">{l.fleet.join(" · ")}</p></div>
+                  {have ? <span className="text-xs text-gold">✓</span> : <span className="text-xs text-cream-faint">🔒</span>}
                 </li>
               );
             })}
           </ul>
+        </div>
+      </section>
+
+      {/* codeshares */}
+      <section className="mt-5 rounded-2xl border border-obsidian bg-ink-900 p-6">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <h3 className="font-display text-base font-semibold text-cream">Codeshare networks</h3>
+          <span className="text-xs text-cream-faint">{d.apBalance >= CODESHARE_UNLOCK_AP ? "Codeshares unlocked ✓" : `${CODESHARE_UNLOCK_AP.toLocaleString()} AP to initiate`}</span>
+        </div>
+        <p className="mt-1 text-sm text-cream-dim">Initial-tier routes are exclusive to Finnair Virtual. Unlock partner networks with AP to fly their metal.</p>
+        <div className="mt-4 flex flex-wrap gap-2">
+          {CAREER_CODESHARES.map((c) => (
+            <span key={c.name} className={`rounded-full border px-3 py-1.5 text-sm ${c.free ? "border-gold/40 bg-gold/8 text-gold" : "border-obsidian bg-ink-850 text-cream-dim"}`}>
+              {c.name} <span className="text-xs text-cream-faint">· {c.free ? "Free" : `${c.cost.toLocaleString()} AP`}</span>
+            </span>
+          ))}
+          <span className="self-center text-xs text-cream-faint">…and more later</span>
         </div>
       </section>
     </div>

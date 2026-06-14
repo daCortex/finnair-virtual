@@ -54,16 +54,16 @@ export default async function RanksPage() {
       <section className="mt-10 grid gap-5 md:grid-cols-2">
         <div className="rounded-2xl border border-obsidian bg-ink-900 p-6">
           <h2 className="font-display text-lg font-semibold text-cream">Pilot licences</h2>
-          <p className="mt-1 text-sm text-cream-dim">Fleet access scales with experience.</p>
+          <p className="mt-1 text-sm text-cream-dim">Unlock fleet access with Aurora Points.</p>
           <ul className="mt-4 space-y-2.5">
             {LICENSES.map((l) => (
               <li key={l.short} className="flex items-start justify-between gap-3 border-t border-obsidian/60 pt-2.5 text-sm">
                 <div>
                   <span className="font-semibold text-cream">{l.short}</span>
-                  <span className="ml-2 text-xs text-cream-faint">{l.hours}h+</span>
-                  <p className="text-xs text-cream-faint">{l.fleet.join(" · ")}</p>
+                  <span className="ml-2 text-xs text-cream-faint">{l.apCost === 0 ? "Free" : `${l.apCost.toLocaleString()} AP`}</span>
+                  <p className="text-xs text-cream-faint">{l.fleet.join(" · ")} · ≤{l.maxHours}h</p>
                 </div>
-                {hours >= l.hours && <span className="text-xs text-gold">✓</span>}
+                {(d?.apBalance ?? 0) >= l.cumulativeAp && <span className="text-xs text-gold">✓</span>}
               </li>
             ))}
           </ul>

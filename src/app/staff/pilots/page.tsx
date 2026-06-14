@@ -1,7 +1,7 @@
 import { listRoster } from "@/lib/db";
 import { RANK_NAMES } from "@/lib/data";
 import { rankFromMinutes, formatDuration } from "@/lib/rank";
-import { estimateApFromHours, licenseForHours, tierForAp } from "@/lib/career";
+import { estimateApFromHours, licenseForAp, tierForAp } from "@/lib/career";
 import { fmtApCompact } from "@/lib/portal";
 import { CrewPilotActions } from "@/components/CrewPilotActions";
 import { LinkDiscord } from "@/components/LinkDiscord";
@@ -50,7 +50,7 @@ export default async function CrewPilots() {
               const derived = rankFromMinutes(minutes).current.name;
               const hours = minutes / 60;
               const ap = estimateApFromHours(hours);
-              const lic = licenseForHours(hours).current.short;
+              const lic = licenseForAp(ap).current.short;
               const tier = tierForAp(ap).current;
               return (
                 <tr key={pilot.id} className="border-b border-obsidian/30 last:border-0 hover:bg-ink-850">

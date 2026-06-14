@@ -31,13 +31,13 @@ export default function CrewOperationsPage() {
               <li key={c} className="flex items-center justify-between border-t border-obsidian/60 pt-2"><span className="text-cream-dim">{AP_TABLE[c].label}</span><span className="font-semibold text-cream">✦ {AP_TABLE[c].net.toLocaleString()}</span></li>
             ))}
           </ul>
-          <p className="mt-3 text-xs text-cream-faint">Licences: {LICENSES.map((l) => `${l.short} (${l.hours}h)`).join(" · ")}</p>
+          <p className="mt-3 text-xs text-cream-faint">Licences: {LICENSES.map((l) => `${l.short} (${l.apCost === 0 ? "free" : l.apCost.toLocaleString() + " AP"})`).join(" · ")}</p>
         </div>
         <div className="rounded-2xl border border-obsidian bg-ink-900 p-6">
           <h3 className="font-display text-base font-semibold text-cream">Cargo · Logistics Credits (live)</h3>
           <ul className="mt-3 space-y-2 text-sm">
             {(["low", "medium", "high"] as const).map((r) => (
-              <li key={r} className="flex items-center justify-between border-t border-obsidian/60 pt-2"><span className="text-cream-dim">{CARGO_TABLE[r].label}</span><span className="font-semibold text-cream">◆ {CARGO_TABLE[r].net.toLocaleString()} · ×{CARGO_TABLE[r].incentive}</span></li>
+              <li key={r} className="flex items-center justify-between border-t border-obsidian/60 pt-2"><span className="text-cream-dim">{CARGO_TABLE[r].label}</span><span className="font-semibold text-cream">◆ {CARGO_TABLE[r].net.toLocaleString()} · ×{CARGO_TABLE[r].multiplier}</span></li>
             ))}
           </ul>
           <p className="mt-3 text-xs text-cream-faint">Certs: {CARGO_CERTS.map((c) => `${c.name} (${c.hours}h)`).join(" · ")}</p>
