@@ -1,15 +1,18 @@
 import type { Metadata } from "next";
 import { Inter, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import Script from "next/script";
 import "./globals.css";
 
-/* Brand typeface: Inter across the board — a clean Nordic grotesque standing in
-   for Finnair Sans. ExtraLight (200) titles · Medium (500) nav · Regular (400)
-   UI · Light (300) body. */
-const display = Inter({
+/* Display typeface: Finnair Sans for headings & the brand voice; body/UI use
+   Inter for its full weight range.
+   Font credit (CC BY 4.0): Web Fonts — https://www.onlinewebfonts.com */
+const display = localFont({
   variable: "--font-display",
-  subsets: ["latin"],
-  weight: ["200", "300", "400"],
+  src: [
+    { path: "../../public/fonts/finnair-sans.woff", weight: "400", style: "normal" },
+  ],
+  display: "swap",
 });
 
 const sans = Inter({

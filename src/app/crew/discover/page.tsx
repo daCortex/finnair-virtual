@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { getPilotDashboard, fmtHours } from "@/lib/portal";
 import { computeAp } from "@/lib/career";
 import { firstFlightNo, allRoutes } from "@/lib/ops";
@@ -22,10 +23,15 @@ export default async function DiscoverPage() {
 
   return (
     <div className="mx-auto max-w-7xl px-5 py-10 lg:px-8">
-      <header className="rise">
-        <p className="eyebrow" style={{ color: "var(--color-rose)" }}>Sovereign privilege</p>
-        <h1 className="mt-2 font-display text-4xl font-semibold text-cream">oneworld Discover</h1>
-        <p className="mt-2 max-w-xl text-cream-dim">Fly partner metal across the oneworld network. {routes.length} codeshare sectors, AP credited to your Finnair Virtual account.</p>
+      <header className="rise flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <p className="eyebrow" style={{ color: "var(--color-rose)" }}>Sovereign privilege</p>
+          <h1 className="mt-2 font-display text-4xl font-semibold text-cream">oneworld Discover</h1>
+          <p className="mt-2 max-w-xl text-cream-dim">Fly partner metal across the oneworld network. {routes.length} codeshare sectors, AP credited to your Finnair Virtual account.</p>
+        </div>
+        <div className="shrink-0 rounded-2xl bg-white p-3 shadow-sm">
+          <Image src="/brand/oneworld.webp" alt="oneworld alliance" width={350} height={350} className="h-16 w-16 object-contain" />
+        </div>
       </header>
 
       <div className="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">

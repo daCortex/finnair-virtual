@@ -1,6 +1,13 @@
+import Image from "next/image";
 import { SITE_FLEET } from "@/lib/site";
 
 export const metadata = { title: "Fleet" };
+
+/* Map each fleet type to its livery render in /public/fleet. */
+const RENDER: Record<string, string> = {
+  "Embraer E190": "E190", "Airbus A319": "A319", "Airbus A320": "A320",
+  "Airbus A321": "A321", "Airbus A330-300": "A330", "Airbus A350-900": "A350",
+};
 
 export default function FleetPage() {
   return (
@@ -23,9 +30,10 @@ export default function FleetPage() {
       <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {SITE_FLEET.map((a, i) => (
           <div key={a.type} className="rise overflow-hidden rounded-2xl border border-obsidian bg-ink-900 lift" style={{ animationDelay: `${i * 60}ms` }}>
-            <div className="flex items-center justify-between border-b border-obsidian/70 px-5 py-3">
-              <span className="rounded-full bg-gold/8 px-2.5 py-0.5 text-[0.65rem] font-semibold uppercase tracking-wide text-gold">{a.family}</span>
-              <span className="font-mono text-xs text-cream-faint">{a.reg}</span>
+            <div className="relative flex h-40 items-center justify-center overflow-hidden bg-gradient-to-b from-ink-850 to-ink-900 px-4">
+              <Image src={`/fleet/${RENDER[a.type] ?? "A320"}.webp`} alt={`Finnair ${a.type}`} width={1016} height={706} className="h-auto w-full max-w-[92%] object-contain transition-transform duration-700 group-hover:scale-105" />
+              <span className="absolute left-4 top-3 rounded-full bg-gold/8 px-2.5 py-0.5 text-[0.65rem] font-semibold uppercase tracking-wide text-gold backdrop-blur">{a.family}</span>
+              <span className="absolute right-4 top-3 font-mono text-xs text-cream-faint">{a.reg}</span>
             </div>
             <div className="px-5 py-5">
               <h2 className="font-display text-2xl font-semibold text-cream">{a.type}</h2>

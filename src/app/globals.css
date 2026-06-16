@@ -120,13 +120,13 @@ body {
    weight utilities already in the markup so titles read ExtraLight site-wide. */
 .font-display {
   font-family: var(--font-display);
-  font-weight: 200;
-  letter-spacing: -0.015em;
+  font-weight: 400; /* Finnair Sans ships a single weight */
+  letter-spacing: -0.01em;
 }
 .font-display.font-semibold,
 .font-display.font-normal,
 .font-display.font-bold {
-  font-weight: 200;
+  font-weight: 400;
 }
 
 /* Native UI controls read at Regular. */

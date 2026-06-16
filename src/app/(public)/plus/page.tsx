@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { TIERS } from "@/lib/career";
 import { PLUS_EARN } from "@/lib/site";
 
@@ -12,14 +13,14 @@ export default function PlusPage() {
         <p className="mt-4 max-w-2xl text-cream-dim">Finnair Plus is a private economy for our pilots. Earn Aurora Points (AP) with every flight and climb five tiers — each milestone a recognition of your dedication to the airline.</p>
       </header>
 
-      {/* Tiers */}
-      <section className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+      {/* Tiers — designed membership cards */}
+      <section className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {TIERS.map((t, i) => (
-          <div key={t.name} className="rise rounded-2xl border border-obsidian bg-ink-900 p-5 text-center lift" style={{ animationDelay: `${i * 60}ms` }}>
-            <div className="mx-auto h-10 w-10 rounded-full" style={{ background: t.accent }} />
-            <h2 className="mt-3 font-display text-lg font-semibold text-cream">{t.name}</h2>
-            <p className="mt-1 text-sm font-medium text-cream-dim">{t.min.toLocaleString()}+ AP</p>
-            <p className="mt-2 text-xs text-cream-faint">{t.blurb}</p>
+          <div key={t.name} className="rise" style={{ animationDelay: `${i * 60}ms` }}>
+            <div className="overflow-hidden rounded-2xl shadow-[0_18px_40px_-22px_rgba(12,2,67,0.5)] transition-transform duration-300 hover:-translate-y-1">
+              <Image src={`/tiers/${t.name.toLowerCase()}.png`} alt={`Finnair Plus ${t.name} tier`} width={944} height={642} className="block w-full" />
+            </div>
+            <p className="mt-3 text-center text-sm text-cream-faint">{t.blurb}</p>
           </div>
         ))}
       </section>

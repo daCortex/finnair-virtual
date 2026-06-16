@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { SITE_LEADERS, SITE_ORG } from "@/lib/site";
 
 export const metadata = { title: "About" };
@@ -68,6 +69,24 @@ export default function AboutPage() {
             ))}
           </div>
         </div>
+      </section>
+
+      {/* Alliance & partners */}
+      <section className="mt-12">
+        <h2 className="font-display text-2xl font-semibold text-cream">Alliance &amp; partners</h2>
+        <p className="mt-1 text-sm text-cream-dim">Proudly flying the oneworld network, inspired by Finnair and its Helsinki home.</p>
+        <div className="mt-5 flex flex-wrap items-center gap-4">
+          {[
+            { src: "/brand/oneworld.webp", alt: "oneworld alliance", h: "h-12" },
+            { src: "/brand/in-partnership-finnair.webp", alt: "In partnership with Finnair", h: "h-10" },
+            { src: "/brand/finnair-finavia.webp", alt: "Finnair · Finavia Helsinki Airport", h: "h-8" },
+          ].map((p) => (
+            <div key={p.src} className="flex items-center justify-center rounded-2xl border border-obsidian bg-white px-6 py-4 shadow-sm">
+              <Image src={p.src} alt={p.alt} width={1860} height={461} className={`${p.h} w-auto object-contain`} />
+            </div>
+          ))}
+        </div>
+        <p className="mt-3 text-xs text-cream-faint">An independent fan project — not affiliated with Finnair Plc, Finavia, or the oneworld alliance.</p>
       </section>
     </div>
   );
