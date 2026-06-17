@@ -17,12 +17,10 @@ export default function AboutPage() {
       <section className="mt-12">
         <h2 className="font-display text-2xl font-semibold text-cream">Leadership</h2>
         <div className="mt-4 grid gap-5 md:grid-cols-2">
-          {SITE_LEADERS.map((l, idx) => (
+          {SITE_LEADERS.map((l) => (
             <div key={l.name} className="rounded-xl border border-obsidian bg-ink-900 p-6 lift">
               <div className="flex items-center gap-4">
-                <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full text-lg font-semibold text-white" style={{ background: idx === 0 ? "linear-gradient(135deg,#0c0243,#3b6fe0)" : "linear-gradient(135deg,#7c1791,#0c0243)" }}>
-                  {l.name.split(" ").map((w) => w[0]).join("").slice(0, 2)}
-                </span>
+                <Image src={l.pfp} alt={l.name} width={120} height={120} className="h-14 w-14 shrink-0 rounded-full object-cover ring-2 ring-obsidian" />
                 <div>
                   <p className="font-display text-lg font-semibold text-cream">{l.name}</p>
                   <p className="text-xs font-medium uppercase tracking-wide text-gold-soft">{l.role}</p>

@@ -4,7 +4,7 @@
 ------------------------------------------------------------------- */
 
 export const SITE = {
-  network: { airports: 111, routes: 220, hub: "EFHK" },
+  network: { airports: 112, routes: 224, hub: "EFHK" },
   fleetCount: 6,
   longestRangeNm: 8100,
   longestSector: "13h 20m",
@@ -112,7 +112,8 @@ export const SITE_LEADERS = [
   {
     role: "Founder & Chairman of the Board",
     name: "Ayaz Molla",
-    ifc: "", // IFC username — set to link the profile button
+    ifc: "ayaz_molla",
+    pfp: "/staff/zyrex.png",
     title: "When we started this journey",
     message:
       "When we started this journey, our vision was to create more than just a virtual airline; we wanted to build a family of aviation enthusiasts united by a love of realistic operations and Nordic precision. Thank you to every member of staff and every pilot who makes Finnair Virtual what it is.",
@@ -120,7 +121,8 @@ export const SITE_LEADERS = [
   {
     role: "Chief Executive Officer",
     name: "Lucian Y.",
-    ifc: "",
+    ifc: "randomaviator2",
+    pfp: "/staff/lucian.png",
     title: "A tight, professional operation",
     message:
       "We run a tight, professional operation. Progress through nine ranks, unlock aircraft and routes as you climb, and earn Aurora tokens through our proprietary banking system. Whether you fly casually or chase the Luminary command seat, there's a structured path waiting for you.",

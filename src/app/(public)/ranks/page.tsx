@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { RANKS } from "@/lib/career";
 
 export const metadata = { title: "Ranks" };
@@ -15,9 +16,9 @@ export default function RanksPage() {
         {RANKS.map((r, i) => (
           <li key={r.name} className="rise" style={{ animationDelay: `${i * 45}ms` }}>
             <div className={`flex items-stretch gap-4 rounded-2xl border p-4 lift ${r.group === "exclusive" ? "border-rose/30 bg-rose/[0.03]" : "border-obsidian bg-ink-900"}`}>
-              <div className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl font-display text-xl font-semibold text-white" style={{ background: r.group === "exclusive" ? "linear-gradient(135deg,#7f1894,#0c0243)" : "linear-gradient(135deg,#0c0243,#3a1f7a)" }}>
-                {String(r.n).padStart(2, "0")}
-                {r.group === "exclusive" && <span className="absolute -right-1 -top-1 text-sm">✦</span>}
+              <div className="relative h-16 w-16 shrink-0">
+                <Image src={`/ranks/${r.name.toLowerCase()}.png`} alt={`${r.name} rank`} width={400} height={400} className="h-full w-full object-contain drop-shadow-sm" />
+                <span className="absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-ink-900 text-[0.6rem] font-semibold text-cream-dim ring-1 ring-obsidian">{r.n}</span>
               </div>
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-2">

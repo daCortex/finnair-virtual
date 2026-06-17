@@ -1,11 +1,12 @@
+import Image from "next/image";
 import { SITE_HUBS } from "@/lib/site";
 
 export const metadata = { title: "Hubs" };
 
-const BANNER: Record<string, string> = {
-  EFHK: "linear-gradient(120deg,#0c0243 0%,#1b2a7a 55%,#2748c9 100%)",
-  EBBR: "linear-gradient(120deg,#0e1733 0%,#3a1f7a 60%,#7c1791 100%)",
-  EGLL: "linear-gradient(120deg,#0c0243 0%,#114a4a 55%,#12b5a8 100%)",
+const BANNER_IMG: Record<string, string> = {
+  EFHK: "/hubs/helsinki.webp",
+  EBBR: "/hubs/brussels.webp",
+  EGLL: "/hubs/london.webp",
 };
 const FACTS: Record<string, { label: string; value: string }[]> = {
   EFHK: [
@@ -34,13 +35,14 @@ export default function HubsPage() {
       <div className="mt-10 space-y-6">
         {SITE_HUBS.map((h, i) => (
           <div key={h.icao} className="rise overflow-hidden rounded-xl border border-obsidian bg-ink-900 lift" style={{ animationDelay: `${i * 70}ms` }}>
-            {/* Airport banner — real Infinite Flight banners drop in here */}
-            <div className="relative flex h-36 items-end p-6" style={{ background: BANNER[h.icao] ?? BANNER.EFHK }}>
-              <div className="pointer-events-none absolute -right-8 -top-8 h-40 w-40 rounded-full opacity-25 blur-2xl" style={{ background: "radial-gradient(circle,#ffffff,transparent 70%)" }} />
+            {/* Airport banner */}
+            <div className="relative flex h-48 items-end overflow-hidden p-6">
+              {BANNER_IMG[h.icao] && <Image src={BANNER_IMG[h.icao]} alt={`${h.city} airport`} fill sizes="100vw" className="object-cover" priority={i === 0} />}
+              <div className="pointer-events-none absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(8,4,30,0.15) 0%, rgba(8,4,30,0.45) 55%, rgba(8,4,30,0.88) 100%)" }} />
               <div className="relative">
-                <span className="rounded bg-white/15 px-2.5 py-0.5 text-[0.65rem] font-semibold uppercase tracking-wide text-white">{h.role}</span>
+                <span className="rounded bg-white/20 px-2.5 py-0.5 text-[0.65rem] font-semibold uppercase tracking-wide text-white backdrop-blur">{h.role}</span>
                 <h2 className="mt-2 font-display text-3xl font-semibold text-white">{h.name}</h2>
-                <p className="text-sm text-white/65">{h.city}, {h.country} · {h.icao} · {h.iata}</p>
+                <p className="text-sm text-white/75">{h.city}, {h.country} · {h.icao} · {h.iata}</p>
               </div>
             </div>
             <div className="p-6">

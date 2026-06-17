@@ -27,12 +27,12 @@ export type Rank = {
 /* Rank perks no longer grant codeshare routes — codeshares are purchased with
    AP (Career) / LC (Cargo). The full rank-reward structure is being updated. */
 export const RANKS: Rank[] = [
-  { n: 1, name: "Aurora", hours: 0, group: "core", blurb: "Welcome aboard. Your career begins here.", perks: ["Casual Mode"] },
-  { n: 2, name: "Polaris", hours: 25, group: "core", blurb: "Finding your bearings on the northern routes.", perks: [] },
-  { n: 3, name: "Elysian", hours: 75, group: "core", blurb: "The start of Career Mode.", perks: ["Career Mode unlocked"] },
-  { n: 4, name: "Solstice", hours: 150, group: "core", blurb: "A seasoned hand across the continent.", perks: [] },
-  { n: 5, name: "Zenith", hours: 300, group: "core", blurb: "The peak of the core ladder.", perks: ["Cargo operations eligible"] },
-  { n: 6, name: "Astralis", hours: 600, group: "core", blurb: "Master of the full network.", perks: [] },
+  { n: 1, name: "Aurora", hours: 0, group: "core", blurb: "Welcome aboard. Your career begins here.", perks: ["E190 · A319 · A320 · A321 · Dash 8-Q400", "Casual Mode"] },
+  { n: 2, name: "Polaris", hours: 25, group: "core", blurb: "Finding your bearings on the northern routes.", perks: ["Boeing 737 family"] },
+  { n: 3, name: "Elysian", hours: 75, group: "core", blurb: "Widebody command and the start of Career Mode.", perks: ["A330 · A350", "Career Mode unlocked"] },
+  { n: 4, name: "Solstice", hours: 150, group: "core", blurb: "A seasoned hand across the long-haul network.", perks: ["Boeing 787 · Boeing 777"] },
+  { n: 5, name: "Zenith", hours: 300, group: "core", blurb: "The peak of the core ladder.", perks: ["Boeing 747 · A380", "Cargo — apply"] },
+  { n: 6, name: "Astralis", hours: 600, group: "core", blurb: "Master of the full fleet.", perks: ["All aircraft"] },
   // ---- Exclusive ranks (Finnair Plus member + AURORA Bank access) ----
   { n: 7, name: "Celestia", hours: 1200, group: "exclusive", callsignRange: "86–100", blurb: "An elite aviator. Special Operations clearance granted.", perks: ["Callsign range 86–100", "Special Ops access", "Celestia Discord badge"] },
   { n: 8, name: "Sovereign", hours: 2500, group: "exclusive", apMultiplier: 1.2, callsignRange: "66–85", blurb: "Sovereign of the skies. The oneworld network opens.", perks: ["Callsign range 66–85", "1.2× AP multiplier", "oneworld Discover", "Sovereign Discord badge"] },

@@ -6,6 +6,7 @@ import { SITE } from "@/lib/site";
 import { regionForIcao } from "@/lib/regions";
 import type { RegionLeg } from "@/components/public/RegionMap";
 import { GlobeMap } from "@/components/public/GlobeMap";
+import { HeroSlideshow } from "@/components/public/HeroSlideshow";
 
 export const metadata = { title: "Finnair Virtual — Elevating Virtual Aviation" };
 
@@ -39,6 +40,7 @@ export default function Home() {
     <div>
       {/* HERO */}
       <section className="aurora relative overflow-hidden">
+        <HeroSlideshow />
         <div className="pointer-events-none absolute -right-32 -top-24 h-96 w-96 rounded-full opacity-30 blur-3xl" style={{ background: "radial-gradient(circle,#c451d6,transparent 70%)" }} />
         <div className="relative mx-auto max-w-7xl px-5 py-24 lg:px-8 lg:py-32">
           <p className="reveal text-xs uppercase tracking-[0.32em] text-white/55">Finnair Virtual · Infinite Flight</p>
