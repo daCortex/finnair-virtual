@@ -19,27 +19,28 @@
   --color-rock: #afafaf;
   --color-fin-black: #121212;
 
-  /* Brand accents — `gold` = Finnair Blue (primary), `rose` = Heather */
-  --color-gold: #0c0243;
-  --color-gold-soft: #2748c9; /* vivid icy-blue accent (AA on white) */
+  /* Brand accents — Icy White × Finnair Blue (brighter royal blue, from the
+     official FNVA palette). `gold` = Finnair Blue (primary), `rose` = Heather. */
+  --color-gold: oklch(0.52 0.18 250); /* Finnair Blue */
+  --color-gold-soft: oklch(0.47 0.16 250); /* accent text (AA on icy white) */
   --color-rose: #7c1791;
   --color-rose-soft: #9c2bb4;
-  --color-obsidian: #c6d7ec; /* borders — icy blue-grey */
+  --color-obsidian: oklch(0.52 0.18 250 / 0.2); /* borders — translucent blue */
 
-  /* Canvas — Icy Blue light theme */
-  --color-ink-950: #eaf1fb; /* page background — icy blue */
-  --color-ink-900: #ffffff; /* cards / surfaces */
-  --color-ink-850: #dde9f8; /* inputs / lighter surfaces */
-  --color-ink-800: #d1e1f4;
-  --color-ink-700: #c2d6ef;
+  /* Canvas — Icy White */
+  --color-ink-950: oklch(0.975 0.012 240); /* page background */
+  --color-ink-900: oklch(0.955 0.018 242); /* cards / surfaces */
+  --color-ink-850: oklch(0.935 0.022 244); /* inputs */
+  --color-ink-800: oklch(0.91 0.028 245);
+  --color-ink-700: oklch(0.88 0.034 246);
 
-  /* Text — deep navy on icy blue (AA) */
-  --color-cream: #0e1733; /* primary */
-  --color-cream-dim: #36405e; /* secondary / body */
-  --color-cream-faint: #5a6688; /* labels / meta */
+  /* Text — deep Finnair-blue ink on icy white (AA) */
+  --color-cream: oklch(0.26 0.10 252); /* primary */
+  --color-cream-dim: oklch(0.40 0.085 250); /* secondary / body */
+  --color-cream-faint: oklch(0.52 0.06 250); /* labels / meta */
 
   /* Section tint helpers for subtle alternation */
-  --color-tint-blue: #e4eefb;
+  --color-tint-blue: oklch(0.945 0.024 246);
   --color-tint-rose: #f4e9f7;
 
   /* Fonts (wired up in layout via next/font) */
@@ -69,19 +70,20 @@
    border-obsidian, text-gold-soft…) references these variables, so the whole
    UI flips with no component changes. */
 html.dark {
-  --color-ink-950: #07021c; /* page background (near-black indigo) */
-  --color-ink-900: #0c0243; /* cards / surfaces — Finnair Blue */
-  --color-ink-850: #150a52; /* inputs / lighter surfaces */
-  --color-ink-800: #1d1162;
-  --color-ink-700: #281873;
-  --color-obsidian: #2c2270; /* borders */
+  /* Deep Midnight × Ice — the official FNVA dark palette */
+  --color-ink-950: oklch(0.10 0.028 255); /* page background */
+  --color-ink-900: oklch(0.16 0.04 255); /* cards / surfaces */
+  --color-ink-850: oklch(0.20 0.045 255); /* inputs */
+  --color-ink-800: oklch(0.24 0.05 255);
+  --color-ink-700: oklch(0.28 0.055 255);
+  --color-obsidian: oklch(0.72 0.16 250 / 0.24); /* borders */
 
-  --color-cream: #f4f4fb; /* primary text */
-  --color-cream-dim: #c2c0dd; /* secondary text */
-  --color-cream-faint: #8688a6;
+  --color-cream: oklch(0.97 0.012 240); /* primary text */
+  --color-cream-dim: oklch(0.80 0.04 250); /* secondary text */
+  --color-cream-faint: oklch(0.66 0.05 250);
 
-  --color-gold: #7b6cf0; /* periwinkle so the brand reads on indigo */
-  --color-gold-soft: #a99cff; /* accent text legible on dark */
+  --color-gold: oklch(0.72 0.16 250); /* Finnair Blue, brightened for night */
+  --color-gold-soft: oklch(0.80 0.13 250); /* accent text legible on dark */
   --color-rose: #c451d6; /* brighter Heather */
   --color-rose-soft: #db83e7;
 }
