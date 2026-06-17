@@ -1,21 +1,17 @@
 import type { Metadata } from "next";
-import { Inter, Geist_Mono } from "next/font/google";
-import localFont from "next/font/local";
+import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 
-/* Display typeface: Finnair Sans for headings & the brand voice; body/UI use
-   Inter for its full weight range.
-   Font credit (CC BY 4.0): Web Fonts — https://www.onlinewebfonts.com */
-const display = localFont({
+/* Typeface: Geist — a modern, minimal, sleek grotesque across the whole site,
+   used for both display headings and body/UI. */
+const display = Geist({
   variable: "--font-display",
-  src: [
-    { path: "../../public/fonts/finnair-sans.woff", weight: "400", style: "normal" },
-  ],
-  display: "swap",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
 });
 
-const sans = Inter({
+const sans = Geist({
   variable: "--font-sans",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600"],

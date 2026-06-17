@@ -13,15 +13,21 @@ export default function ModesPage() {
 
       <div className="mt-10 grid gap-5 lg:grid-cols-3">
         {SITE_MODES.map((m, i) => (
-          <div key={m.name} className="rise flex flex-col rounded-2xl border border-obsidian bg-ink-900 p-6 lift" style={{ animationDelay: `${i * 70}ms` }}>
-            <p className="text-xs font-semibold uppercase tracking-wide text-gold">{m.unlock}</p>
-            <h2 className="mt-2 font-display text-2xl font-semibold text-cream">{m.name}</h2>
-            <p className="mt-1 text-sm font-medium text-cream-dim">{m.tagline}</p>
-            <p className="mt-3 text-sm leading-relaxed text-cream-dim">{m.desc}</p>
+          <div key={m.name} className="rise flex flex-col rounded-xl border border-obsidian bg-ink-900 p-6 lift" style={{ animationDelay: `${i * 70}ms`, borderTop: `3px solid ${["#12B5A8", "#0c0243", "#7c1791"][i]}` }}>
+            <div className="flex items-center gap-3">
+              {/* Mode logo slot — Finnair Casual / Career / Cargo logo drops in here */}
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md text-sm font-semibold text-white" style={{ background: ["#12B5A8", "#0c0243", "#7c1791"][i] }}>{m.name.split(" ")[0][0]}</span>
+              <div>
+                <h2 className="font-display text-xl font-semibold text-cream">{m.name}</h2>
+                <p className="text-xs font-semibold uppercase tracking-wide" style={{ color: ["#12B5A8", "#0c0243", "#7c1791"][i] }}>{m.unlock}</p>
+              </div>
+            </div>
+            <p className="mt-3 text-sm font-medium text-cream-dim">{m.tagline}</p>
+            <p className="mt-2 text-sm leading-relaxed text-cream-dim">{m.desc}</p>
             <p className="mt-4 text-xs uppercase tracking-wide text-cream-faint">Best for</p>
             <p className="text-sm text-cream-dim">{m.bestFor}</p>
             <ul className="mt-4 space-y-1.5 border-t border-obsidian/60 pt-4 text-sm">
-              {m.pros.map((p) => <li key={p} className="flex items-start gap-2 text-cream-dim"><span className="text-gold">✓</span>{p}</li>)}
+              {m.pros.map((p) => <li key={p} className="flex items-start gap-2 text-cream-dim"><span style={{ color: ["#12B5A8", "#0c0243", "#7c1791"][i] }}>✓</span>{p}</li>)}
             </ul>
           </div>
         ))}

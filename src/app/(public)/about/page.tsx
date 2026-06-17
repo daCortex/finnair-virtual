@@ -9,36 +9,34 @@ export default function AboutPage() {
       <header className="reveal">
         <p className="eyebrow">About</p>
         <h1 className="mt-2 font-display text-4xl font-semibold text-cream lg:text-5xl">A virtual airline built like a real one.</h1>
-        <p className="mt-4 max-w-2xl text-cream-dim">Finnair Virtual operates inside Infinite Flight with real-world airline discipline and structure — a 221-route network from Helsinki (EFHK), secondary bases in Oulu and Copenhagen, and a nine-rank path from Aurora to Luminary.</p>
+        <p className="mt-4 max-w-3xl text-lg leading-relaxed text-cream-dim">Finnair Virtual (FNVA) is an independent Infinite Flight virtual airline inspired by Finland’s flag carrier. We fly a structured, simulated operation out of Helsinki-Vantaa — every flight logged, every hour credited, every rank earned.</p>
+        <p className="mt-4 max-w-3xl leading-relaxed text-cream-dim">From your first Aurora sortie to the Luminary command seat, pilots progress through nine ranks, purchase fleet licences and codeshare networks with Aurora Points, and fly across passenger, career and cargo operations. Behind the scenes, a real org structure — a Founder, a CEO, a Board and four staff units — keeps the airline running with Nordic precision and a genuinely welcoming community at its heart.</p>
       </header>
 
-      {/* How we operate */}
+      {/* Leadership — pfp + message + IFC link */}
       <section className="mt-12">
-        <h2 className="font-display text-2xl font-semibold text-cream">How we operate</h2>
-        <div className="mt-4 grid gap-4 sm:grid-cols-3">
-          {[
-            ["Career Mode", "Unlocks at 75 flight hours (Elysian)."],
-            ["Cargo operations", "Eligible from 300 hours (Zenith)."],
-            ["Full fleet access", "Every aircraft unlocked at 600 hours (Astralis)."],
-          ].map(([k, v]) => (
-            <div key={k} className="rounded-2xl border border-obsidian bg-ink-900 p-5 lift">
-              <p className="font-medium text-cream">{k}</p>
-              <p className="mt-1 text-sm text-cream-dim">{v}</p>
+        <h2 className="font-display text-2xl font-semibold text-cream">Leadership</h2>
+        <div className="mt-4 grid gap-5 md:grid-cols-2">
+          {SITE_LEADERS.map((l, idx) => (
+            <div key={l.name} className="rounded-xl border border-obsidian bg-ink-900 p-6 lift">
+              <div className="flex items-center gap-4">
+                <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full text-lg font-semibold text-white" style={{ background: idx === 0 ? "linear-gradient(135deg,#0c0243,#3b6fe0)" : "linear-gradient(135deg,#7c1791,#0c0243)" }}>
+                  {l.name.split(" ").map((w) => w[0]).join("").slice(0, 2)}
+                </span>
+                <div>
+                  <p className="font-display text-lg font-semibold text-cream">{l.name}</p>
+                  <p className="text-xs font-medium uppercase tracking-wide text-gold-soft">{l.role}</p>
+                </div>
+              </div>
+              <p className="mt-4 text-sm leading-relaxed text-cream-dim">“{l.message}”</p>
+              <a href={l.ifc ? `https://community.infiniteflight.com/u/${l.ifc}` : "https://community.infiniteflight.com"} target="_blank" rel="noopener noreferrer"
+                className="mt-4 inline-flex items-center gap-1.5 rounded-md border border-obsidian px-3 py-1.5 text-xs font-medium text-cream-dim transition-colors hover:border-gold-soft hover:text-cream">
+                IFC profile <span aria-hidden className="text-[0.65rem]">↗</span>
+              </a>
             </div>
           ))}
         </div>
-      </section>
-
-      {/* Leadership messages */}
-      <section className="mt-12 grid gap-5 md:grid-cols-2">
-        {SITE_LEADERS.map((l) => (
-          <div key={l.name} className="rounded-2xl border border-obsidian bg-ink-900 p-6 lift">
-            <p className="text-xs font-semibold uppercase tracking-wide text-gold">{l.role}</p>
-            <h3 className="mt-2 font-display text-xl font-semibold text-cream">{l.title}</h3>
-            <p className="mt-3 text-sm leading-relaxed text-cream-dim">{l.message}</p>
-            <p className="mt-4 text-sm font-medium text-cream">— {l.name}</p>
-          </div>
-        ))}
+        <p className="mt-3 text-xs text-cream-faint">Staff profile photos and IFC handles can be dropped in to personalise these cards.</p>
       </section>
 
       {/* Org chart */}
@@ -71,22 +69,14 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Alliance & partners */}
+      {/* oneworld alliance */}
       <section className="mt-12">
-        <h2 className="font-display text-2xl font-semibold text-cream">Alliance &amp; partners</h2>
-        <p className="mt-1 text-sm text-cream-dim">Proudly flying the oneworld network, inspired by Finnair and its Helsinki home.</p>
-        <div className="mt-5 flex flex-wrap items-center gap-4">
-          {[
-            { src: "/brand/oneworld.webp", alt: "oneworld alliance", h: "h-12" },
-            { src: "/brand/in-partnership-finnair.webp", alt: "In partnership with Finnair", h: "h-10" },
-            { src: "/brand/finnair-finavia.webp", alt: "Finnair · Finavia Helsinki Airport", h: "h-8" },
-          ].map((p) => (
-            <div key={p.src} className="flex items-center justify-center rounded-2xl border border-obsidian bg-white px-6 py-4 shadow-sm">
-              <Image src={p.src} alt={p.alt} width={1860} height={461} className={`${p.h} w-auto object-contain`} />
-            </div>
-          ))}
+        <h2 className="font-display text-2xl font-semibold text-cream">A oneworld partner</h2>
+        <p className="mt-1 text-sm text-cream-dim">Connecting our pilots to the global oneworld alliance network.</p>
+        <div className="mt-5 flex items-center justify-center rounded-xl border border-obsidian bg-white px-8 py-10 shadow-sm">
+          <Image src="/brand/oneworld-ay-lockup.webp" alt="Finnair · oneworld alliance partners" width={1860} height={389} className="h-16 w-auto max-w-full object-contain lg:h-24" />
         </div>
-        <p className="mt-3 text-xs text-cream-faint">An independent fan project — not affiliated with Finnair Plc, Finavia, or the oneworld alliance.</p>
+        <p className="mt-3 text-xs text-cream-faint">An independent fan project — not affiliated with Finnair Plc or the oneworld alliance.</p>
       </section>
     </div>
   );

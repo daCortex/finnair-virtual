@@ -16,7 +16,8 @@ export default function CareerPage() {
       {/* The ladder */}
       <section className="mt-12">
         <h2 className="font-display text-2xl font-semibold text-cream">The ladder</h2>
-        <div className="mt-4 overflow-hidden rounded-2xl border border-obsidian bg-ink-900">
+        <p className="mt-1 font-display text-lg text-gold-soft">Nine ranks. Five thousand hours.</p>
+        <div className="mt-4 overflow-hidden rounded-xl border border-obsidian bg-ink-900">
           {RANKS.map((r, i) => (
             <div key={r.name} className={`flex items-center justify-between px-5 py-3.5 ${i > 0 ? "border-t border-obsidian/60" : ""} ${r.group === "exclusive" ? "bg-rose/[0.03]" : ""}`}>
               <div className="flex items-center gap-4">
@@ -28,20 +29,25 @@ export default function CareerPage() {
             </div>
           ))}
         </div>
-        <p className="mt-4 text-center font-display text-lg text-cream-dim">Nine ranks. Five thousand hours.</p>
       </section>
 
       {/* Modes */}
       <section className="mt-14">
         <h2 className="font-display text-2xl font-semibold text-cream">Three ways to fly</h2>
         <div className="mt-4 grid gap-4 md:grid-cols-3">
-          {SITE_MODES.map((m) => (
-            <div key={m.name} className="rounded-2xl border border-obsidian bg-ink-900 p-5 lift">
-              <p className="text-xs font-semibold uppercase tracking-wide text-gold">{m.unlock}</p>
-              <h3 className="mt-2 font-display text-lg font-semibold text-cream">{m.name}</h3>
-              <p className="mt-1.5 text-sm text-cream-dim">{m.tagline}</p>
-            </div>
-          ))}
+          {SITE_MODES.map((m, i) => {
+            const accent = ["#12B5A8", "#0c0243", "#7c1791"][i];
+            return (
+              <div key={m.name} className="rounded-xl border border-obsidian bg-ink-900 p-5 lift" style={{ borderTop: `3px solid ${accent}` }}>
+                <p className="text-xs font-semibold uppercase tracking-wide" style={{ color: accent }}>{m.unlock}</p>
+                <h3 className="mt-2 font-display text-lg font-semibold text-cream">{m.name}</h3>
+                <p className="mt-1.5 text-sm text-cream-dim">{m.desc}</p>
+                <ul className="mt-3 space-y-1 border-t border-obsidian/60 pt-3 text-xs text-cream-faint">
+                  {m.pros.slice(0, 3).map((p) => <li key={p} className="flex items-start gap-1.5"><span style={{ color: accent }}>✓</span>{p}</li>)}
+                </ul>
+              </div>
+            );
+          })}
         </div>
       </section>
 

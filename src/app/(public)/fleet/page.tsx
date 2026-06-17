@@ -9,6 +9,9 @@ const RENDER: Record<string, string> = {
   "Airbus A321": "A321", "Airbus A330-300": "A330", "Airbus A350-900": "A350",
 };
 
+/* Types without an official Finnair livery in Infinite Flight (flown generic). */
+const GENERIC = new Set(["Embraer E190", "Airbus A319", "Airbus A320"]);
+
 export default function FleetPage() {
   return (
     <div className="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-20">
@@ -32,7 +35,10 @@ export default function FleetPage() {
           <div key={a.type} className="rise overflow-hidden rounded-2xl border border-obsidian bg-ink-900 lift" style={{ animationDelay: `${i * 60}ms` }}>
             <div className="relative flex h-40 items-center justify-center overflow-hidden bg-gradient-to-b from-ink-850 to-ink-900 px-4">
               <Image src={`/fleet/${RENDER[a.type] ?? "A320"}.webp`} alt={`Finnair ${a.type}`} width={1016} height={706} className="h-auto w-full max-w-[92%] object-contain transition-transform duration-700 group-hover:scale-105" />
-              <span className="absolute left-4 top-3 rounded-full bg-gold/8 px-2.5 py-0.5 text-[0.65rem] font-semibold uppercase tracking-wide text-gold backdrop-blur">{a.family}</span>
+              <span className="absolute left-4 top-3 rounded bg-gold/8 px-2.5 py-0.5 text-[0.65rem] font-semibold uppercase tracking-wide text-gold backdrop-blur">{a.family}</span>
+              {GENERIC.has(a.type) && (
+                <span className="absolute left-4 bottom-3 rounded bg-rock/25 px-2 py-0.5 text-[0.6rem] font-semibold uppercase tracking-wide text-cream-dim backdrop-blur" title="No official Finnair livery in Infinite Flight">Generic livery</span>
+              )}
               <span className="absolute right-4 top-3 font-mono text-xs text-cream-faint">{a.reg}</span>
             </div>
             <div className="px-5 py-5">

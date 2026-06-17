@@ -21,27 +21,37 @@
 
   /* Brand accents — `gold` = Finnair Blue (primary), `rose` = Heather */
   --color-gold: #0c0243;
-  --color-gold-soft: #34187a; /* accent text — darker for AA on white */
+  --color-gold-soft: #2748c9; /* vivid icy-blue accent (AA on white) */
   --color-rose: #7c1791;
   --color-rose-soft: #9c2bb4;
-  --color-obsidian: #d6d8e4; /* borders — stronger for scannability */
+  --color-obsidian: #c6d7ec; /* borders — icy blue-grey */
 
-  /* Canvas (white-dominant, barely-cool surfaces) */
-  --color-ink-950: #f5f6fa; /* page background — a touch cooler so white cards lift */
+  /* Canvas — Icy Blue light theme */
+  --color-ink-950: #eaf1fb; /* page background — icy blue */
   --color-ink-900: #ffffff; /* cards / surfaces */
-  --color-ink-850: #eef0f6; /* inputs / lighter surfaces */
-  --color-ink-800: #e6e8f1;
-  --color-ink-700: #dadce8;
+  --color-ink-850: #dde9f8; /* inputs / lighter surfaces */
+  --color-ink-800: #d1e1f4;
+  --color-ink-700: #c2d6ef;
 
-  /* Text — tuned for AA contrast on white (body 9:1, meta ~6:1) */
-  --color-cream: #14152a; /* primary */
-  --color-cream-dim: #3c3e52; /* secondary / body */
-  --color-cream-faint: #61637a; /* labels / meta */
+  /* Text — deep navy on icy blue (AA) */
+  --color-cream: #0e1733; /* primary */
+  --color-cream-dim: #36405e; /* secondary / body */
+  --color-cream-faint: #5a6688; /* labels / meta */
 
-  /* Fonts (Inter, wired up in layout via next/font) */
+  /* Section tint helpers for subtle alternation */
+  --color-tint-blue: #e4eefb;
+  --color-tint-rose: #f4e9f7;
+
+  /* Fonts (wired up in layout via next/font) */
   --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-mono), ui-monospace, monospace;
+
+  /* Rectangular boxes with minute rounded edges (modern / minimal) */
+  --radius-lg: 0.375rem;
+  --radius-xl: 0.5rem;
+  --radius-2xl: 0.625rem;
+  --radius-3xl: 0.875rem;
 
   /* Easing */
   --ease-lux: cubic-bezier(0.22, 1, 0.36, 1);
@@ -120,13 +130,12 @@ body {
    weight utilities already in the markup so titles read ExtraLight site-wide. */
 .font-display {
   font-family: var(--font-display);
-  font-weight: 400; /* Finnair Sans ships a single weight */
-  letter-spacing: -0.01em;
+  letter-spacing: -0.022em; /* tight, modern, minimal */
 }
+/* Headings read at medium, not bold — sleek & less bulky. */
 .font-display.font-semibold,
-.font-display.font-normal,
 .font-display.font-bold {
-  font-weight: 400;
+  font-weight: 500;
 }
 
 /* Native UI controls read at Regular. */
@@ -262,6 +271,49 @@ html:not(.dark) .lift {
 
 /* Thin tabular figures for stats. */
 .tnum { font-variant-numeric: tabular-nums; font-feature-settings: "tnum"; }
+
+/* Discord-Nitro-style moving sheen for light text on dark heroes. */
+@keyframes sheen-x { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+.nitro-shine {
+  background: linear-gradient(100deg, rgba(255,255,255,0.88) 28%, #bfe0ff 44%, #ffffff 50%, #bfe0ff 56%, rgba(255,255,255,0.88) 72%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: sheen-x 5.5s linear infinite;
+}
+
+/* Metallic highlight sweep — for the Finnair Plus tier cards. */
+@keyframes metal-sweep { 0%, 100% { transform: translateX(-130%) skewX(-14deg); } 55% { transform: translateX(240%) skewX(-14deg); } }
+.metal-card { position: relative; overflow: hidden; }
+.metal-card::after {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0; left: 0;
+  width: 55%;
+  pointer-events: none;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,0.5), transparent);
+  transform: translateX(-130%) skewX(-14deg);
+  animation: metal-sweep 5.5s ease-in-out infinite;
+}
+
+/* 3D flip card (hover to flip). */
+.flip { perspective: 1400px; }
+.flip-inner { position: relative; transition: transform 0.8s var(--ease-lux); transform-style: preserve-3d; }
+.flip:hover .flip-inner, .flip:focus-within .flip-inner { transform: rotateY(180deg); }
+.flip-face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; overflow: hidden; }
+.flip-back { transform: rotateY(180deg); }
+
+/* Subtle section alternation tints. */
+.tint-blue { background: var(--color-tint-blue); }
+.tint-rose { background: var(--color-tint-rose); }
+html.dark .tint-blue { background: color-mix(in srgb, var(--color-ink-900) 70%, var(--color-ink-850)); }
+html.dark .tint-rose { background: color-mix(in srgb, var(--color-rose) 8%, var(--color-ink-950)); }
+
+@media (prefers-reduced-motion: reduce) {
+  .nitro-shine { animation: none; }
+  .metal-card::after { animation: none; opacity: 0; }
+}
 
 /* ----------------------------------------------------------------
    Live flight map (Leaflet) — themed to the brand

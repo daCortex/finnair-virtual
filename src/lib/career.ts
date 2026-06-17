@@ -24,16 +24,18 @@ export type Rank = {
   symbol?: string;
 };
 
+/* Rank perks no longer grant codeshare routes — codeshares are purchased with
+   AP (Career) / LC (Cargo). The full rank-reward structure is being updated. */
 export const RANKS: Rank[] = [
-  { n: 1, name: "Aurora", hours: 0, group: "core", blurb: "Welcome aboard. Your career begins here.", perks: ["E190 · A319 · A320 · A321 · Q400", "Codeshares under 3 hours"] },
-  { n: 2, name: "Polaris", hours: 25, group: "core", blurb: "Finding your bearings on the northern routes.", perks: ["Codeshares under 6 hours"] },
-  { n: 3, name: "Elysian", hours: 75, group: "core", blurb: "Widebody command and the start of Career Mode.", perks: ["A330-300 · A350-900", "Codeshares under 9 hours", "Career Mode unlocked"] },
-  { n: 4, name: "Solstice", hours: 150, group: "core", blurb: "A seasoned hand across the continent.", perks: ["Codeshares under 12 hours"] },
-  { n: 5, name: "Zenith", hours: 300, group: "core", blurb: "The peak of the core ladder — all aircraft unlocked.", perks: ["All aircraft", "Cargo operations eligible"] },
-  { n: 6, name: "Astralis", hours: 600, group: "core", blurb: "Master of the full network.", perks: ["All codeshares & aircraft"] },
+  { n: 1, name: "Aurora", hours: 0, group: "core", blurb: "Welcome aboard. Your career begins here.", perks: ["Casual Mode"] },
+  { n: 2, name: "Polaris", hours: 25, group: "core", blurb: "Finding your bearings on the northern routes.", perks: [] },
+  { n: 3, name: "Elysian", hours: 75, group: "core", blurb: "The start of Career Mode.", perks: ["Career Mode unlocked"] },
+  { n: 4, name: "Solstice", hours: 150, group: "core", blurb: "A seasoned hand across the continent.", perks: [] },
+  { n: 5, name: "Zenith", hours: 300, group: "core", blurb: "The peak of the core ladder.", perks: ["Cargo operations eligible"] },
+  { n: 6, name: "Astralis", hours: 600, group: "core", blurb: "Master of the full network.", perks: [] },
   // ---- Exclusive ranks (Finnair Plus member + AURORA Bank access) ----
   { n: 7, name: "Celestia", hours: 1200, group: "exclusive", callsignRange: "86–100", blurb: "An elite aviator. Special Operations clearance granted.", perks: ["Callsign range 86–100", "Special Ops access", "Celestia Discord badge"] },
-  { n: 8, name: "Sovereign", hours: 2500, group: "exclusive", apMultiplier: 1.2, callsignRange: "66–85", blurb: "Sovereign of the skies. The oneworld network opens.", perks: ["Callsign range 66–85", "1.2× AP multiplier", "oneworld Discover routes", "Sovereign Discord badge"] },
+  { n: 8, name: "Sovereign", hours: 2500, group: "exclusive", apMultiplier: 1.2, callsignRange: "66–85", blurb: "Sovereign of the skies. The oneworld network opens.", perks: ["Callsign range 66–85", "1.2× AP multiplier", "oneworld Discover", "Sovereign Discord badge"] },
   { n: 9, name: "Luminary", hours: 5000, group: "exclusive", apMultiplier: 1.5, callsignRange: "45–65", blurb: "A living legend of Finnair Virtual.", perks: ["Callsign range 45–65", "1.5× AP multiplier", "Luminary Discord badge"] },
 ];
 

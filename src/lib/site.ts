@@ -112,6 +112,7 @@ export const SITE_LEADERS = [
   {
     role: "Founder & Chairman of the Board",
     name: "Ayaz Molla",
+    ifc: "", // IFC username — set to link the profile button
     title: "When we started this journey",
     message:
       "When we started this journey, our vision was to create more than just a virtual airline; we wanted to build a family of aviation enthusiasts united by a love of realistic operations and Nordic precision. Thank you to every member of staff and every pilot who makes Finnair Virtual what it is.",
@@ -119,6 +120,7 @@ export const SITE_LEADERS = [
   {
     role: "Chief Executive Officer",
     name: "Lucian Y.",
+    ifc: "",
     title: "A tight, professional operation",
     message:
       "We run a tight, professional operation. Progress through nine ranks, unlock aircraft and routes as you climb, and earn Aurora tokens through our proprietary banking system. Whether you fly casually or chase the Luminary command seat, there's a structured path waiting for you.",

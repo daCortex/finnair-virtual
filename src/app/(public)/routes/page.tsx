@@ -1,7 +1,7 @@
 import { ROUTES } from "@/lib/routes";
-import { AIRPORT_COORDS, AIRPORTS, airportCity } from "@/lib/airports";
+import { airportCity } from "@/lib/airports";
 import { SITE } from "@/lib/site";
-import { LiveMap } from "@/components/portal/LiveMap";
+import { HubFlipCard } from "@/components/public/HubFlipCard";
 
 export const metadata = { title: "Routes" };
 
@@ -10,17 +10,6 @@ function fmt(min: number) {
 }
 
 export default function RoutesPage() {
-  const hub = AIRPORT_COORDS.EFHK;
-  const seen = new Set<string>();
-  const out: { to: [number, number]; code: string; city: string }[] = [];
-  for (const r of ROUTES) {
-    if (r.airline !== "Finnair") continue;
-    for (const code of [r.dep, r.arr]) {
-      if (code === "EFHK" || seen.has(code) || !AIRPORT_COORDS[code]) continue;
-      seen.add(code);
-      out.push({ to: AIRPORT_COORDS[code], code, city: AIRPORTS[code]?.city ?? code });
-    }
-  }
   const sorted = [...ROUTES].sort((a, b) => a.minutes - b.minutes);
 
   return (
@@ -40,29 +29,32 @@ export default function RoutesPage() {
         ))}
       </div>
 
-      <div className="mt-8"><LiveMap hub={hub} legs={out} /></div>
+      <div className="mt-8"><HubFlipCard /></div>
 
-      <div className="mt-8 overflow-x-auto rounded-2xl border border-obsidian bg-ink-900">
-        <table className="w-full min-w-[640px] text-left text-sm">
-          <thead>
-            <tr className="border-b border-obsidian/60 text-xs uppercase tracking-wide text-cream-faint">
-              <th className="px-5 py-3 font-normal">Flight #</th><th className="px-5 py-3 font-normal">Departure</th><th className="px-5 py-3 font-normal">Arrival</th><th className="px-5 py-3 font-normal">Aircraft</th><th className="px-5 py-3 font-normal text-right">Flight time</th>
-            </tr>
-          </thead>
-          <tbody>
-            {sorted.map((r) => (
-              <tr key={r.routeNumber} className="border-t border-obsidian/40 hover:bg-ink-850">
-                <td className="px-5 py-3 font-mono text-cream">{r.routeNumber.split("/")[0]}</td>
-                <td className="px-5 py-3 text-cream-dim">{airportCity(r.dep)} <span className="text-cream-faint">({r.dep})</span></td>
-                <td className="px-5 py-3 text-cream-dim">{airportCity(r.arr)} <span className="text-cream-faint">({r.arr})</span></td>
-                <td className="px-5 py-3 text-cream-dim">{r.aircraft.replace(/^Finnair |^Nordic Regional /, "")}</td>
-                <td className="px-5 py-3 text-right text-cream-dim">{fmt(r.minutes)}</td>
+      <h2 className="mt-10 font-display text-xl font-semibold text-cream">The route database</h2>
+      <div className="mt-3 overflow-hidden rounded-xl border border-obsidian bg-ink-900">
+        <div className="max-h-[460px] overflow-y-auto overflow-x-auto">
+          <table className="w-full min-w-[640px] text-left text-sm">
+            <thead className="sticky top-0 z-10 bg-ink-900">
+              <tr className="border-b border-obsidian text-xs uppercase tracking-wide text-cream-faint">
+                <th className="px-5 py-3 font-normal">Flight #</th><th className="px-5 py-3 font-normal">Departure</th><th className="px-5 py-3 font-normal">Arrival</th><th className="px-5 py-3 font-normal">Aircraft</th><th className="px-5 py-3 font-normal text-right">Flight time</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {sorted.map((r) => (
+                <tr key={r.routeNumber} className="border-t border-obsidian/40 hover:bg-ink-850">
+                  <td className="px-5 py-3 font-mono text-cream">{r.routeNumber.split("/")[0]}</td>
+                  <td className="px-5 py-3 text-cream-dim">{airportCity(r.dep)} <span className="text-cream-faint">({r.dep})</span></td>
+                  <td className="px-5 py-3 text-cream-dim">{airportCity(r.arr)} <span className="text-cream-faint">({r.arr})</span></td>
+                  <td className="px-5 py-3 text-cream-dim">{r.aircraft.replace(/^Finnair |^Nordic Regional /, "")}</td>
+                  <td className="px-5 py-3 text-right text-cream-dim">{fmt(r.minutes)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
-      <p className="mt-3 text-xs text-cream-faint">Showing {sorted.length} published sectors. Pilots can search and filter the full database in the Crew Centre.</p>
+      <p className="mt-3 text-xs text-cream-faint">{sorted.length} published sectors — scroll the table. Pilots can search & filter the full database in the Crew Centre.</p>
     </div>
   );
 }
