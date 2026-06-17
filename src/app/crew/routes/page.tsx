@@ -2,6 +2,7 @@ import { computeAp, categoryForMinutes } from "@/lib/career";
 import { getRotw, getSpotlightRoutes, firstFlightNo, allRoutes, allAirlines } from "@/lib/ops";
 import { getPilotDashboard } from "@/lib/portal";
 import { airportCity } from "@/lib/airports";
+import { simbriefUrl } from "@/lib/simbrief";
 import { RouteFinder, type EnrichedRoute } from "@/components/portal/RouteFinder";
 
 export const metadata = { title: "Route Database" };
@@ -31,6 +32,7 @@ export default async function RoutesPage() {
       ap,
       spotlight,
       rotw: r.routeNumber === rotwNo,
+      simbrief: simbriefUrl({ airlineIcao: r.airline === "Finnair" ? "FIN" : "", flightNo: firstFlightNo(r), dep: r.dep, arr: r.arr, aircraft: r.aircraft }),
     };
   });
 

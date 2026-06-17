@@ -17,6 +17,7 @@ export type EnrichedRoute = {
   ap: number;
   spotlight: boolean;
   rotw: boolean;
+  simbrief: string;
 };
 
 const CATS = [
@@ -106,6 +107,11 @@ export function RouteFinder({ routes, airlines }: { routes: EnrichedRoute[]; air
               <span className="text-xs text-cream-faint">{fmt(r.minutes)}</span>
               <span className="text-sm font-semibold text-cream">✦ {r.ap.toLocaleString()}</span>
             </div>
+            <a href={r.simbrief} target="_blank" rel="noopener noreferrer"
+              className="mt-3 flex items-center justify-center gap-1.5 rounded-md border border-gold/40 bg-gold/5 px-3 py-2 text-xs font-semibold text-gold-soft transition-colors hover:bg-gold/10">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M3 12h7l2-9 2 9h7M3 12l9 9 9-9" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              Dispatch on SimBrief
+            </a>
           </div>
         ))}
       </div>

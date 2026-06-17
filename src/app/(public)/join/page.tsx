@@ -1,27 +1,28 @@
 import Link from "next/link";
 import { APPLY } from "@/lib/data";
+import { ApplyForms } from "@/components/public/ApplyForms";
 
 export const metadata = { title: "Apply" };
 
 const STEPS = [
-  { n: 1, title: "Check the requirements", body: "Make sure you meet the criteria below before applying." },
-  { n: 2, title: "Submit your application", body: "Tell us your IFC username and a little about your flying." },
-  { n: 3, title: "Fly your first sector", body: "Once accepted, file your first PIREP as an Aurora pilot and start climbing." },
+  { n: 1, title: "Submit your application", body: "Pick Pilot or Staff and answer a few short questions — right here on the site." },
+  { n: 2, title: "Staff review", body: "Our recruitment team reviews your application and reaches out via the Infinite Flight Community." },
+  { n: 3, title: "Onboarding on Discord", body: "Accepted applicants get a Discord invite, a callsign, and start flying as an Aurora pilot." },
 ];
 
 export default function JoinPage() {
   return (
-    <div className="mx-auto max-w-4xl px-5 py-16 lg:px-8 lg:py-20">
+    <div className="mx-auto max-w-5xl px-5 py-16 lg:px-8 lg:py-20">
       <header className="reveal text-center">
         <p className="eyebrow">Join the airline</p>
         <h1 className="mt-2 font-display text-4xl font-semibold text-cream lg:text-5xl">Your career starts at Aurora.</h1>
-        <p className="mx-auto mt-4 max-w-xl text-cream-dim">Apply to Finnair Virtual and join a community of pilots committed to realism, excellence, and Nordic precision.</p>
+        <p className="mx-auto mt-4 max-w-2xl text-cream-dim">Apply to fly with Finnair Virtual, or join the team behind it. Applications are handled right here — no forms to chase. Tell us about yourself and our staff will follow up on the IFC to begin onboarding.</p>
       </header>
 
       {/* Steps */}
       <section className="mt-12 grid gap-4 sm:grid-cols-3">
         {STEPS.map((s) => (
-          <div key={s.n} className="rise rounded-2xl border border-obsidian bg-ink-900 p-6 lift" style={{ animationDelay: `${s.n * 70}ms` }}>
+          <div key={s.n} className="rise rounded-xl border border-obsidian bg-ink-900 p-6 lift" style={{ animationDelay: `${s.n * 70}ms` }}>
             <span className="flex h-9 w-9 items-center justify-center rounded-full bg-gold font-display text-sm font-semibold text-white">{s.n}</span>
             <h3 className="mt-3 font-display text-base font-semibold text-cream">{s.title}</h3>
             <p className="mt-1 text-sm text-cream-dim">{s.body}</p>
@@ -29,25 +30,34 @@ export default function JoinPage() {
         ))}
       </section>
 
-      {/* Requirements */}
-      <section className="mt-10 rounded-2xl border border-obsidian bg-ink-900 p-7">
-        <h2 className="font-display text-xl font-semibold text-cream">Pilot requirements</h2>
-        <ul className="mt-4 grid gap-2.5 sm:grid-cols-2">
-          {APPLY.pilot.requirements.map((r) => (
-            <li key={r} className="flex items-start gap-2.5 text-sm text-cream-dim"><span className="mt-0.5 text-gold">✓</span>{r}</li>
-          ))}
-        </ul>
+      {/* Application forms */}
+      <section className="mt-12">
+        <h2 className="font-display text-2xl font-semibold text-cream">Apply now</h2>
+        <p className="mt-1 text-sm text-cream-dim">Choose your track and fill in the details below.</p>
+        <div className="mt-5"><ApplyForms /></div>
       </section>
 
-      {/* CTA */}
-      <section className="mt-10 flex flex-col items-center gap-4 rounded-3xl border border-obsidian bg-ink-900 px-6 py-12 text-center">
-        <h2 className="font-display text-2xl font-semibold text-cream">Ready for the flight deck?</h2>
-        <p className="max-w-md text-sm text-cream-dim">Join our Discord to submit your application and meet the crew. Already a pilot? Head to the Crew Centre.</p>
-        <div className="flex flex-wrap justify-center gap-3">
-          <a href="https://discord.com/" target="_blank" rel="noopener noreferrer" className="rounded-full bg-gold px-7 py-3 text-sm font-semibold text-white transition-all hover:brightness-125">Apply on Discord</a>
-          <Link href="/crew" className="rounded-full border border-gold/40 px-7 py-3 text-sm font-medium text-gold transition-colors hover:bg-gold/8">Crew Centre</Link>
+      {/* Requirements */}
+      <section className="mt-12 grid gap-5 md:grid-cols-2">
+        <div className="rounded-xl border border-obsidian bg-ink-900 p-7">
+          <h2 className="font-display text-lg font-semibold text-cream">Pilot requirements</h2>
+          <ul className="mt-4 grid gap-2.5">
+            {APPLY.pilot.requirements.map((r) => (
+              <li key={r} className="flex items-start gap-2.5 text-sm text-cream-dim"><span className="mt-0.5 text-gold-soft">✓</span>{r}</li>
+            ))}
+          </ul>
+        </div>
+        <div className="rounded-xl border border-obsidian bg-ink-900 p-7">
+          <h2 className="font-display text-lg font-semibold text-cream">Staff requirements</h2>
+          <ul className="mt-4 grid gap-2.5">
+            {APPLY.staff.requirements.map((r) => (
+              <li key={r} className="flex items-start gap-2.5 text-sm text-cream-dim"><span className="mt-0.5 text-gold-soft">✓</span>{r}</li>
+            ))}
+          </ul>
         </div>
       </section>
+
+      <p className="mt-8 text-center text-sm text-cream-dim">Already a pilot? Head to the <Link href="/crew" className="text-gold-soft hover:underline">Crew Centre</Link>.</p>
     </div>
   );
 }
