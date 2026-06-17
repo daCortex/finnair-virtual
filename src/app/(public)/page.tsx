@@ -4,7 +4,8 @@ import { ROUTES } from "@/lib/routes";
 import { AIRPORT_COORDS, AIRPORTS } from "@/lib/airports";
 import { SITE } from "@/lib/site";
 import { regionForIcao } from "@/lib/regions";
-import { RegionMap, type RegionLeg } from "@/components/public/RegionMap";
+import type { RegionLeg } from "@/components/public/RegionMap";
+import { GlobeMap } from "@/components/public/GlobeMap";
 
 export const metadata = { title: "Finnair Virtual — Elevating Virtual Aviation" };
 
@@ -33,7 +34,7 @@ const VALUES = [
 ];
 
 export default function Home() {
-  const { hub, out } = legs();
+  const { out } = legs();
   return (
     <div>
       {/* HERO */}
@@ -65,8 +66,8 @@ export default function Home() {
           </div>
           <p className="text-sm text-cream-dim"><span className="font-semibold text-cream">{SITE.network.airports} airports</span> across <span className="font-semibold text-cream">{SITE.network.routes} scheduled flights</span> · hub {SITE.network.hub}</p>
         </div>
-        <RegionMap hub={hub} legs={out} title="Route network by region" />
-        <p className="mt-3 text-xs text-cream-faint">Toggle regions in the legend, or search a destination ICAO (e.g. OTHH) for full flight details.</p>
+        <GlobeMap legs={out} title="Route network by region" />
+        <p className="mt-3 text-xs text-cream-faint">Toggle regions in the legend, spin the globe, or search a destination ICAO (e.g. OTHH) for full flight details.</p>
       </section>
 
       {/* VALUE PROP */}
