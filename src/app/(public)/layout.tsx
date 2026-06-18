@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { PublicNav } from "@/components/public/PublicNav";
+import { Finnix } from "@/components/public/Finnix";
 import { PUBLIC_NAV, SITE } from "@/lib/site";
 
 export default function PublicLayout({ children }: { children: React.ReactNode }) {
@@ -8,6 +9,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
     <div className="flex min-h-full flex-col">
       <PublicNav />
       <main className="flex-1">{children}</main>
+      <Finnix />
 
       <footer className="mt-20 border-t border-obsidian bg-ink-900">
         <div className="mx-auto max-w-7xl px-5 py-14 lg:px-8">

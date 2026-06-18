@@ -30,31 +30,35 @@ export default function JoinPage() {
         ))}
       </section>
 
+      {/* Requirements — shown before the form so applicants can self-check */}
+      <section className="mt-12">
+        <h2 className="font-display text-2xl font-semibold text-cream">Before you apply</h2>
+        <p className="mt-1 text-sm text-cream-dim">Make sure you meet the requirements for your track.</p>
+        <div className="mt-5 grid gap-5 md:grid-cols-2">
+          <div className="rounded-xl border border-obsidian bg-ink-900 p-7">
+            <h3 className="font-display text-lg font-semibold text-cream">Pilot requirements</h3>
+            <ul className="mt-4 grid gap-2.5">
+              {APPLY.pilot.requirements.map((r) => (
+                <li key={r} className="flex items-start gap-2.5 text-sm text-cream-dim"><span className="mt-0.5 text-gold-soft">✓</span>{r}</li>
+              ))}
+            </ul>
+          </div>
+          <div className="rounded-xl border border-obsidian bg-ink-900 p-7">
+            <h3 className="font-display text-lg font-semibold text-cream">Staff requirements</h3>
+            <ul className="mt-4 grid gap-2.5">
+              {APPLY.staff.requirements.map((r) => (
+                <li key={r} className="flex items-start gap-2.5 text-sm text-cream-dim"><span className="mt-0.5 text-gold-soft">✓</span>{r}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
       {/* Application forms */}
       <section className="mt-12">
         <h2 className="font-display text-2xl font-semibold text-cream">Apply now</h2>
         <p className="mt-1 text-sm text-cream-dim">Choose your track and fill in the details below.</p>
         <div className="mt-5"><ApplyForms /></div>
-      </section>
-
-      {/* Requirements */}
-      <section className="mt-12 grid gap-5 md:grid-cols-2">
-        <div className="rounded-xl border border-obsidian bg-ink-900 p-7">
-          <h2 className="font-display text-lg font-semibold text-cream">Pilot requirements</h2>
-          <ul className="mt-4 grid gap-2.5">
-            {APPLY.pilot.requirements.map((r) => (
-              <li key={r} className="flex items-start gap-2.5 text-sm text-cream-dim"><span className="mt-0.5 text-gold-soft">✓</span>{r}</li>
-            ))}
-          </ul>
-        </div>
-        <div className="rounded-xl border border-obsidian bg-ink-900 p-7">
-          <h2 className="font-display text-lg font-semibold text-cream">Staff requirements</h2>
-          <ul className="mt-4 grid gap-2.5">
-            {APPLY.staff.requirements.map((r) => (
-              <li key={r} className="flex items-start gap-2.5 text-sm text-cream-dim"><span className="mt-0.5 text-gold-soft">✓</span>{r}</li>
-            ))}
-          </ul>
-        </div>
       </section>
 
       <p className="mt-8 text-center text-sm text-cream-dim">Already a pilot? Head to the <Link href="/crew" className="text-gold-soft hover:underline">Crew Centre</Link>.</p>

@@ -62,21 +62,38 @@ export default async function DestinationPage({ params }: { params: Promise<{ ic
             ))}
           </div>
 
-          <h2 className="mt-9 font-display text-xl font-semibold text-cream">Flights to {ap.city}</h2>
+          <h2 className="mt-9 font-display text-xl font-semibold text-cream">Flights — Helsinki ⇄ {ap.city}</h2>
+          <p className="mt-1 text-sm text-cream-faint">Each route flies both ways. The outbound flight number leaves Helsinki; the return brings you home.</p>
           <div className="mt-3 space-y-2">
             {flights.length === 0 && <p className="rounded-lg border border-dashed border-obsidian bg-ink-900 p-6 text-sm text-cream-faint">No scheduled flights yet.</p>}
             {flights.map((r) => {
               const cat = categoryForMinutes(r.minutes);
               const reward = computeAp(r.minutes).net;
+              const nums = r.routeNumber.split("/");
+              const ac = r.aircraft.replace(/^Finnair |^Nordic Regional /, "");
+              // Order so the outbound from Helsinki is shown first.
+              const fromHub = r.dep === "EFHK";
+              const legs = [
+                { no: nums[0], from: r.dep, to: r.arr, label: "Outbound" },
+                { no: nums[1] ?? nums[0], from: r.arr, to: r.dep, label: "Return" },
+              ];
+              if (!fromHub) legs.reverse();
               return (
-                <div key={r.routeNumber} className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-obsidian bg-ink-900 px-5 py-3.5">
-                  <div>
-                    <p className="font-medium text-cream">{airportCity(r.dep)} → {airportCity(r.arr)}</p>
-                    <p className="text-xs text-cream-faint">{r.routeNumber.split("/")[0]} · {r.aircraft.replace(/^Finnair |^Nordic Regional /, "")} · {AP_TABLE[cat].label}</p>
+                <div key={r.routeNumber} className="rounded-lg border border-obsidian bg-ink-900 px-5 py-3.5">
+                  <div className="flex items-center justify-between text-xs text-cream-faint">
+                    <span>{ac} · {AP_TABLE[cat].label}</span>
+                    <span className="flex items-center gap-4"><span>{fmt(r.minutes)} each way</span><span className="font-semibold text-cream">✦ {reward.toLocaleString()}</span></span>
                   </div>
-                  <div className="flex items-center gap-5 text-sm">
-                    <span className="text-cream-faint">{fmt(r.minutes)}</span>
-                    <span className="font-semibold text-cream">✦ {reward.toLocaleString()}</span>
+                  <div className="mt-2.5 grid gap-2 sm:grid-cols-2">
+                    {legs.map((leg) => (
+                      <div key={leg.no} className="flex items-center justify-between gap-3 rounded-md border border-obsidian/60 bg-ink-850 px-3.5 py-2.5">
+                        <div>
+                          <p className="text-[0.65rem] uppercase tracking-wide text-cream-faint">{leg.label}</p>
+                          <p className="text-sm font-medium text-cream">{airportCity(leg.from)} → {airportCity(leg.to)}</p>
+                        </div>
+                        <span className="font-mono text-sm text-gold-soft">{leg.no}</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
               );

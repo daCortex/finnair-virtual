@@ -2,6 +2,20 @@ import { SITE_MODES } from "@/lib/site";
 
 export const metadata = { title: "Modes" };
 
+/* Theme-safe accents — the old Career navy (#0c0243) was invisible on the dark
+   surface, so each mode now uses a colour legible in both light and dark. */
+const ACCENTS = ["#12B5A8", "#3B6FE0", "#A855C7"]; // Casual · Career · Cargo
+
+/* Mode glyphs. Drop-in square logos can replace these later. */
+const GLYPHS = [
+  // Casual — paper plane
+  <path key="c" d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z" />,
+  // Career — briefcase
+  <g key="career"><rect x="3" y="7" width="18" height="13" rx="2" /><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18" /></g>,
+  // Cargo — box
+  <g key="cargo"><path d="M21 8 12 3 3 8v8l9 5 9-5V8z" /><path d="M3 8l9 5 9-5M12 13v8" /></g>,
+];
+
 export default function ModesPage() {
   return (
     <div className="mx-auto max-w-6xl px-5 py-16 lg:px-8 lg:py-20">
@@ -12,25 +26,29 @@ export default function ModesPage() {
       </header>
 
       <div className="mt-10 grid gap-5 lg:grid-cols-3">
-        {SITE_MODES.map((m, i) => (
-          <div key={m.name} className="rise flex flex-col rounded-xl border border-obsidian bg-ink-900 p-6 lift" style={{ animationDelay: `${i * 70}ms`, borderTop: `3px solid ${["#12B5A8", "#0c0243", "#7c1791"][i]}` }}>
-            <div className="flex items-center gap-3">
-              {/* Mode logo slot — Finnair Casual / Career / Cargo logo drops in here */}
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md text-sm font-semibold text-white" style={{ background: ["#12B5A8", "#0c0243", "#7c1791"][i] }}>{m.name.split(" ")[0][0]}</span>
-              <div>
-                <h2 className="font-display text-xl font-semibold text-cream">{m.name}</h2>
-                <p className="text-xs font-semibold uppercase tracking-wide" style={{ color: ["#12B5A8", "#0c0243", "#7c1791"][i] }}>{m.unlock}</p>
+        {SITE_MODES.map((m, i) => {
+          const accent = ACCENTS[i];
+          return (
+            <div key={m.name} className="rise flex flex-col rounded-xl border border-obsidian bg-ink-900 p-6 lift" style={{ animationDelay: `${i * 70}ms`, borderTop: `3px solid ${accent}` }}>
+              <div className="flex items-center gap-3">
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-white" style={{ background: accent }}>
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">{GLYPHS[i]}</svg>
+                </span>
+                <div>
+                  <h2 className="font-display text-xl font-semibold text-cream">{m.name}</h2>
+                  <p className="text-xs font-semibold uppercase tracking-wide" style={{ color: accent }}>{m.unlock}</p>
+                </div>
               </div>
+              <p className="mt-3 text-sm font-medium text-cream-dim">{m.tagline}</p>
+              <p className="mt-2 text-sm leading-relaxed text-cream-dim">{m.desc}</p>
+              <p className="mt-4 text-xs uppercase tracking-wide text-cream-faint">Best for</p>
+              <p className="text-sm text-cream-dim">{m.bestFor}</p>
+              <ul className="mt-4 space-y-1.5 border-t border-obsidian/60 pt-4 text-sm">
+                {m.pros.map((p) => <li key={p} className="flex items-start gap-2 text-cream-dim"><span style={{ color: accent }}>✓</span>{p}</li>)}
+              </ul>
             </div>
-            <p className="mt-3 text-sm font-medium text-cream-dim">{m.tagline}</p>
-            <p className="mt-2 text-sm leading-relaxed text-cream-dim">{m.desc}</p>
-            <p className="mt-4 text-xs uppercase tracking-wide text-cream-faint">Best for</p>
-            <p className="text-sm text-cream-dim">{m.bestFor}</p>
-            <ul className="mt-4 space-y-1.5 border-t border-obsidian/60 pt-4 text-sm">
-              {m.pros.map((p) => <li key={p} className="flex items-start gap-2 text-cream-dim"><span style={{ color: ["#12B5A8", "#0c0243", "#7c1791"][i] }}>✓</span>{p}</li>)}
-            </ul>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* Comparison */}

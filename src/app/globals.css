@@ -285,6 +285,34 @@ html:not(.dark) .lift {
   animation: sheen-x 5.5s linear infinite;
 }
 
+/* Moving sheen for buttons — a gloss streak sweeps across on a loop.
+   `.btn-shine` uses a white streak (for dark/translucent buttons); the
+   `.btn-shine-blue` variant uses a blue streak (for white buttons). */
+@keyframes btn-sheen { 0% { transform: translateX(-160%) skewX(-18deg); } 55%, 100% { transform: translateX(360%) skewX(-18deg); } }
+.btn-shine, .btn-shine-blue { position: relative; overflow: hidden; }
+.btn-shine::after, .btn-shine-blue::after {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0; left: 0;
+  width: 45%;
+  pointer-events: none;
+  transform: translateX(-160%) skewX(-18deg);
+  animation: btn-sheen 4.8s ease-in-out infinite;
+}
+.btn-shine::after { background: linear-gradient(100deg, transparent, rgba(255,255,255,0.5), transparent); }
+.btn-shine-blue::after { background: linear-gradient(100deg, transparent, color-mix(in srgb, var(--color-gold) 38%, transparent), transparent); }
+
+/* Soft coloured illumination ring — set --halo to the accent colour. Used to
+   make a card stand out (e.g. the heritage B757) or to glow image borders. */
+.halo {
+  /* !important so the coloured glow wins over the generic .lift resting shadow
+     (html:not(.dark) .lift) in light mode. */
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--halo, var(--color-gold)) 45%, transparent),
+    0 0 28px -6px color-mix(in srgb, var(--halo, var(--color-gold)) 60%, transparent),
+    0 12px 40px -16px color-mix(in srgb, var(--halo, var(--color-gold)) 70%, transparent) !important;
+}
+
 /* Metallic highlight sweep — for the Finnair Plus tier cards. */
 @keyframes metal-sweep { 0%, 100% { transform: translateX(-130%) skewX(-14deg); } 55% { transform: translateX(240%) skewX(-14deg); } }
 .metal-card { position: relative; overflow: hidden; }
@@ -315,6 +343,7 @@ html.dark .tint-rose { background: color-mix(in srgb, var(--color-rose) 8%, var(
 @media (prefers-reduced-motion: reduce) {
   .nitro-shine { animation: none; }
   .metal-card::after { animation: none; opacity: 0; }
+  .btn-shine::after, .btn-shine-blue::after { animation: none; opacity: 0; }
 }
 
 /* ----------------------------------------------------------------

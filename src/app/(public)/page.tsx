@@ -51,10 +51,10 @@ export default function Home() {
             Experience the skies with a community dedicated to simulated realism and excellence — Nordic precision, from your first Aurora flight to the Luminary command seat.
           </p>
           <div className="reveal mt-9 flex flex-wrap gap-3" style={{ animationDelay: "240ms" }}>
-            <Link href="/join" className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-fin-blue transition-transform hover:scale-[1.03]">Apply Now</Link>
-            <Link href="/crew" className="rounded-full border border-white/30 bg-white/5 px-6 py-3 text-sm font-medium text-white backdrop-blur transition-colors hover:bg-white/10">Crew Centre</Link>
-            <Link href="/ranks" className="rounded-full border border-white/20 px-6 py-3 text-sm font-medium text-white/85 transition-colors hover:text-white">View Ranks</Link>
-            <Link href="/fleet" className="rounded-full border border-white/20 px-6 py-3 text-sm font-medium text-white/85 transition-colors hover:text-white">Explore Fleet</Link>
+            <Link href="/join" className="btn-shine-blue rounded-full bg-white px-6 py-3 text-sm font-semibold text-fin-blue transition-transform hover:scale-[1.03]">Apply Now</Link>
+            <Link href="/crew" className="btn-shine rounded-full border border-white/30 bg-white/5 px-6 py-3 text-sm font-medium text-white backdrop-blur transition-colors hover:bg-white/10">Crew Centre</Link>
+            <Link href="/ranks" className="btn-shine rounded-full border border-white/20 px-6 py-3 text-sm font-medium text-white/85 transition-colors hover:text-white">View Ranks</Link>
+            <Link href="/fleet" className="btn-shine rounded-full border border-white/20 px-6 py-3 text-sm font-medium text-white/85 transition-colors hover:text-white">Explore Fleet</Link>
           </div>
         </div>
       </section>
@@ -80,8 +80,8 @@ export default function Home() {
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {VALUES.map((v, i) => (
               <Link key={v.tag} href={v.href} className="rise group relative overflow-hidden rounded-xl border border-obsidian bg-ink-900 p-6 lift" style={{ animationDelay: `${i * 70}ms` }}>
-                <Image src="/brand/finnair-emblem-navy.png" alt="" width={1050} height={590} className="logo-light-theme pointer-events-none absolute -right-3 -top-2 h-7 w-auto opacity-[0.07]" />
-                <Image src="/brand/finnair-emblem-white.png" alt="" width={510} height={287} className="logo-dark-theme pointer-events-none absolute -right-3 -top-2 h-7 w-auto opacity-[0.1]" />
+                <Image src="/brand/finnair-emblem-navy.png" alt="" width={1050} height={590} className="logo-light-theme pointer-events-none absolute right-4 top-4 h-5 w-auto opacity-40 transition-opacity group-hover:opacity-70" />
+                <Image src="/brand/finnair-emblem-white.png" alt="" width={510} height={287} className="logo-dark-theme pointer-events-none absolute right-4 top-4 h-5 w-auto opacity-50 transition-opacity group-hover:opacity-80" />
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gold-soft">{v.tag}</p>
                 <h3 className="mt-3 font-display text-lg font-semibold text-cream">{v.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-cream-dim">{v.body}</p>

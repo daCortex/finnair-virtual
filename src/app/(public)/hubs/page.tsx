@@ -66,7 +66,6 @@ export default function HubsPage() {
           </div>
         ))}
       </div>
-      <p className="mt-4 text-xs text-cream-faint">Tip: drop in real Infinite Flight airport banners for Helsinki, London and Brussels to replace the gradient headers.</p>
     </div>
   );
 }

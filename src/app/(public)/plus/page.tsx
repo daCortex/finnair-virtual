@@ -13,7 +13,8 @@ export default function PlusPage() {
         <p className="mt-4 max-w-2xl text-cream-dim">Finnair Plus is a private economy for our pilots. Earn Aurora Points (AP) with every flight and climb five tiers — each milestone a recognition of your dedication to the airline.</p>
       </header>
 
-      {/* Tiers — designed membership cards, uniform size with a metallic shine */}
+      {/* Tiers — uniform membership cards, the metallic shine contained to the
+          card itself. Names + AP threshold only; no descriptions. */}
       <section className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {TIERS.map((t, i) => (
           <div key={t.name} className="rise" style={{ animationDelay: `${i * 60}ms` }}>
@@ -24,7 +25,6 @@ export default function PlusPage() {
               <p className="font-medium text-cream">{t.name}</p>
               <p className="text-xs text-cream-faint">{t.min.toLocaleString()}+ AP</p>
             </div>
-            <p className="text-sm text-cream-faint">{t.blurb}</p>
           </div>
         ))}
       </section>

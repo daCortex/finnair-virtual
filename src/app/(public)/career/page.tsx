@@ -1,60 +1,109 @@
 import Link from "next/link";
-import { RANKS } from "@/lib/career";
-import { SITE_MODES } from "@/lib/site";
+import { SITE } from "@/lib/site";
 
 export const metadata = { title: "Career" };
+
+/* What a pilot actually does day-to-day at FNVA. */
+const DO = [
+  { icon: "M5 19 19 5M10 5h9v9", title: "Fly real-world routes", body: `Pick from ${SITE.network.routes} scheduled sectors out of Helsinki — short domestic hops to ultra-long-haul to Asia and across the Atlantic.` },
+  { icon: "M4 4h16v16H4zM8 9h8M8 13h6", title: "File PIREPs & build a logbook", body: "Every flight you fly is logged, reviewed and credited. Your hours, routes and history follow you for your whole career." },
+  { icon: "M12 2v20M5 9l7-7 7 7", title: "Earn Aurora Points", body: "Each approved flight pays out Aurora Points — the currency you spend on licences, aircraft and codeshare networks." },
+  { icon: "M17 2.1l4 4-4 4M3 12.6v-2a4 4 0 014-4h14M7 21.9l-4-4 4-4M21 11.4v2a4 4 0 01-4 4H3", title: "Group flights & events", body: "Fly together at scheduled community events and group flights — including our heritage Boeing 757 in historic livery." },
+  { icon: "M21 8l-9-5-9 5v8l9 5 9-5V8zM3 8l9 5 9-5", title: "Run cargo contracts", body: "Senior pilots take on freight runs from Brussels and London, earning Logistic Coins on long technical sectors." },
+  { icon: "M12 2l2.4 7.4H22l-6 4.6 2.3 7.4L12 17l-6.3 4.4L8 14 2 9.4h7.6z", title: "Earn special clearances", body: "Reach the exclusive ranks for Special Operations access, the oneworld network and custom callsigns." },
+];
+
+/* The simple gameplay loop that ties everything together. */
+const LOOP = [
+  { n: "1", title: "Fly a route", body: "Choose a sector and fly it in Infinite Flight." },
+  { n: "2", title: "File your PIREP", body: "Log the flight; staff approve it." },
+  { n: "3", title: "Earn Aurora Points", body: "Get paid by aircraft class & duration." },
+  { n: "4", title: "Unlock & climb", body: "Spend AP on licences, aircraft and codeshares — and rise through the ranks." },
+];
+
+/* Where to go deeper — these LINK OUT rather than repeat the detail. */
+const GROW = [
+  { tag: "Choose how you fly", title: "Three flight modes", body: "Casual, Career and Cargo — switch any time as your rank and schedule change.", href: "/modes" },
+  { tag: "Climb the ladder", title: "Nine ranks", body: "From Aurora to Luminary across 5,000 hours, each rung unlocking more of the fleet.", href: "/ranks" },
+  { tag: "Bank your points", title: "Finnair Plus tiers", body: "Your lifetime Aurora Points carry you through five recognition tiers.", href: "/plus" },
+];
+
+/* Tools waiting in the Crew Centre. */
+const TOOLS = ["Personal logbook & stats", "Daily dispatch board", "One-click SimBrief flight plans", "Pilot leaderboard", "Codeshare network browser", "Finnix — your in-app assistant"];
 
 export default function CareerPage() {
   return (
     <div className="mx-auto max-w-5xl px-5 py-16 lg:px-8 lg:py-20">
       <header className="reveal">
-        <p className="eyebrow">Progression</p>
-        <h1 className="mt-2 font-display text-4xl font-semibold text-cream lg:text-5xl">From First Officer, to Captain.</h1>
-        <p className="mt-4 max-w-2xl text-cream-dim">Nine ranks. Three flying modes. A single, structured path that rewards every logged hour — from your first Aurora flight to the Luminary command seat.</p>
+        <p className="eyebrow">Life at Finnair Virtual</p>
+        <h1 className="mt-2 font-display text-4xl font-semibold text-cream lg:text-5xl">More than a flight log — a place to fly.</h1>
+        <p className="mt-4 max-w-2xl text-cream-dim">Finnair Virtual gives every pilot a structured, rewarding way to spend their time in Infinite Flight. Here&apos;s what you&apos;ll actually do with us, what we offer, and how you grow from your very first flight.</p>
       </header>
 
-      {/* The ladder */}
+      {/* What you'll do */}
       <section className="mt-12">
-        <h2 className="font-display text-2xl font-semibold text-cream">The ladder</h2>
-        <p className="mt-1 font-display text-lg text-gold-soft">Nine ranks. Five thousand hours.</p>
-        <div className="mt-4 overflow-hidden rounded-xl border border-obsidian bg-ink-900">
-          {RANKS.map((r, i) => (
-            <div key={r.name} className={`flex items-center justify-between px-5 py-3.5 ${i > 0 ? "border-t border-obsidian/60" : ""} ${r.group === "exclusive" ? "bg-rose/[0.03]" : ""}`}>
-              <div className="flex items-center gap-4">
-                <span className="font-mono text-sm text-cream-faint">{String(r.n).padStart(2, "0")}</span>
-                <span className="font-display text-lg font-semibold text-cream">{r.name}</span>
-                {r.group === "exclusive" && <span className="rounded-full bg-rose/10 px-2 py-0.5 text-[0.65rem] uppercase text-rose">Exclusive</span>}
-              </div>
-              <span className="text-sm text-cream-dim">{r.hours.toLocaleString()} h</span>
+        <h2 className="font-display text-2xl font-semibold text-cream">What you&apos;ll do</h2>
+        <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {DO.map((d, i) => (
+            <div key={d.title} className="rise rounded-2xl border border-obsidian bg-ink-900 p-5 lift" style={{ animationDelay: `${i * 55}ms` }}>
+              <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-gold/10 text-gold-soft">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><path d={d.icon} /></svg>
+              </span>
+              <h3 className="mt-3 font-display text-base font-semibold text-cream">{d.title}</h3>
+              <p className="mt-1.5 text-sm leading-relaxed text-cream-dim">{d.body}</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Modes */}
+      {/* The loop */}
       <section className="mt-14">
-        <h2 className="font-display text-2xl font-semibold text-cream">Three ways to fly</h2>
-        <div className="mt-4 grid gap-4 md:grid-cols-3">
-          {SITE_MODES.map((m, i) => {
-            const accent = ["#12B5A8", "#0c0243", "#7c1791"][i];
-            return (
-              <div key={m.name} className="rounded-xl border border-obsidian bg-ink-900 p-5 lift" style={{ borderTop: `3px solid ${accent}` }}>
-                <p className="text-xs font-semibold uppercase tracking-wide" style={{ color: accent }}>{m.unlock}</p>
-                <h3 className="mt-2 font-display text-lg font-semibold text-cream">{m.name}</h3>
-                <p className="mt-1.5 text-sm text-cream-dim">{m.desc}</p>
-                <ul className="mt-3 space-y-1 border-t border-obsidian/60 pt-3 text-xs text-cream-faint">
-                  {m.pros.slice(0, 3).map((p) => <li key={p} className="flex items-start gap-1.5"><span style={{ color: accent }}>✓</span>{p}</li>)}
-                </ul>
-              </div>
-            );
-          })}
+        <h2 className="font-display text-2xl font-semibold text-cream">How it all connects</h2>
+        <p className="mt-1 text-sm text-cream-dim">Your whole career runs on one simple, repeating loop.</p>
+        <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {LOOP.map((s, i) => (
+            <div key={s.n} className="relative rounded-2xl border border-obsidian bg-ink-900 p-5">
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gold font-display text-sm font-semibold text-white">{s.n}</span>
+              <h3 className="mt-3 font-display text-base font-semibold text-cream">{s.title}</h3>
+              <p className="mt-1 text-sm text-cream-dim">{s.body}</p>
+              {i < LOOP.length - 1 && <span aria-hidden className="absolute -right-2 top-1/2 hidden -translate-y-1/2 text-gold-soft lg:block">→</span>}
+            </div>
+          ))}
+        </div>
+        <p className="mt-4 rounded-xl border border-gold/30 bg-gold/[0.04] px-5 py-3 text-sm text-cream-dim">↻ Repeat, and your logbook, balance and rank all grow together — fly at your own pace, no pressure to rush.</p>
+      </section>
+
+      {/* Where you grow — links out */}
+      <section className="mt-14">
+        <h2 className="font-display text-2xl font-semibold text-cream">Where you&apos;ll grow</h2>
+        <div className="mt-5 grid gap-4 md:grid-cols-3">
+          {GROW.map((g, i) => (
+            <Link key={g.title} href={g.href} className="rise group rounded-2xl border border-obsidian bg-ink-900 p-6 lift" style={{ animationDelay: `${i * 60}ms` }}>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gold-soft">{g.tag}</p>
+              <h3 className="mt-2 font-display text-lg font-semibold text-cream">{g.title}</h3>
+              <p className="mt-1.5 text-sm leading-relaxed text-cream-dim">{g.body}</p>
+              <span className="mt-4 inline-block text-sm text-gold-soft transition-transform group-hover:translate-x-1">Explore →</span>
+            </Link>
+          ))}
         </div>
       </section>
 
+      {/* Tools */}
+      <section className="mt-14 rounded-3xl border border-obsidian bg-ink-900 p-7 lg:p-9">
+        <h2 className="font-display text-2xl font-semibold text-cream">Everything in one Crew Centre</h2>
+        <p className="mt-1 text-sm text-cream-dim">Once you&apos;re in, your whole operation lives in a single pilot dashboard.</p>
+        <ul className="mt-5 grid gap-2.5 sm:grid-cols-2">
+          {TOOLS.map((t) => (
+            <li key={t} className="flex items-center gap-2.5 text-sm text-cream-dim"><span className="text-gold-soft">✓</span>{t}</li>
+          ))}
+        </ul>
+      </section>
+
       {/* CTA */}
-      <section className="mt-14 flex flex-col items-center gap-4 rounded-3xl border border-obsidian bg-ink-900 px-6 py-12 text-center">
-        <h2 className="font-display text-2xl font-semibold text-cream">Your career starts at Aurora.</h2>
-        <Link href="/join" className="rounded-full bg-gold px-7 py-3 text-sm font-semibold text-white transition-all hover:brightness-125">Apply now</Link>
+      <section className="mt-12 flex flex-col items-center gap-4 rounded-3xl border border-obsidian bg-ink-900 px-6 py-12 text-center">
+        <h2 className="font-display text-2xl font-semibold text-cream">Ready to start your ascent?</h2>
+        <p className="max-w-lg text-sm text-cream-dim">Apply in minutes, fly your first sector, and watch your career take off from Aurora.</p>
+        <Link href="/join" className="btn-shine-blue rounded-full bg-gold px-7 py-3 text-sm font-semibold text-white transition-all hover:brightness-125">Apply now</Link>
       </section>
     </div>
   );
