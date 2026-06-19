@@ -46,7 +46,7 @@ export default function Home() {
           <h1 className="reveal mt-4 max-w-3xl font-display text-5xl font-semibold leading-[1.02] tracking-tight lg:text-7xl" style={{ animationDelay: "80ms" }}>
             <span className="nitro-shine">Elevating virtual aviation.</span>
           </h1>
-          <p className="reveal mt-6 max-w-xl text-lg leading-relaxed text-white/70" style={{ animationDelay: "160ms" }}>
+          <p className="lead reveal mt-6 max-w-xl text-lg text-white/75" style={{ animationDelay: "160ms" }}>
             Experience the skies with a community dedicated to simulated realism and excellence — Nordic precision, from your first Aurora flight to the Luminary command seat.
           </p>
           <div className="reveal mt-9 flex flex-wrap gap-3" style={{ animationDelay: "240ms" }}>

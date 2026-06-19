@@ -46,6 +46,7 @@
   /* Fonts (wired up in layout via next/font) */
   --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-serif), Georgia, "Times New Roman", serif;
   --font-mono: var(--font-mono), ui-monospace, monospace;
 
   /* Rectangular boxes with minute rounded edges (modern / minimal) */
@@ -70,13 +71,14 @@
    border-obsidian, text-gold-soft…) references these variables, so the whole
    UI flips with no component changes. */
 html.dark {
-  /* Twilight Navy × Ice — lifted off black so the blue & gradients read */
-  --color-ink-950: oklch(0.18 0.05 256); /* page background — a deep navy, not black */
-  --color-ink-900: oklch(0.235 0.058 256); /* cards / surfaces */
-  --color-ink-850: oklch(0.285 0.062 256); /* inputs */
-  --color-ink-800: oklch(0.33 0.064 256);
-  --color-ink-700: oklch(0.38 0.066 256);
-  --color-obsidian: oklch(0.78 0.15 252 / 0.3); /* borders */
+  /* Twilight Navy × Ice — a clearly-blue night palette, lifted off black so the
+     accents and gradients read (hex so the rendered tone is predictable). */
+  --color-ink-950: #0e1c38; /* page background — visible deep navy, not black */
+  --color-ink-900: #182a4e; /* cards / surfaces */
+  --color-ink-850: #1f3358; /* inputs */
+  --color-ink-800: #273d64;
+  --color-ink-700: #2f4872;
+  --color-obsidian: oklch(0.78 0.15 252 / 0.32); /* borders */
 
   --color-cream: oklch(0.97 0.012 240); /* primary text */
   --color-cream-dim: oklch(0.80 0.04 250); /* secondary text */
@@ -165,6 +167,18 @@ textarea {
 
 /* ---- Utilities ---- */
 .font-display { font-family: var(--font-display); }
+.font-serif { font-family: var(--font-serif); }
+
+/* Editorial lead/description copy — elegant serif in italic, for the intro
+   paragraphs and info blurbs that sit under headings. Pairs against the clean
+   Geist grotesque used for headings & UI. */
+.lead {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: 0.005em;
+}
 
 .text-balance { text-wrap: balance; }
 

@@ -22,7 +22,7 @@ export default function ModesPage() {
       <header className="reveal">
         <p className="eyebrow">How you fly</p>
         <h1 className="mt-2 font-display text-4xl font-semibold text-cream lg:text-5xl">How you fly matters.</h1>
-        <p className="mt-4 max-w-2xl text-cream-dim">Three modes. One career. Pick the mode that fits how you fly, and switch between them as your rank and availability change — your hours and AP carry across.</p>
+        <p className="lead mt-4 max-w-2xl text-cream-dim">Three modes. One career. Pick the mode that fits how you fly, and switch between them as your rank and availability change — your hours and AP carry across.</p>
       </header>
 
       <div className="mt-10 grid gap-5 lg:grid-cols-3">

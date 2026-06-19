@@ -9,7 +9,7 @@ export default function AboutPage() {
       <header className="reveal">
         <p className="eyebrow">About</p>
         <h1 className="mt-2 font-display text-4xl font-semibold text-cream lg:text-5xl">A virtual airline built like a real one.</h1>
-        <p className="mt-4 max-w-3xl text-lg leading-relaxed text-cream-dim">Finnair Virtual (FNVA) is an independent Infinite Flight virtual airline inspired by Finland’s flag carrier. We fly a structured, simulated operation out of Helsinki-Vantaa — every flight logged, every hour credited, every rank earned.</p>
+        <p className="lead mt-4 max-w-3xl text-lg text-cream-dim">Finnair Virtual (FNVA) is an independent Infinite Flight virtual airline inspired by Finland’s flag carrier. We fly a structured, simulated operation out of Helsinki-Vantaa — every flight logged, every hour credited, every rank earned.</p>
         <p className="mt-4 max-w-3xl leading-relaxed text-cream-dim">From your first Aurora sortie to the Luminary command seat, pilots progress through nine ranks, purchase fleet licences and codeshare networks with Aurora Points, and fly across passenger, career and cargo operations. Behind the scenes, a real org structure — a Founder, a CEO, a Board and four staff units — keeps the airline running with Nordic precision and a genuinely welcoming community at its heart.</p>
       </header>
 

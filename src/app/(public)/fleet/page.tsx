@@ -19,7 +19,7 @@ export default function FleetPage() {
       <header className="reveal">
         <p className="eyebrow">The fleet</p>
         <h1 className="mt-2 font-display text-4xl font-semibold text-cream lg:text-5xl">Seven aircraft. One livery.</h1>
-        <p className="mt-4 max-w-2xl text-cream-dim">From regional Embraers to the long-haul A350-900, every aircraft in our fleet earns its place — short-haul workhorses feed the trunk network while widebodies push to Asia and across the Atlantic. Our seventh aircraft sits apart from the schedule: a <span className="font-medium text-cream">Boeing 757-200 in historic Finnair livery</span>, kept purely for special group flights and events.</p>
+        <p className="lead mt-4 max-w-2xl text-cream-dim">From regional Embraers to the long-haul A350-900, every aircraft in our fleet earns its place — short-haul workhorses feed the trunk network while widebodies push to Asia and across the Atlantic. Our seventh aircraft sits apart from the schedule: a <span className="font-medium text-cream">Boeing 757-200 in historic Finnair livery</span>, kept purely for special group flights and events.</p>
       </header>
 
       <div className="mt-8 flex flex-wrap gap-6 text-sm">

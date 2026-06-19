@@ -29,7 +29,7 @@ export default function HubsPage() {
       <header className="reveal">
         <p className="eyebrow">Operating bases</p>
         <h1 className="mt-2 font-display text-4xl font-semibold text-cream lg:text-5xl">One main hub. A Nordic network.</h1>
-        <p className="mt-4 max-w-2xl text-cream-dim">Finnair Virtual is built around Helsinki-Vantaa — one of the world’s northernmost major hubs and the shortest physical bridge between Europe and East Asia. Two cargo bases at Brussels and London extend our freight reach across the continent and the Atlantic.</p>
+        <p className="lead mt-4 max-w-2xl text-cream-dim">Finnair Virtual is built around Helsinki-Vantaa — one of the world’s northernmost major hubs and the shortest physical bridge between Europe and East Asia. Two cargo bases at Brussels and London extend our freight reach across the continent and the Atlantic.</p>
       </header>
 
       <div className="mt-10 space-y-6">

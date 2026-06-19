@@ -10,7 +10,7 @@ export default function PlusPage() {
       <header className="reveal">
         <p className="eyebrow">AURORA Banking</p>
         <h1 className="mt-2 font-display text-4xl font-semibold text-cream lg:text-5xl">The currency of your career.</h1>
-        <p className="mt-4 max-w-2xl text-cream-dim">Finnair Plus is a private economy for our pilots. Earn Aurora Points (AP) with every flight and climb five tiers — each milestone a recognition of your dedication to the airline.</p>
+        <p className="lead mt-4 max-w-2xl text-cream-dim">Finnair Plus is a private economy for our pilots. Earn Aurora Points (AP) with every flight and climb five tiers — each milestone a recognition of your dedication to the airline.</p>
       </header>
 
       {/* Tiers — uniform membership cards, the metallic shine contained to the

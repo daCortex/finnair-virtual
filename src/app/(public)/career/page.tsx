@@ -37,7 +37,7 @@ export default function CareerPage() {
       <header className="reveal">
         <p className="eyebrow">Life at Finnair Virtual</p>
         <h1 className="mt-2 font-display text-4xl font-semibold text-cream lg:text-5xl">More than a flight log — a place to fly.</h1>
-        <p className="mt-4 max-w-2xl text-cream-dim">Finnair Virtual gives every pilot a structured, rewarding way to spend their time in Infinite Flight. Here&apos;s what you&apos;ll actually do with us, what we offer, and how you grow from your very first flight.</p>
+        <p className="lead mt-4 max-w-2xl text-cream-dim">Finnair Virtual gives every pilot a structured, rewarding way to spend their time in Infinite Flight. Here&apos;s what you&apos;ll actually do with us, what we offer, and how you grow from your very first flight.</p>
       </header>
 
       {/* What you'll do */}

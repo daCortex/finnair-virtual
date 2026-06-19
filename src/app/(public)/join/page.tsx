@@ -16,7 +16,7 @@ export default function JoinPage() {
       <header className="reveal text-center">
         <p className="eyebrow">Join the airline</p>
         <h1 className="mt-2 font-display text-4xl font-semibold text-cream lg:text-5xl">Your career starts at Aurora.</h1>
-        <p className="mx-auto mt-4 max-w-2xl text-cream-dim">Apply to fly with Finnair Virtual, or join the team behind it. Applications are handled right here — no forms to chase. Tell us about yourself and our staff will follow up on the IFC to begin onboarding.</p>
+        <p className="lead mx-auto mt-4 max-w-2xl text-cream-dim">Apply to fly with Finnair Virtual, or join the team behind it. Applications are handled right here — no forms to chase. Tell us about yourself and our staff will follow up on the IFC to begin onboarding.</p>
       </header>
 
       {/* Steps */}

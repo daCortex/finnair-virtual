@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Newsreader } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 
-/* Typeface: Geist — a modern, minimal, sleek grotesque across the whole site,
-   used for both display headings and body/UI. */
+/* Type system:
+   • Geist — a modern, minimal, sleek grotesque for headings & UI.
+   • Newsreader — an elegant serif (with italics) for descriptions / lead copy,
+     giving editorial contrast against the clean grotesque. */
 const display = Geist({
   variable: "--font-display",
   subsets: ["latin"],
@@ -15,6 +17,13 @@ const sans = Geist({
   variable: "--font-sans",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600"],
+});
+
+const serif = Newsreader({
+  variable: "--font-serif",
+  subsets: ["latin"],
+  weight: ["300", "400", "500"],
+  style: ["normal", "italic"],
 });
 
 const mono = Geist_Mono({
@@ -52,7 +61,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${display.variable} ${sans.variable} ${mono.variable} h-full antialiased`}
+      className={`${display.variable} ${sans.variable} ${serif.variable} ${mono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-ink-950 text-cream">
         {/* Apply saved theme before paint (default light) — avoids a flash.
