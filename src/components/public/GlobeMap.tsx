@@ -43,11 +43,11 @@ export function GlobeMap({ legs, title, codeshareLegs = [] }: { legs: RegionLeg[
   useEffect(() => {
     let cancelled = false;
     let ro: ResizeObserver | null = null;
+    let onResize: (() => void) | null = null;
     (async () => {
       const Globe = (await import("globe.gl")).default;
       if (cancelled || !wrapRef.current) return;
       const el = wrapRef.current;
-      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const dark = document.documentElement.classList.contains("dark");
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -63,7 +63,7 @@ export function GlobeMap({ legs, title, codeshareLegs = [] }: { legs: RegionLeg[
         .arcAltitudeAutoScale(0.45)
         .arcDashLength((a: Arc) => (a.codeshare ? 0.2 : 0.45))
         .arcDashGap((a: Arc) => (a.codeshare ? 0.35 : 0.25))
-        .arcDashAnimateTime(reduce ? 0 : 2600)
+        .arcDashAnimateTime(2600)
         .arcsTransitionDuration(0)
         .pointColor("color")
         .pointAltitude(0.01)
@@ -77,12 +77,12 @@ export function GlobeMap({ legs, title, codeshareLegs = [] }: { legs: RegionLeg[
       applyFilters(world, active, showCodeshare);
       world.pointOfView({ lat: 45, lng: 18, altitude: 2.1 }, 0);
       const controls = world.controls();
-      controls.autoRotate = !reduce;
-      controls.autoRotateSpeed = 0.45;
+      controls.autoRotate = true;
+      controls.autoRotateSpeed = 0.5;
       controls.enableZoom = true;
       controls.minDistance = 180;
       globeRef.current = world;
-      setRotate(!reduce);
+      setRotate(true);
       setLoading(false);
 
       // Track the CONTAINER size (handles iPad rotation, split-view, font scaling,
@@ -91,11 +91,21 @@ export function GlobeMap({ legs, title, codeshareLegs = [] }: { legs: RegionLeg[
       ro = new ResizeObserver(fit);
       ro.observe(el);
       fit();
+      // Tablets settle layout a frame late and fire orientationchange (not always
+      // a ResizeObserver tick), so refit on both as well.
+      requestAnimationFrame(fit);
+      onResize = fit;
+      window.addEventListener("orientationchange", fit);
+      window.addEventListener("resize", fit);
     })();
 
     return () => {
       cancelled = true;
       ro?.disconnect();
+      if (onResize) {
+        window.removeEventListener("orientationchange", onResize);
+        window.removeEventListener("resize", onResize);
+      }
       globeRef.current?._destructor?.();
       if (wrapRef.current) wrapRef.current.innerHTML = "";
       globeRef.current = null;

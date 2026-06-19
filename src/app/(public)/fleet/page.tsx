@@ -11,7 +11,7 @@ const RENDER: Record<string, string> = {
 };
 
 /* Types without an official Finnair livery in Infinite Flight (flown generic). */
-const GENERIC = new Set(["Embraer E190", "Airbus A319", "Airbus A320"]);
+const GENERIC = new Set(["Airbus A319", "Airbus A320"]);
 
 export default function FleetPage() {
   return (
@@ -41,7 +41,7 @@ export default function FleetPage() {
             {/* Image stage — fixed height, graphic centred & uniformly contained */}
             <div className="relative h-40 overflow-hidden bg-gradient-to-b from-ink-850 to-ink-900" style={a.historic ? { background: `linear-gradient(180deg, color-mix(in srgb, ${a.accent} 18%, transparent), transparent)` } : undefined}>
               <div className="absolute inset-0 flex items-center justify-center px-6">
-                <Image src={`/fleet/${RENDER[a.type] ?? "A320"}.webp`} alt={`Finnair ${a.type}`} width={1016} height={706} className="max-h-[72%] w-auto max-w-[90%] object-contain transition-transform duration-700 group-hover:scale-105" />
+                <Image src={`/fleet/${RENDER[a.type] ?? "A320"}.webp`} alt={`Finnair ${a.type}`} width={1016} height={706} className="max-h-[90%] w-auto max-w-[96%] object-contain transition-transform duration-700 group-hover:scale-105" />
               </div>
               <span className="absolute left-4 top-3 rounded px-2.5 py-0.5 text-[0.65rem] font-semibold uppercase tracking-wide backdrop-blur" style={a.historic ? { background: `color-mix(in srgb, ${a.accent} 22%, transparent)`, color: a.accent } : undefined}>
                 <span className={a.historic ? "" : "text-gold"}>{a.family}</span>

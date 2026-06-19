@@ -70,13 +70,13 @@
    border-obsidian, text-gold-soft…) references these variables, so the whole
    UI flips with no component changes. */
 html.dark {
-  /* Deep Midnight × Ice — the official FNVA dark palette */
-  --color-ink-950: oklch(0.10 0.028 255); /* page background */
-  --color-ink-900: oklch(0.16 0.04 255); /* cards / surfaces */
-  --color-ink-850: oklch(0.20 0.045 255); /* inputs */
-  --color-ink-800: oklch(0.24 0.05 255);
-  --color-ink-700: oklch(0.28 0.055 255);
-  --color-obsidian: oklch(0.72 0.16 250 / 0.24); /* borders */
+  /* Twilight Navy × Ice — lifted off black so the blue & gradients read */
+  --color-ink-950: oklch(0.18 0.05 256); /* page background — a deep navy, not black */
+  --color-ink-900: oklch(0.235 0.058 256); /* cards / surfaces */
+  --color-ink-850: oklch(0.285 0.062 256); /* inputs */
+  --color-ink-800: oklch(0.33 0.064 256);
+  --color-ink-700: oklch(0.38 0.066 256);
+  --color-obsidian: oklch(0.78 0.15 252 / 0.3); /* borders */
 
   --color-cream: oklch(0.97 0.012 240); /* primary text */
   --color-cream-dim: oklch(0.80 0.04 250); /* secondary text */
