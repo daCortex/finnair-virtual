@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { getPilotDashboard, fmtHours, fmtDate, fmtAp } from "@/lib/portal";
-import { computeAp, AP_TABLE } from "@/lib/career";
+import { getPilotDashboard, fmtHours, fmtDate, fmtAp, fmtLc } from "@/lib/portal";
+import { computeAp, AP_TABLE, cargoEarningsForMinutes } from "@/lib/career";
 import { isSpotlight } from "@/lib/ops";
 
 export const metadata = { title: "Logbook" };
@@ -11,13 +11,14 @@ export default async function LogbookPage() {
   if (!d) return <Empty />;
 
   const rows = d.filedPireps.map((p) => {
+    const isCargo = p.server === "Cargo";
     const ap = computeAp(p.minutes, {
       spotlight: isSpotlight(`${p.flightNo}`),
       rankMultiplier: d.rankMultiplier,
     });
-    return { p, ap };
+    const lc = isCargo ? cargoEarningsForMinutes(p.minutes) : 0;
+    return { p, ap, isCargo, lc };
   });
-  const earned = rows.filter((r) => r.p.status === "approved").reduce((s, r) => s + r.ap.net, 0);
   const approved = d.filedPireps.filter((p) => p.status === "approved").length;
   const pending = d.filedPireps.filter((p) => p.status === "pending").length;
 
@@ -32,9 +33,10 @@ export default async function LogbookPage() {
       </header>
 
       {/* summary */}
-      <div className="mt-6 grid gap-4 sm:grid-cols-4">
+      <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
         {[
           { l: "Lifetime AP", v: `✦ ${fmtAp(d.apBalance)}` },
+          { l: "Lifetime LC", v: `◈ ${fmtLc(d.lcBalance)}` },
           { l: "Flight time", v: fmtHours(d.totalMinutes) },
           { l: "PIREPs filed", v: d.totalPireps.toLocaleString() },
           { l: "Approved / pending", v: `${approved} / ${pending}` },
@@ -49,21 +51,21 @@ export default async function LogbookPage() {
       {/* table */}
       <div className="mt-6 overflow-hidden rounded-2xl border border-obsidian bg-ink-900">
         <div className="hidden grid-cols-[1.4fr_1fr_0.8fr_0.8fr_0.9fr] gap-4 border-b border-obsidian/70 px-6 py-3 text-xs uppercase tracking-wide text-cream-faint md:grid">
-          <span>Route</span><span>Aircraft</span><span>Time</span><span>AP earned</span><span className="text-right">Status</span>
+          <span>Route</span><span>Aircraft</span><span>Time</span><span>Earnings</span><span className="text-right">Status</span>
         </div>
         {rows.length === 0 ? (
           <p className="px-6 py-10 text-center text-sm text-cream-faint">No flights filed yet. <Link href="/crew/file" className="text-gold">File your first PIREP →</Link></p>
         ) : (
           <ul className="divide-y divide-obsidian/60">
-            {rows.map(({ p, ap }) => (
+            {rows.map(({ p, ap, isCargo, lc }) => (
               <li key={p.id} className="grid grid-cols-2 items-center gap-3 px-6 py-3.5 transition-colors hover:bg-ink-850 md:grid-cols-[1.4fr_1fr_0.8fr_0.8fr_0.9fr] md:gap-4">
                 <div>
                   <p className="font-mono text-sm font-medium text-cream">{p.dep} → {p.arr}</p>
-                  <p className="text-xs text-cream-faint">{p.flightNo} · {fmtDate(p.filedAt)}</p>
+                  <p className="text-xs text-cream-faint">{p.flightNo} · {fmtDate(p.filedAt)}{p.server ? ` · ${p.server}` : ""}</p>
                 </div>
                 <span className="hidden text-sm text-cream-dim md:block">{p.aircraft}</span>
                 <span className="hidden text-sm text-cream-dim md:block">{fmtHours(p.minutes)}</span>
-                <span className="text-sm font-semibold text-cream md:text-left">{p.status === "approved" ? `✦ ${ap.net.toLocaleString()}` : "—"}</span>
+                <span className="text-sm font-semibold text-cream md:text-left">{p.status === "approved" ? (isCargo ? `◈ ${lc.toLocaleString()}` : `✦ ${ap.net.toLocaleString()}`) : "—"}</span>
                 <span className="text-right"><StatusPill status={p.status} /></span>
               </li>
             ))}

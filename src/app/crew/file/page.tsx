@@ -2,12 +2,12 @@ import Link from "next/link";
 import { AIRCRAFT_GROUPS } from "@/lib/aircraft";
 import { MULTIPLIERS } from "@/lib/data";
 import { getPilotDashboard } from "@/lib/portal";
-import { FilePirep } from "@/components/portal/FilePirep";
+import { FilePirep, type PirepPrefill } from "@/components/portal/FilePirep";
 
 export const metadata = { title: "File a PIREP" };
 export const dynamic = "force-dynamic";
 
-export default async function FilePage() {
+export default async function FilePage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   const d = await getPilotDashboard();
   if (!d) {
     return (
@@ -17,6 +17,13 @@ export default async function FilePage() {
       </section>
     );
   }
+  const sp = await searchParams;
+  const s = (k: string) => (typeof sp[k] === "string" ? (sp[k] as string) : undefined);
+  const prefill: PirepPrefill = {
+    flightNo: s("flightNo"), dep: s("dep"), arr: s("arr"), aircraft: s("ac"),
+    type: s("type"), expired: s("expired") === "1",
+  };
+
   return (
     <div className="mx-auto max-w-6xl px-5 py-10 lg:px-8">
       <header className="rise mb-6">
@@ -24,7 +31,7 @@ export default async function FilePage() {
         <h1 className="mt-2 font-display text-4xl font-semibold text-cream">File a PIREP</h1>
         <p className="mt-3 max-w-2xl text-cream-dim">Log a completed flight. Approved reports credit toward your hours, rank and Aurora-Points balance.</p>
       </header>
-      <FilePirep groups={AIRCRAFT_GROUPS} multipliers={MULTIPLIERS} rankMultiplier={d.rankMultiplier} />
+      <FilePirep groups={AIRCRAFT_GROUPS} multipliers={MULTIPLIERS} rankMultiplier={d.rankMultiplier} prefill={prefill} />
     </div>
   );
 }

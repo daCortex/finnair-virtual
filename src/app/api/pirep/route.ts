@@ -31,11 +31,12 @@ export async function POST(request: Request) {
   const multiplierCode = str("multiplier").toUpperCase() || null;
   const multiplier = multiplierFor(multiplierCode);
   const minutes = Math.round(rawMinutes * multiplier);
-  const server = str("server") || null;
+  // We accept flights flown on any server; instead of the server we record the
+  // flight TYPE (Casual / Career / Cargo) in the existing `server` column.
+  const flightType = ["Casual", "Career", "Cargo"].includes(str("flightType")) ? str("flightType") : "Casual";
   const remarks = str("remarks") || null;
   const fuelKg = body.fuelKg != null && body.fuelKg !== "" ? num("fuelKg") : null;
-  const landingRate =
-    body.landingRate != null && body.landingRate !== "" ? num("landingRate") : null;
+  const landingRate = null;
 
   if (!flightNo || dep.length < 3 || arr.length < 3) {
     return Response.json(
@@ -62,7 +63,7 @@ export async function POST(request: Request) {
     multiplierCode,
     fuelKg,
     landingRate,
-    server,
+    server: flightType,
     remarks,
   });
 

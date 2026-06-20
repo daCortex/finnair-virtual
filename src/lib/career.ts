@@ -129,9 +129,9 @@ export const AP_TABLE: Record<
   FlightCategory,
   { label: string; maxHours: number | null; gross: number; overhead: number; net: number }
 > = {
-  regional: { label: "E190 · ≤2h", maxHours: 2, gross: 350, overhead: 50, net: 300 },
-  continental: { label: "A319/320/321 · ≤6h", maxHours: 6, gross: 1300, overhead: 60, net: 1240 },
-  longhaul: { label: "A330/A350 · 6–14h", maxHours: 14, gross: 4000, overhead: 300, net: 3700 },
+  regional: { label: "Short-haul · under 2h", maxHours: 2, gross: 350, overhead: 50, net: 300 },
+  continental: { label: "Medium-haul · 2–6h", maxHours: 6, gross: 1300, overhead: 60, net: 1240 },
+  longhaul: { label: "Long-haul · over 6h", maxHours: 14, gross: 4000, overhead: 300, net: 3700 },
 };
 
 export const PUNCTUALITY_MULTIPLIER = 1.25;
@@ -272,13 +272,28 @@ export function computeLc(risk: CargoRisk): { net: number; min: number } {
   return { net: row.net, min: Math.round(row.net * (1 - row.deduction)) };
 }
 
-/* ---- Cargo codeshares (unlocked with LC at Freight Architect) ---- */
+/* ---- Cargo codeshares (unlocked with LC at Freight Architect) ----
+   Jet Airways is the free starter for everyone; the rest are priced in LC. */
 export const CARGO_CODESHARES: Codeshare[] = [
+  { name: "Jet Airways", cost: 0, free: true },
   { name: "UPS", cost: 20000 },
   { name: "Saudia Cargo", cost: 30000 },
   { name: "FedEx", cost: 35000 },
   { name: "Qatar Cargo", cost: 40000 },
 ];
+
+/* Display helper: codeshares sorted free-first, then ascending by price. */
+export function sortedCodeshares(list: Codeshare[]): Codeshare[] {
+  return [...list].sort((a, b) => Number(b.free ?? false) - Number(a.free ?? false) || a.cost - b.cost);
+}
+
+/* Demo earnings for a cargo PIREP (no risk band stored): value by flight time. */
+export function cargoEarningsForMinutes(minutes: number): number {
+  const h = minutes / 60;
+  if (h < 2) return CARGO_TABLE.low.net; // 1,400 LC
+  if (h <= 6) return CARGO_TABLE.medium.net; // 3,000 LC
+  return CARGO_TABLE.high.net; // 5,500 LC
+}
 
 /* ======================= GATES ======================= */
 

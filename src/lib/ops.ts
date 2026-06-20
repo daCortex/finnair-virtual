@@ -170,6 +170,7 @@ export function isSpotlight(routeNumber: string, d = new Date()): boolean {
    Each pilot gets a small board of assigned flights with a deadline and an AP
    reward. Completing within the window earns the 1.25× punctuality premium;
    spotlight sectors carry 2×. Deterministic per pilot per day. */
+export type DispatchHaul = "Short" | "Medium" | "Long" | "Ultra";
 export type Dispatch = {
   id: string;
   flightNo: string;
@@ -178,12 +179,18 @@ export type Dispatch = {
   aircraft: string;
   minutes: number;
   category: FlightCategory;
+  haul: DispatchHaul;
   baseAp: number;
   spotlight: boolean;
-  maxAp: number; // with punctuality + spotlight + rank multiplier
-  dueInHours: number; // window from "now"
+  maxAp: number; // potential — with punctuality + spotlight + rank multiplier
+  windowHours: number; // 24h daily window to complete & file once accepted
   priority: "standard" | "priority";
 };
+
+/* A pilot's daily roster is built so the combined block time of all flights
+   fits inside ~22h — leaving room to complete and file all of them within the
+   24h window. An ultra-long-haul (15h+) is issued as the ONLY flight that day. */
+const ROSTER_MAX_MINUTES = 22 * 60; // 1,320 min
 
 export function getDispatches(
   pilotId: number,
@@ -205,40 +212,49 @@ export function getDispatches(
     if (ok.length >= 4) pool = ok;
   }
 
-  const board: Dispatch[] = [];
-  const used = new Set<string>();
-  const target = 3; // 3 auto-dispatched flights per pilot per day
-  let guard = 0;
-  while (board.length < target && guard++ < 200 && pool.length) {
-    const rt = pool[Math.floor(r() * pool.length)];
-    if (used.has(rt.routeNumber)) continue;
-    used.add(rt.routeNumber);
-    const minutes = rt.minutes;
+  const shorts = pool.filter((rt) => rt.minutes < 120);
+  const mediums = pool.filter((rt) => rt.minutes >= 120 && rt.minutes <= 360);
+  const longs = pool.filter((rt) => rt.minutes > 360 && rt.minutes <= 900); // 6–15h
+  const ultras = pool.filter((rt) => rt.minutes > 900); // 15h+
+
+  const pickOne = (arr: Route[]): Route | null => (arr.length ? arr[Math.floor(r() * arr.length)] : null);
+  const mk = (rt: Route, haul: DispatchHaul): Dispatch => {
     const spotlight = spotlights.has(rt.routeNumber);
-    const base = computeAp(minutes, { rankMultiplier: rankMult }).net;
-    const max = computeAp(minutes, { punctual: true, spotlight, rankMultiplier: rankMult }).net;
-    board.push({
+    return {
       id: `${rt.routeNumber}-${dayIndex(d)}`,
       flightNo: firstFlightNo(rt),
       dep: rt.dep,
       arr: rt.arr,
       aircraft: rt.aircraft,
-      minutes,
-      category: categoryForMinutes(minutes),
-      baseAp: base,
+      minutes: rt.minutes,
+      category: categoryForMinutes(rt.minutes),
+      haul,
+      baseAp: computeAp(rt.minutes, { rankMultiplier: rankMult }).net,
       spotlight,
-      maxAp: max,
-      dueInHours: 24 + Math.floor(r() * 48), // 24–72h window
-      priority: spotlight || r() > 0.7 ? "priority" : "standard",
-    });
+      maxAp: computeAp(rt.minutes, { punctual: true, spotlight, rankMultiplier: rankMult }).net,
+      windowHours: 24,
+      priority: spotlight ? "priority" : "standard",
+    };
+  };
+
+  // ~1-in-4 days is an ultra-long day → a single, sole flight.
+  if (ultras.length && r() < 0.25) {
+    return [mk(pickOne(ultras)!, "Ultra")];
   }
-  // priority/spotlight first, then by reward
-  return board.sort(
-    (a, b) =>
-      Number(b.spotlight) - Number(a.spotlight) ||
-      (a.priority === "priority" ? -1 : 0) - (b.priority === "priority" ? -1 : 0) ||
-      b.maxAp - a.maxAp,
-  );
+
+  // Otherwise one short + one medium + one long, summing under the 22h cap.
+  const board: Dispatch[] = [];
+  const s = pickOne(shorts);
+  if (s) board.push(mk(s, "Short"));
+  const m = pickOne(mediums);
+  if (m) board.push(mk(m, "Medium"));
+  let used = board.reduce((sum, b) => sum + b.minutes, 0);
+  const fittingLongs = longs.filter((l) => used + l.minutes <= ROSTER_MAX_MINUTES);
+  const l = pickOne(fittingLongs);
+  if (l && used + l.minutes <= ROSTER_MAX_MINUTES) board.push(mk(l, "Long"));
+  used = board.reduce((sum, b) => sum + b.minutes, 0);
+
+  return board;
 }
 
 /* ---- Cargo (Logistics Command) — contract generation ---- */
@@ -275,11 +291,21 @@ function blockMinutes(a: string, b: string): number {
   return Math.max(75, Math.round((nm / 460) * 60) + 25); // ~460kt + taxi/climb
 }
 
+/* Risk plan by certification:
+   - Entry          → 2× Standard (low) only
+   - Load Master    → a mix of Standard & Perishable (low/medium)
+   - Freight Architect → adds a Specialized (high) high-risk/reward contract */
+function certRiskPlan(certName: string): CargoRisk[] {
+  if (certName === "Entry") return ["low", "low"];
+  if (certName === "Load Master") return ["low", "medium", "low"];
+  return ["high", "medium", "low"]; // Freight Architect
+}
+
 export function getCargoContracts(pilotId: number, cargoHours = 0, cargoLc = 0, d = new Date()): CargoContract[] {
   const r = rng((pilotId + 7) * 40503 + dayIndex(d));
   const cert = cargoCertForHours(cargoHours, cargoLc);
   const limit = cert.dailyLimit; // 2 at Entry (1 per hub), 3 at Load Master+
-  const risks: CargoRisk[] = ["low", "low", "medium", "medium", "high"];
+  const plan = certRiskPlan(cert.name);
   const out: CargoContract[] = [];
   const used = new Set<string>();
   let guard = 0;
@@ -290,7 +316,7 @@ export function getCargoContracts(pilotId: number, cargoHours = 0, cargoLc = 0, 
     if (arr === dep || used.has(key)) continue;
     used.add(key);
     const minutes = blockMinutes(dep, arr);
-    const risk = risks[Math.floor(r() * risks.length)];
+    const risk = plan[out.length] ?? "low";
     const ac = CARGO_TYPES[Math.min(CARGO_TYPES.length - 1, Math.floor((minutes / 600) * CARGO_TYPES.length))];
     const lc = computeLc(risk);
     out.push({

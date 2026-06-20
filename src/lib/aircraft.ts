@@ -45,11 +45,15 @@ export const VALID_AIRCRAFT = new Set<string>([
 export function fileableAircraftFor(route: { aircraft: string; airline: string }): string {
   const n = (route.aircraft || "").toUpperCase();
   if (route.airline === "Finnair") {
-    const t =
-      (n.includes("A350") && FINNAIR_AIRCRAFT.find((x) => x.includes("A350"))) ||
-      (n.includes("A330") && FINNAIR_AIRCRAFT.find((x) => x.includes("A330"))) ||
-      (n.includes("A321") && FINNAIR_AIRCRAFT.find((x) => x.includes("A321")));
-    if (t) return t;
+    // Map any route code to the nearest fileable Finnair type (we don't operate
+    // an A319 in the sim, so those file as the A320).
+    const map: [string, string][] = [
+      ["A350", "A350-900"], ["A330", "A330-300"], ["A321", "A321"],
+      ["A320", "A320"], ["A319", "A320"], ["E190", "Embraer 190"], ["EMBRAER", "Embraer 190"],
+    ];
+    for (const [needle, full] of map) {
+      if (n.includes(needle) && FINNAIR_AIRCRAFT.includes(full)) return full;
+    }
   }
   return aircraftModel(route.aircraft);
 }

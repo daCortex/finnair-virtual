@@ -7,21 +7,39 @@ import { computeAp, categoryForMinutes, AP_TABLE } from "@/lib/career";
 type Group = { group: string; items: string[] };
 type Mult = { code: string; value: number; label: string };
 
-const SERVERS = ["Expert", "Training", "Casual"];
+export type PirepPrefill = {
+  flightNo?: string;
+  dep?: string;
+  arr?: string;
+  aircraft?: string;
+  type?: string; // Casual | Career | Cargo
+  expired?: boolean; // accepted-flight window expired → no punctuality
+};
+
+const FLIGHT_TYPES = ["Casual", "Career", "Cargo"];
 
 export function FilePirep({
   groups,
   multipliers,
   rankMultiplier,
+  prefill,
 }: {
   groups: Group[];
   multipliers: Mult[];
   rankMultiplier: number;
+  prefill?: PirepPrefill;
 }) {
   const router = useRouter();
+  const lockPunctual = !!prefill?.expired;
   const [f, setF] = useState({
-    flightNo: "", dep: "", arr: "", aircraft: "", hours: "", minutes: "",
-    server: "Expert", landingRate: "", fuelKg: "", multiplier: "", remarks: "", punctual: true,
+    flightNo: prefill?.flightNo ?? "",
+    dep: prefill?.dep ?? "",
+    arr: prefill?.arr ?? "",
+    aircraft: prefill?.aircraft ?? "",
+    hours: "", minutes: "",
+    flightType: prefill?.type && FLIGHT_TYPES.includes(prefill.type) ? prefill.type : "Casual",
+    fuelKg: "", multiplier: "", remarks: "",
+    punctual: !lockPunctual,
   });
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
@@ -44,20 +62,26 @@ export function FilePirep({
     setBusy(true);
     const res = await fetch("/api/pirep", {
       method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...f, fuelKg: f.fuelKg, landingRate: f.landingRate }),
+      body: JSON.stringify({ ...f, flightType: f.flightType }),
     });
     setBusy(false);
-    if (res.ok) { router.push("/logbook"); router.refresh(); }
+    if (res.ok) { router.push("/crew/logbook"); router.refresh(); }
     else { const j = await res.json().catch(() => ({})); setError(j.error || "Could not file PIREP."); }
   }
 
   const input = "w-full rounded-xl border border-obsidian bg-ink-850 px-3.5 py-2.5 text-sm text-cream placeholder:text-cream-faint outline-none transition-colors focus:border-gold";
   const label = "mb-1.5 block text-xs font-medium uppercase tracking-wide text-cream-faint";
+  const autofilled = !!prefill?.flightNo;
 
   return (
     <form onSubmit={submit} className="grid gap-6 lg:grid-cols-[1.6fr_1fr]">
       {/* form */}
       <div className="space-y-5 rounded-2xl border border-obsidian bg-ink-900 p-6">
+        {autofilled && (
+          <p className="rounded-xl border border-gold/30 bg-gold/[0.05] px-3.5 py-2.5 text-xs text-cream-dim">
+            ✓ Pre-filled from your dispatch — just add flight time, fuel and any event code.
+          </p>
+        )}
         <div className="grid gap-4 sm:grid-cols-3">
           <div><label className={label}>Flight no.</label><input className={`${input} uppercase font-mono`} placeholder="AY15" value={f.flightNo} onChange={(e) => set("flightNo", e.target.value)} /></div>
           <div><label className={label}>From (ICAO)</label><input className={`${input} uppercase font-mono`} placeholder="EFHK" maxLength={4} value={f.dep} onChange={(e) => set("dep", e.target.value)} /></div>
@@ -72,8 +96,11 @@ export function FilePirep({
         <div className="grid gap-4 sm:grid-cols-4">
           <div><label className={label}>Hours</label><input className={input} type="number" min={0} placeholder="9" value={f.hours} onChange={(e) => set("hours", e.target.value)} /></div>
           <div><label className={label}>Minutes</label><input className={input} type="number" min={0} max={59} placeholder="05" value={f.minutes} onChange={(e) => set("minutes", e.target.value)} /></div>
-          <div><label className={label}>Server</label><select className={input} value={f.server} onChange={(e) => set("server", e.target.value)}>{SERVERS.map((s) => <option key={s}>{s}</option>)}</select></div>
-          <div><label className={label}>Landing (fpm)</label><input className={input} type="number" placeholder="-120" value={f.landingRate} onChange={(e) => set("landingRate", e.target.value)} /></div>
+          <div className="sm:col-span-2"><label className={label}>Flight type</label>
+            <select className={input} value={f.flightType} onChange={(e) => set("flightType", e.target.value)}>
+              {FLIGHT_TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
+            </select>
+          </div>
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
           <div><label className={label}>Fuel used (kg)</label><input className={input} type="number" placeholder="64800" value={f.fuelKg} onChange={(e) => set("fuelKg", e.target.value)} /></div>
@@ -85,10 +112,11 @@ export function FilePirep({
           </div>
         </div>
         <div><label className={label}>Remarks</label><textarea className={`${input} min-h-[80px]`} placeholder="Anything notable about the flight…" value={f.remarks} onChange={(e) => set("remarks", e.target.value)} /></div>
-        <label className="flex items-center gap-2.5 text-sm text-cream-dim">
-          <input type="checkbox" checked={f.punctual} onChange={(e) => set("punctual", e.target.checked)} className="h-4 w-4 accent-[var(--color-gold)]" />
+        <label className={`flex items-center gap-2.5 text-sm ${lockPunctual ? "text-cream-faint" : "text-cream-dim"}`}>
+          <input type="checkbox" checked={f.punctual} disabled={lockPunctual} onChange={(e) => set("punctual", e.target.checked)} className="h-4 w-4 accent-[var(--color-gold)] disabled:opacity-50" />
           Filed within the punctuality window (+25% AP)
         </label>
+        {lockPunctual && <p className="-mt-2 text-xs text-rose">Your accepted flight&apos;s completion window has expired — the punctuality bonus is unavailable.</p>}
         {error && <p className="rounded-xl bg-rose-500/10 px-3 py-2 text-sm text-rose-500">{error}</p>}
       </div>
 
@@ -115,7 +143,7 @@ export function FilePirep({
         <button type="submit" disabled={busy} className="w-full rounded-full bg-gold px-6 py-3.5 text-sm font-semibold text-white shadow-[0_10px_30px_-12px_rgba(12,2,67,0.9)] transition-all hover:brightness-125 disabled:opacity-60">
           {busy ? "Filing…" : "Submit PIREP"}
         </button>
-        <p className="text-center text-xs text-cream-faint">Spotlight (2×) bonuses apply automatically to qualifying sectors after review.</p>
+        <p className="text-center text-xs text-cream-faint">Cargo flights are paid in Logistic Coins after review. Spotlight (2×) bonuses apply automatically to qualifying sectors.</p>
       </div>
     </form>
   );

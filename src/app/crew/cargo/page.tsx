@@ -1,18 +1,13 @@
-import Link from "next/link";
 import { getPilotDashboard, fmtHours } from "@/lib/portal";
 import { getCargoContracts } from "@/lib/ops";
-import { CARGO_CERTS, CARGO_TABLE, CARGO_CODESHARES, cargoCertForHours } from "@/lib/career";
+import { CARGO_CERTS, CARGO_TABLE, CARGO_CODESHARES } from "@/lib/career";
 import { airportCity } from "@/lib/airports";
 import { Locked } from "@/components/portal/Locked";
+import { CargoDispatch, type CargoLeg } from "@/components/portal/CargoDispatch";
+import { CodeshareInventory } from "@/components/portal/CodeshareInventory";
 
 export const metadata = { title: "Cargo · Logistics Command" };
 export const dynamic = "force-dynamic";
-
-const riskColor: Record<string, string> = {
-  low: "bg-ink-800 text-cream-dim",
-  medium: "bg-amber-500/12 text-amber-600",
-  high: "bg-rose/12 text-rose",
-};
 
 export default async function CargoPage() {
   const d = await getPilotDashboard();
@@ -21,11 +16,13 @@ export default async function CargoPage() {
     return <Locked title="Logistics Command" rank="Zenith" hours={300} current={d.totalHours} blurb="The Cargo track — freight contracts paid in Logistic Coins (LC) — opens at Zenith, the peak of the core ladder." accent="rose" />;
   }
 
-  // Cargo is a separate track with its own hours/LC (fresh in demo).
-  const cargoHours = 0;
-  const cargoLc = 0;
-  const cert = cargoCertForHours(cargoHours, cargoLc);
-  const contracts = getCargoContracts(d.session.pilotId, cargoHours, cargoLc);
+  const cert = d.cargoCert;
+  const contracts = getCargoContracts(d.session.pilotId, d.cargoHours, d.lcBalance);
+  const legs: CargoLeg[] = contracts.map((c) => ({
+    id: c.id, dep: c.dep, arr: c.arr, depCity: airportCity(c.dep), arrCity: airportCity(c.arr),
+    flightNo: c.flightNo, aircraft: c.aircraft, timeLabel: fmtHours(c.minutes),
+    riskLabel: c.riskLabel, risk: c.risk, scenario: c.scenario, potentialLc: c.lc, lcMin: c.lcMin, windowHours: 24,
+  }));
   const codeshareUnlocked = cert.name === "Freight Architect";
 
   return (
@@ -46,28 +43,15 @@ export default async function CargoPage() {
       {/* contracts */}
       <div className="mt-7 flex items-center justify-between">
         <h2 className="font-display text-lg font-semibold text-cream">Today’s contracts</h2>
-        <span className="text-xs text-cream-faint">{cert.dailyLimit} per day · operational audit on submission</span>
+        <span className="text-xs text-cream-faint">{cert.dailyLimit} per day · potential payout shown</span>
       </div>
-      <div className="mt-3 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {contracts.map((c, i) => (
-          <div key={c.id} className="rise flex flex-col rounded-2xl border border-obsidian bg-ink-900 p-5 lift" style={{ animationDelay: `${i * 60}ms` }}>
-            <div className="flex items-center justify-between">
-              <span className={`rounded-full px-2.5 py-0.5 text-[0.65rem] font-semibold uppercase tracking-wide ${riskColor[c.risk]}`}>{c.riskLabel}</span>
-              <span className="font-mono text-xs text-cream-faint">{c.flightNo}</span>
-            </div>
-            <p className="mt-3 font-display text-xl font-semibold text-cream">{airportCity(c.dep)} <span className="text-rose">→</span> {airportCity(c.arr)}</p>
-            <p className="mt-0.5 text-xs text-cream-faint">{c.dep}–{c.arr} · {c.aircraft} · {fmtHours(c.minutes)}</p>
-            <p className="mt-2 rounded-lg bg-ink-850 px-3 py-1.5 text-xs text-cream-dim">📦 {c.scenario}</p>
-            <div className="mt-auto flex items-center justify-between border-t border-obsidian/70 pt-3.5">
-              <div>
-                <p className="text-xs text-cream-faint">payout</p>
-                <p className="font-display text-lg font-semibold text-cream">◆ {c.lc.toLocaleString()} LC</p>
-                {c.risk === "high" && <p className="text-[0.65rem] text-rose">min ◆ {c.lcMin.toLocaleString()} (−20% risk)</p>}
-              </div>
-              <Link href="/crew/file" className="rounded-full px-4 py-2 text-xs font-semibold text-white transition-all hover:brightness-125" style={{ background: "var(--color-rose)" }}>Accept</Link>
-            </div>
-          </div>
-        ))}
+      <p className="mt-1 text-sm text-cream-dim">
+        {cert.name === "Entry" && "Entry certification — two Standard runs, up to 1,400 LC each."}
+        {cert.name === "Load Master" && "Load Master — three contracts mixing Standard and Perishable freight."}
+        {cert.name === "Freight Architect" && "Freight Architect — includes a Specialized high-risk / high-reward load (×1.3 on 5,500 LC, or a 20% deduction)."}
+      </p>
+      <div className="mt-3">
+        <CargoDispatch legs={legs} />
       </div>
 
       {/* references */}
@@ -102,19 +86,13 @@ export default async function CargoPage() {
       </section>
 
       {/* cargo codeshares */}
-      <section className="mt-5 rounded-2xl border border-obsidian bg-ink-900 p-6">
+      <section className="mt-5">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <h3 className="font-display text-base font-semibold text-cream">Cargo codeshares</h3>
           <span className="text-xs text-cream-faint">{codeshareUnlocked ? "Available ✓" : "Unlocks at Freight Architect"}</span>
         </div>
-        <p className="mt-1 text-sm text-cream-dim">Purchase partner freight networks with LC once you reach Freight Architect.</p>
-        <div className="mt-4 flex flex-wrap gap-2">
-          {CARGO_CODESHARES.map((c) => (
-            <span key={c.name} className="rounded-full border border-obsidian bg-ink-850 px-3 py-1.5 text-sm text-cream-dim">
-              {c.name} <span className="text-xs text-cream-faint">· {c.cost.toLocaleString()} LC</span>
-            </span>
-          ))}
-        </div>
+        <p className="mb-3 mt-1 text-sm text-cream-dim">Jet Airways is free for all cargo pilots. Purchase more freight networks with Logistic Coins — priced low to high.</p>
+        <CodeshareInventory items={CARGO_CODESHARES} currency="LC" />
       </section>
     </div>
   );

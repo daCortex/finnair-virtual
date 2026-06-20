@@ -1,4 +1,4 @@
-import { computeAp, categoryForMinutes } from "@/lib/career";
+import { computeAp, categoryForMinutes, CAREER_CODESHARES, CARGO_CODESHARES } from "@/lib/career";
 import { getRotw, getSpotlightRoutes, firstFlightNo, allRoutes, allAirlines } from "@/lib/ops";
 import { getPilotDashboard } from "@/lib/portal";
 import { airportCity } from "@/lib/airports";
@@ -14,7 +14,22 @@ export default async function RoutesPage() {
   const rotwNo = getRotw().routeNumber;
   const spotlightNos = new Set(getSpotlightRoutes().map((r) => r.routeNumber));
 
-  const ALL = allRoutes();
+  // A codeshare partner's routes only appear once its network is unlocked
+  // (Jet Airways is free; passenger partners cost AP, cargo partners cost LC).
+  const pax = new Map(CAREER_CODESHARES.map((c) => [c.name, c]));
+  const frt = new Map(CARGO_CODESHARES.map((c) => [c.name, c]));
+  const ap = d?.apBalance ?? 0;
+  const lc = d?.lcBalance ?? 0;
+  const unlocked = (airline: string) => {
+    if (airline === "Finnair") return true;
+    const p = pax.get(airline);
+    if (p && (p.free || ap >= p.cost)) return true;
+    const f = frt.get(airline);
+    if (f && (f.free || lc >= f.cost)) return true;
+    return false;
+  };
+
+  const ALL = allRoutes().filter((r) => unlocked(r.airline));
   const routes: EnrichedRoute[] = ALL.map((r) => {
     const spotlight = spotlightNos.has(r.routeNumber);
     const ap = computeAp(r.minutes, { spotlight, rankMultiplier: rankMult }).net;
