@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getPilotDashboard, fmtApCompact } from "@/lib/portal";
+import { getPilotDashboard, fmtApCompact, fmtLcCompact } from "@/lib/portal";
 import { PortalNav, type NavSummary } from "@/components/portal/PortalNav";
 import { BRAND } from "@/lib/data";
 
@@ -13,6 +13,7 @@ export default async function PortalLayout({ children }: { children: React.React
         tierName: d.tier.current.name,
         tierAccent: d.tier.current.accent,
         apCompact: fmtApCompact(d.apBalance),
+        lcCompact: fmtLcCompact(d.lcBalance),
         gates: { specialOps: d.gates.specialOps, discover: d.gates.discover },
         isStaff: d.session.isStaff,
         demo: !!d.session.demo,

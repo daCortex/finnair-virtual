@@ -13,6 +13,7 @@ export type NavSummary = {
   tierName: string;
   tierAccent: string;
   apCompact: string;
+  lcCompact: string;
   gates: { specialOps: boolean; discover: boolean };
   isStaff: boolean;
   demo: boolean;
@@ -57,7 +58,7 @@ export function PortalNav({ summary }: { summary: NavSummary | null }) {
 
   const more = [
     { href: "/crew/ranks", label: "Rank ladder" },
-    { href: "/crew/special-ops", label: "Special Ops", lock: summary ? !summary.gates.specialOps : true },
+    { href: "/crew/fleet", label: "Live Fleet", lock: false },
     { href: "/crew/discover", label: "oneworld Discover", lock: summary ? !summary.gates.discover : true },
     { href: "/crew/leaderboard", label: "Leaderboard" },
     { href: "/crew/loa", label: "Request LOA" },
@@ -98,14 +99,21 @@ export function PortalNav({ summary }: { summary: NavSummary | null }) {
         </nav>
 
         <div className="ml-auto flex items-center gap-2.5">
-          {/* AP chip */}
+          {/* Balance chips — Aurora Points + Logistic Coins */}
           {summary && (
             <Link href="/crew/logbook"
-              className="hidden items-center gap-1.5 rounded-full border border-obsidian bg-ink-900 px-3 py-1.5 text-sm lift sm:inline-flex"
-              title="Aurora Points balance">
-              <span className="shine font-semibold">✦</span>
-              <span className="tnum font-semibold text-cream">{summary.apCompact}</span>
-              <span className="text-xs text-cream-faint">AP</span>
+              className="hidden items-stretch overflow-hidden rounded-full border border-obsidian bg-ink-900 text-sm lift sm:inline-flex"
+              title="Aurora Points · Logistic Coins balance">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5">
+                <span className="shine font-semibold">✦</span>
+                <span className="tnum font-semibold text-cream">{summary.apCompact}</span>
+                <span className="text-xs text-cream-faint">AP</span>
+              </span>
+              <span className="inline-flex items-center gap-1.5 border-l border-obsidian px-3 py-1.5">
+                <span className="font-semibold text-rose">◈</span>
+                <span className="tnum font-semibold text-cream">{summary.lcCompact}</span>
+                <span className="text-xs text-cream-faint">LC</span>
+              </span>
             </Link>
           )}
 

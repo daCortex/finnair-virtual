@@ -18,11 +18,14 @@ import {
   licenseForAp,
   authorizedFleetByAp,
   estimateApFromHours,
+  estimateLcFromHours,
   computeAp,
   tierForAp,
   hasRankAtLeast,
+  cargoCertForHours,
   GATES,
   type RankProgress,
+  type CargoCert,
 } from "./career";
 
 export type Gates = {
@@ -45,6 +48,9 @@ export type PilotDashboard = {
   license: ReturnType<typeof licenseForAp>;
   fleet: string[];
   apBalance: number;
+  lcBalance: number;
+  cargoHours: number;
+  cargoCert: CargoCert;
   tier: ReturnType<typeof tierForAp>;
   gates: Gates;
 };
@@ -79,6 +85,14 @@ export async function getPilotDashboard(): Promise<PilotDashboard | null> {
   const license = licenseForAp(apBalance);
   const fleet = authorizedFleetByAp(apBalance);
 
+  // Cargo economy (Logistic Coins). Cargo opens at Zenith (300h); demo LC
+  // balance is driven by hours flown beyond that gate until real cargo
+  // tracking lands.
+  const cargoOpen = hasRankAtLeast(totalHours, GATES.cargoMode);
+  const cargoHours = cargoOpen ? Math.max(0, totalHours - 300) : 0;
+  const lcBalance = estimateLcFromHours(cargoHours);
+  const cargoCert = cargoCertForHours(cargoHours, lcBalance);
+
   const gates: Gates = {
     career: hasRankAtLeast(totalHours, GATES.careerMode),
     cargo: hasRankAtLeast(totalHours, GATES.cargoMode),
@@ -99,6 +113,9 @@ export async function getPilotDashboard(): Promise<PilotDashboard | null> {
     license,
     fleet,
     apBalance,
+    lcBalance,
+    cargoHours,
+    cargoCert,
     tier,
     gates,
   };
@@ -118,6 +135,10 @@ export function fmtApCompact(ap: number): string {
   if (ap >= 1_000) return (ap / 1_000).toFixed(ap % 1_000 === 0 ? 0 : 1) + "K";
   return String(ap);
 }
+export function fmtLc(lc: number): string {
+  return lc.toLocaleString("en-US");
+}
+export const fmtLcCompact = fmtApCompact;
 export function fmtDate(iso: string | null): string {
   if (!iso) return "—";
   const d = new Date(iso);

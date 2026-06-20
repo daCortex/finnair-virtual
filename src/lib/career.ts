@@ -192,6 +192,14 @@ export function estimateApFromHours(totalHours: number): number {
   return Math.round(totalHours * AP_PER_HOUR_ESTIMATE);
 }
 
+/* Estimate a pilot's lifetime Logistic Coins (LC) balance from the cargo hours
+   they have flown (demo model). Cargo only unlocks at Zenith (300h), so this is
+   driven by hours beyond that gate until real cargo tracking lands. */
+export const LC_PER_HOUR_ESTIMATE = 130;
+export function estimateLcFromHours(cargoHours: number): number {
+  return Math.max(0, Math.round(cargoHours * LC_PER_HOUR_ESTIMATE));
+}
+
 /* ======================= FINNAIR PLUS TIERS ======================= */
 
 export type Tier = {

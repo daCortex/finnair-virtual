@@ -38,11 +38,12 @@ export function firstFlightNo(r: Route): string {
   return r.routeNumber.split("/")[0];
 }
 
-/* ---- Ops store (demo): Route of the Week + staff-added codeshare routes ---- */
-const g = globalThis as unknown as { __fnrOps?: { rotwNo: string; extra: Route[] } };
+/* ---- Ops store (demo): Route of the Day + staff-added codeshare routes ---- */
+const g = globalThis as unknown as { __fnrOps?: { rotwNo: string; rotdNos?: string[]; extra: Route[] } };
 const store = (g.__fnrOps ??= {
-  // default ROTW: the polar flagship to Tokyo
+  // default ROTW: the polar flagship to Tokyo (legacy; ROTD is the live feature)
   rotwNo: "AY73/AY74",
+  rotdNos: undefined, // staff-set list of exactly 6 flight numbers (2 short/2 med/2 long)
   extra: [], // codeshare routes added by staff in the Crew Center
 });
 store.extra ??= [];
@@ -99,6 +100,54 @@ export function setRotw(routeNumber: string): boolean {
   return ok;
 }
 export function rotwOptions(): Route[] {
+  return finnairRoutes;
+}
+
+/* ---- Route of the Day (ROTD) ----
+   Six staff-set routes — two short-haul, two medium, two long — that every
+   pilot can fly for a flat 2× flight-time multiplier. ROTD carries NO AP/LC of
+   its own; those only accrue if the same sector is also a Career/Cargo dispatch
+   that day. Spotlight routes are deliberately excluded (shown separately).
+   Defaults are picked deterministically per day so they're stable on refresh. */
+export type RotdHaul = "Short" | "Medium" | "Long";
+export type RotdLeg = { route: Route; haul: RotdHaul };
+export const ROTD_MULTIPLIER = 2;
+
+function haulOf(min: number): RotdHaul {
+  return min < 120 ? "Short" : min <= 360 ? "Medium" : "Long";
+}
+
+export function getRotd(d = new Date()): RotdLeg[] {
+  // Staff-set list of exactly six valid flight numbers takes priority.
+  if (store.rotdNos && store.rotdNos.length === 6) {
+    const legs = store.rotdNos
+      .map((no) => finnairRoutes.find((r) => r.routeNumber === no))
+      .filter((r): r is Route => !!r);
+    if (legs.length === 6) return legs.map((r) => ({ route: r, haul: haulOf(r.minutes) }));
+  }
+  // Deterministic auto-pick: 2 short, 2 medium, 2 long, excluding spotlights.
+  const r = rng(dayIndex(d) * 7919 + 31);
+  const spot = new Set(getSpotlightRoutes(d).map((x) => x.routeNumber));
+  const eligible = finnairRoutes.filter((rt) => !spot.has(rt.routeNumber));
+  const pick = (pool: Route[], n: number) => {
+    const p = [...pool];
+    const out: Route[] = [];
+    for (let i = 0; i < n && p.length; i++) out.push(p.splice(Math.floor(r() * p.length), 1)[0]);
+    return out;
+  };
+  const short = pick(eligible.filter((x) => x.minutes < 120), 2);
+  const medium = pick(eligible.filter((x) => x.minutes >= 120 && x.minutes <= 360), 2);
+  const long = pick(eligible.filter((x) => x.minutes > 360), 2);
+  return [...short, ...medium, ...long].map((rt) => ({ route: rt, haul: haulOf(rt.minutes) }));
+}
+
+export function setRotd(flightNumbers: string[]): boolean {
+  const valid = flightNumbers.filter((no) => finnairRoutes.some((r) => r.routeNumber === no));
+  if (valid.length !== 6) return false;
+  store.rotdNos = valid;
+  return true;
+}
+export function rotdOptions(): Route[] {
   return finnairRoutes;
 }
 
