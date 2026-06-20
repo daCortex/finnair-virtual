@@ -1,9 +1,14 @@
 import Link from "next/link";
 import { getPilotDashboard, fmtApCompact, fmtLcCompact } from "@/lib/portal";
 import { PortalNav, type NavSummary } from "@/components/portal/PortalNav";
+import { LockScreen } from "@/components/portal/LockScreen";
+import { isUnlocked } from "@/lib/gate";
 import { BRAND } from "@/lib/data";
 
 export default async function PortalLayout({ children }: { children: React.ReactNode }) {
+  // Preview gate — private while under IFVARB review.
+  if (!(await isUnlocked())) return <LockScreen />;
+
   const d = await getPilotDashboard();
   const summary: NavSummary | null = d
     ? {
