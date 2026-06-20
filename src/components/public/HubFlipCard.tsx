@@ -1,10 +1,21 @@
+"use client";
+
+import { useState } from "react";
+
 /* Flip card for the routes page: front = Helsinki-Vantaa aerial, back = the
    airport diagram. Drop the real Infinite Flight screenshots in as
-   /img/efhk-aerial.webp + /img/efhk-diagram.webp and they’ll appear; until
-   then a tasteful gradient placeholder is shown. Hover (or tab) to flip. */
+   /img/efhk-aerial.webp + /img/efhk-diagram.webp and they'll appear; until
+   then a tasteful gradient placeholder is shown.
+   Flips on hover (desktop) AND on tap (mobile). */
 export function HubFlipCard() {
+  const [flipped, setFlipped] = useState(false);
   return (
-    <div className="flip group h-[320px] w-full" tabIndex={0}>
+    <button
+      type="button"
+      onClick={() => setFlipped((f) => !f)}
+      aria-pressed={flipped}
+      className={`flip group block h-[320px] w-full text-left ${flipped ? "is-flipped" : ""}`}
+    >
       <div className="flip-inner h-full w-full rounded-xl">
         {/* FRONT — aerial */}
         <div className="flip-face rounded-xl border border-obsidian">
@@ -12,7 +23,7 @@ export function HubFlipCard() {
             <p className="text-xs uppercase tracking-[0.28em] text-white/55">Helsinki-Vantaa · EFHK</p>
             <h3 className="mt-1 font-display text-2xl font-semibold text-white">Aerial view</h3>
             <p className="mt-1 text-sm text-white/65">Three runways, one bridge between Europe and Asia.</p>
-            <p className="mt-4 text-xs text-white/45">Hover to view the airport diagram →</p>
+            <p className="mt-4 text-xs text-white/45">Tap or hover to view the airport diagram →</p>
           </div>
         </div>
         {/* BACK — diagram */}
@@ -21,9 +32,10 @@ export function HubFlipCard() {
             <p className="text-xs uppercase tracking-[0.28em] text-white/55">EFHK · Ground chart</p>
             <h3 className="mt-1 font-display text-2xl font-semibold text-white">Airport diagram</h3>
             <p className="mt-1 text-sm text-white/65">Stands, taxiways and runway layout from Infinite Flight.</p>
+            <p className="mt-4 text-xs text-white/45">← Tap to flip back</p>
           </div>
         </div>
       </div>
-    </div>
+    </button>
   );
 }

@@ -344,7 +344,7 @@ html:not(.dark) .lift {
 /* 3D flip card (hover to flip). */
 .flip { perspective: 1400px; }
 .flip-inner { position: relative; transition: transform 0.8s var(--ease-lux); transform-style: preserve-3d; }
-.flip:hover .flip-inner, .flip:focus-within .flip-inner { transform: rotateY(180deg); }
+.flip:hover .flip-inner, .flip:focus-within .flip-inner, .flip.is-flipped .flip-inner { transform: rotateY(180deg); }
 .flip-face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; overflow: hidden; }
 .flip-back { transform: rotateY(180deg); }
 

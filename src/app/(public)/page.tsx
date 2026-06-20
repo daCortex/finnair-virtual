@@ -40,7 +40,7 @@ export default function Home() {
       {/* HERO */}
       <section className="aurora relative overflow-hidden">
         <HeroSlideshow />
-        <div className="pointer-events-none absolute -right-32 -top-24 h-96 w-96 rounded-full opacity-30 blur-3xl" style={{ background: "radial-gradient(circle,#c451d6,transparent 70%)" }} />
+        <div className="pointer-events-none absolute -right-32 -top-24 h-96 w-96 rounded-full opacity-40 blur-3xl" style={{ background: "radial-gradient(circle,#3b6fe0,transparent 70%)" }} />
         <div className="relative mx-auto max-w-7xl px-5 py-24 lg:px-8 lg:py-32">
           <p className="reveal text-xs uppercase tracking-[0.32em] text-white/55">Finnair Virtual · Infinite Flight</p>
           <h1 className="reveal mt-4 max-w-3xl font-display text-5xl font-semibold leading-[1.02] tracking-tight lg:text-7xl" style={{ animationDelay: "80ms" }}>

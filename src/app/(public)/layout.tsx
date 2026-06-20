@@ -11,7 +11,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
       <main className="flex-1">{children}</main>
       <Finnix />
 
-      <footer className="mt-20 border-t border-obsidian bg-ink-900">
+      <footer className="border-t border-obsidian bg-ink-900">
         <div className="mx-auto max-w-7xl px-5 py-14 lg:px-8">
           <div className="grid gap-10 md:grid-cols-[1.4fr_1fr]">
             <div>

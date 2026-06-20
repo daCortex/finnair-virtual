@@ -15,11 +15,13 @@ const FACTS: Record<string, { label: string; value: string }[]> = {
   ],
   EBBR: [
     { label: "Runways", value: "3" }, { label: "Ops", value: "24/7 freight" },
-    { label: "Role", value: "European cargo gateway" }, { label: "Cargo", value: "Belly + freighter" },
+    { label: "Cargo", value: "Belly + freighter" }, { label: "Lanes", value: "EU feeders" },
+    { label: "Based since", value: "1948" },
   ],
   EGLL: [
     { label: "Runways", value: "2" }, { label: "Terminals", value: "2–5" },
-    { label: "Role", value: "Transatlantic cargo" }, { label: "Freight", value: "High-value" },
+    { label: "Freight", value: "High-value" }, { label: "Lanes", value: "North Atlantic" },
+    { label: "Based since", value: "1946" },
   ],
 };
 

@@ -50,7 +50,7 @@ export const SITE_FLEET: SiteAircraft[] = [
   { type: "Airbus A321", pax: 209, cruiseAlt: "39,000 ft", cruiseSpeed: "Mach 0.78", rangeNm: 3200, reg: "OH-LZA", engines: "2 × CFM56-5B", acquired: 1999, role: "Peak-capacity European workhorse — leisure routes and busy trunk lines", routesFlown: 72, family: "Narrowbody" },
   { type: "Airbus A330-300", pax: 279, cruiseAlt: "41,000 ft", cruiseSpeed: "Mach 0.86", rangeNm: 6340, reg: "OH-LTM", engines: "2 × Rolls-Royce Trent 772B", acquired: 2009, role: "Medium-long haul to North America and the Middle East", routesFlown: 16, family: "Widebody" },
   { type: "Airbus A350-900", pax: 321, cruiseAlt: "43,000 ft", cruiseSpeed: "Mach 0.85", rangeNm: 8100, reg: "OH-LWA", engines: "2 × Rolls-Royce Trent XWB-84", acquired: 2015, role: "Flagship long-haul aircraft for Asia and transatlantic services", routesFlown: 50, family: "Widebody" },
-  { type: "Boeing 757-200", pax: 227, cruiseAlt: "38,000 ft", cruiseSpeed: "Mach 0.80", rangeNm: 3900, reg: "OH-LBR", engines: "2 × Rolls-Royce RB211-535E4", acquired: 1997, role: "Heritage leisure jet in historic Finnair livery — reserved exclusively for special group flights and events, never scheduled routes.", routesFlown: 0, family: "Heritage", historic: true, accent: "#D9A441" },
+  { type: "Boeing 757-200", pax: 227, cruiseAlt: "38,000 ft", cruiseSpeed: "Mach 0.80", rangeNm: 3900, reg: "OH-LBR", engines: "2 × Rolls-Royce RB211-535E4", acquired: 1997, role: "Heritage leisure jet in historic Finnair livery — reserved exclusively for special group flights and events, never scheduled routes.", routesFlown: 0, family: "Heritage", historic: true, accent: "#2E7BF6" },
 ];
 
 export type SiteHub = {

@@ -19,8 +19,9 @@ const RANK_COLOR: Record<string, string> = {
 };
 
 export default function RanksPage() {
-  // Render top-down from the summit so the column reads as a ladder you climb.
-  const ladder = [...RANKS].reverse();
+  // Natural order — Aurora (01) at the top, Luminary (09) at the foot of the
+  // list — so the numbering reads 1→9 without confusion.
+  const ladder = RANKS;
 
   return (
     <div className="mx-auto max-w-4xl px-5 py-16 lg:px-8 lg:py-20">
@@ -33,21 +34,22 @@ export default function RanksPage() {
       {/* The ladder */}
       <div className="relative mt-12 pl-4 sm:pl-6">
         {/* Vertical rail */}
-        <div className="absolute bottom-2 left-[2.35rem] top-2 w-px bg-gradient-to-b from-rose/40 via-obsidian to-gold/40 sm:left-[3.1rem]" aria-hidden />
+        <div className="absolute bottom-6 left-[3.25rem] top-6 w-px bg-gradient-to-b from-gold/40 via-obsidian to-gold/40 sm:left-[3.75rem]" aria-hidden />
 
         <div className="space-y-5">
           {ladder.map((r, idx) => {
             const color = RANK_COLOR[r.name] ?? "#3B7BE0";
-            const summit = idx === 0;
+            const start = idx === 0;
+            const summit = idx === ladder.length - 1;
             return (
-              <div key={r.name} className="rise relative flex gap-4 sm:gap-5" style={{ animationDelay: `${idx * 55}ms` }}>
+              <div key={r.name} className="rise relative flex items-center gap-4 sm:gap-5" style={{ animationDelay: `${idx * 55}ms` }}>
                 {/* Medallion on the rail */}
                 <div className="relative z-10 shrink-0">
                   <div
-                    className="flex h-[3.75rem] w-[3.75rem] items-center justify-center rounded-full bg-ink-950"
-                    style={{ boxShadow: `0 0 0 2px ${color}, 0 0 22px -4px ${color}` }}
+                    className="flex h-[4.5rem] w-[4.5rem] items-center justify-center rounded-full bg-ink-950"
+                    style={{ boxShadow: `0 0 0 2px ${color}, 0 0 26px -3px ${color}` }}
                   >
-                    <Image src={`/ranks/${r.name.toLowerCase()}.png`} alt={`${r.name} rank`} width={400} height={400} className="h-11 w-11 object-contain" />
+                    <Image src={`/ranks/${r.name.toLowerCase()}.png`} alt={`${r.name} rank`} width={400} height={400} className="h-[3.5rem] w-[3.5rem] object-contain" />
                   </div>
                   <span className="absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full text-[0.6rem] font-semibold text-white ring-2 ring-ink-950" style={{ background: color }}>{r.n}</span>
                 </div>
@@ -59,6 +61,7 @@ export default function RanksPage() {
                 >
                   <div className="flex flex-wrap items-center gap-2">
                     <h2 className="font-display text-xl font-semibold" style={{ color }}>{r.name}</h2>
+                    {start && <span className="rounded-full px-2 py-0.5 text-[0.65rem] font-semibold uppercase tracking-wide text-white" style={{ background: color }}>Start here</span>}
                     {summit && <span className="rounded-full px-2 py-0.5 text-[0.65rem] font-semibold uppercase tracking-wide text-white" style={{ background: color }}>Summit</span>}
                     <span className="rounded-full bg-ink-800 px-2 py-0.5 text-xs text-cream-dim">{r.hours.toLocaleString()} h+</span>
                     {r.group === "exclusive" && <span className="rounded-full bg-rose/10 px-2 py-0.5 text-xs text-rose">Exclusive</span>}
@@ -74,12 +77,6 @@ export default function RanksPage() {
               </div>
             );
           })}
-
-          {/* Base of the ladder */}
-          <div className="relative flex items-center gap-4 pt-1 sm:gap-5">
-            <div className="z-10 flex h-[3.75rem] w-[3.75rem] shrink-0 items-center justify-center rounded-full border border-dashed border-obsidian bg-ink-950 text-[0.6rem] uppercase tracking-wide text-cream-faint">Start</div>
-            <p className="text-sm text-cream-dim">Every pilot begins at <span className="font-medium" style={{ color: RANK_COLOR.Aurora }}>Aurora</span> — your first logged flight starts the climb.</p>
-          </div>
         </div>
       </div>
 
