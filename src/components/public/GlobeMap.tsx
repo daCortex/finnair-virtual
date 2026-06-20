@@ -44,6 +44,7 @@ export function GlobeMap({ legs, title, codeshareLegs = [] }: { legs: RegionLeg[
     let cancelled = false;
     let ro: ResizeObserver | null = null;
     let onResize: (() => void) | null = null;
+    let cleanupPointer: (() => void) | null = null;
     (async () => {
       const Globe = (await import("globe.gl")).default;
       if (cancelled || !wrapRef.current) return;
@@ -67,7 +68,7 @@ export function GlobeMap({ legs, title, codeshareLegs = [] }: { legs: RegionLeg[
         .arcsTransitionDuration(0)
         .pointColor("color")
         .pointAltitude(0.01)
-        .pointRadius((d: Pt) => (d.isHub ? 0.7 : 0.42))
+        .pointRadius((d: Pt) => (d.isHub ? 0.8 : 0.6))
         .pointsMerge(false)
         .pointLabel((d: Pt) => `<div style="font:600 12px/1.2 system-ui;color:#fff;background:rgba(12,2,67,.9);padding:4px 8px;border-radius:6px">${d.city} (${d.code})</div>`)
         .onPointClick((d: Pt) => { if (!d.isHub) router.push(`/destination/${d.code}`); })
@@ -97,11 +98,22 @@ export function GlobeMap({ legs, title, codeshareLegs = [] }: { legs: RegionLeg[
       onResize = fit;
       window.addEventListener("orientationchange", fit);
       window.addEventListener("resize", fit);
+
+      // A spinning globe makes points a moving target — especially on touch,
+      // where a tap on a moving dot registers as a drag and never fires the
+      // click. Stop auto-rotation on first interaction so cities are tappable.
+      const stopSpin = () => {
+        const c = world.controls();
+        if (c.autoRotate) { c.autoRotate = false; setRotate(false); }
+      };
+      el.addEventListener("pointerdown", stopSpin);
+      cleanupPointer = () => el.removeEventListener("pointerdown", stopSpin);
     })();
 
     return () => {
       cancelled = true;
       ro?.disconnect();
+      cleanupPointer?.();
       if (onResize) {
         window.removeEventListener("orientationchange", onResize);
         window.removeEventListener("resize", onResize);

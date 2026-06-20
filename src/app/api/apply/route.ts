@@ -1,6 +1,10 @@
-/* Pilot / Staff application intake → Discord webhook.
-   Set DISCORD_APPLY_WEBHOOK to deliver applications to a Discord channel;
-   without it the form still accepts submissions (delivered: false). */
+/* Pilot / Staff application intake → Discord webhooks.
+   Applications are routed to separate Discord channels by type:
+     • DISCORD_PILOT_WEBHOOK  → #pilot-applications
+     • DISCORD_STAFF_WEBHOOK  → #staff-applications
+   DISCORD_APPLY_WEBHOOK is used as a fallback for either type if a
+   type-specific webhook isn't set. Without any webhook the form still
+   accepts submissions (delivered: false). */
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -25,7 +29,10 @@ export async function POST(request: Request) {
   if (!get("discord")) return Response.json({ error: "Your Discord username is required." }, { status: 400 });
   if (get("why").length < 10) return Response.json({ error: "Please tell us a little more about why you'd like to join." }, { status: 400 });
 
-  const webhook = process.env.DISCORD_APPLY_WEBHOOK;
+  // Route to the channel-specific webhook, falling back to the shared one.
+  const fallback = process.env.DISCORD_APPLY_WEBHOOK;
+  const webhook =
+    (type === "staff" ? process.env.DISCORD_STAFF_WEBHOOK : process.env.DISCORD_PILOT_WEBHOOK) || fallback;
   let delivered = false;
   if (webhook) {
     const embed = {

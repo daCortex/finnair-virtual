@@ -71,8 +71,8 @@ export default function AboutPage() {
       <section className="mt-12">
         <h2 className="font-display text-2xl font-semibold text-cream">A oneworld partner</h2>
         <p className="mt-1 text-sm text-cream-dim">Connecting our pilots to the global oneworld alliance network.</p>
-        <div className="halo mt-5 overflow-hidden rounded-[1.75rem] bg-white px-8 py-10" style={{ ["--halo" as string]: "var(--color-gold)" }}>
-          <Image src="/brand/oneworld-ay-lockup.webp" alt="Finnair · oneworld alliance partners" width={1860} height={389} className="mx-auto h-16 w-auto max-w-full object-contain lg:h-24" />
+        <div className="halo mt-5 overflow-hidden rounded-[2rem]" style={{ ["--halo" as string]: "var(--color-gold)" }}>
+          <Image src="/brand/oneworld-ay-lockup.webp" alt="Finnair · oneworld alliance partners" width={1860} height={389} className="block h-auto w-full object-cover" />
         </div>
         <p className="mt-3 text-xs text-cream-faint">An independent fan project — not affiliated with Finnair Plc or the oneworld alliance.</p>
       </section>

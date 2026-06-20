@@ -7,7 +7,7 @@ export const SITE = {
   network: { airports: 112, routes: 224, hub: "EFHK" },
   fleetCount: 7,
   longestRangeNm: 8100,
-  longestSector: "13h 20m",
+  longestSector: "21h 30m",
   avgSector: "4h 21m",
   mission:
     "An Infinite Flight virtual airline dedicated to simulating the absolute pinnacle of aviation. Join a community of pilots committed to realism, excellence, and Nordic precision.",
