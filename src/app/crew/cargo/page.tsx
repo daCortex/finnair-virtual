@@ -1,6 +1,6 @@
 import { getPilotDashboard, fmtHours } from "@/lib/portal";
 import { getCargoContracts } from "@/lib/ops";
-import { CARGO_CERTS, CARGO_TABLE, CARGO_CODESHARES } from "@/lib/career";
+import { CARGO_CERTS, CARGO_TABLE, CARGO_CODESHARES, cargoPunctualityBonus } from "@/lib/career";
 import { airportCity } from "@/lib/airports";
 import { Locked } from "@/components/portal/Locked";
 import { CargoDispatch, type CargoLeg } from "@/components/portal/CargoDispatch";
@@ -17,11 +17,13 @@ export default async function CargoPage() {
   }
 
   const cert = d.cargoCert;
+  const cargoBonus = cargoPunctualityBonus(cert.name);
   const contracts = getCargoContracts(d.session.pilotId, d.cargoHours, d.lcBalance);
   const legs: CargoLeg[] = contracts.map((c) => ({
     id: c.id, dep: c.dep, arr: c.arr, depCity: airportCity(c.dep), arrCity: airportCity(c.arr),
     flightNo: c.flightNo, aircraft: c.aircraft, timeLabel: fmtHours(c.minutes),
-    riskLabel: c.riskLabel, risk: c.risk, scenario: c.scenario, potentialLc: c.lc, lcMin: c.lcMin, windowHours: 24,
+    riskLabel: c.riskLabel, risk: c.risk, scenario: c.scenario, potentialLc: c.lc, lcMin: c.lcMin,
+    punctualBonus: cargoBonus, windowMinutes: c.minutes + 120,
   }));
   const codeshareUnlocked = cert.name === "Freight Architect";
 
@@ -36,7 +38,7 @@ export default async function CargoPage() {
         <div className="rounded-2xl border border-obsidian bg-ink-900 px-5 py-3 text-right">
           <p className="text-xs uppercase tracking-wide text-cream-faint">Certification</p>
           <p className="font-display text-xl font-semibold text-cream">{cert.name}</p>
-          <p className="text-xs text-cream-faint">{cert.fleet.join(" · ")} · {cert.dailyLimit}/day</p>
+          <p className="text-xs text-cream-faint">{cert.dailyLimit} contracts/day</p>
         </div>
       </header>
 
@@ -76,7 +78,7 @@ export default async function CargoPage() {
                 <div>
                   <span className={`font-semibold ${c.name === cert.name ? "text-rose" : "text-cream"}`}>{c.name}</span>
                   <span className="text-xs text-cream-faint"> · {c.hours === 0 ? "starting" : `${c.hours}h`}{c.lcReq > 0 ? ` + ${c.lcReq.toLocaleString()} LC` : ""}</span>
-                  <p className="text-xs text-cream-faint">{c.fleet.join(" · ")} · {c.dailyLimit}/day</p>
+                  <p className="text-xs text-cream-faint">{c.dailyLimit} contracts/day</p>
                 </div>
               </li>
             ))}

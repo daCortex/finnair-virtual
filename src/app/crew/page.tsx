@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getPilotDashboard, fmtHours, fmtDate, timeAgo } from "@/lib/portal";
+import { punctualityBonus } from "@/lib/career";
 import { getRotd, ROTD_MULTIPLIER, getSpotlightRoutes, getDispatches, getCargoContracts, firstFlightNo } from "@/lib/ops";
 import { listNews } from "@/lib/db";
 import { airportCity } from "@/lib/airports";
@@ -30,13 +31,13 @@ export default async function Dashboard() {
   const firstName = d.session.displayName.split(" ")[0];
   const events = (await listNews(4)).filter((e) => e.category !== "Route of the Week").slice(0, 2);
 
-  // Career dispatch → serialisable, ICAO-coded, "potential" AP.
+  // Career dispatch → serialisable, ICAO-coded, "potential" AP (band max).
   const career: DispatchLite[] = (d.gates.career
-    ? getDispatches(d.session.pilotId, { authorizedFleet: d.fleet, rankMultiplier: d.rankMultiplier })
+    ? getDispatches(d.session.pilotId, { authorizedFleet: d.fleet, punctualBonus: punctualityBonus(d.license.current.short) })
     : []
   ).map((dp) => ({
     id: dp.id, dep: dp.dep, arr: dp.arr, depCity: airportCity(dp.dep), arrCity: airportCity(dp.arr),
-    flightNo: dp.flightNo, timeLabel: fmtHours(dp.minutes), spotlight: dp.spotlight, potentialAp: dp.maxAp,
+    flightNo: dp.flightNo, timeLabel: fmtHours(dp.minutes), spotlight: dp.spotlight, potentialAp: dp.potentialAp,
   }));
 
   // Cargo dispatch → serialisable, ICAO-coded, "potential" LC.
@@ -139,6 +140,9 @@ export default async function Dashboard() {
               </li>
             ))}
           </ul>
+          <p className="border-t border-gold/15 px-5 py-2.5 text-xs text-cream-faint">
+            The 2× bonus only applies when a spotlight sector appears on your <span className="text-cream-dim">Career or Cargo dispatch</span> — flying it casually earns the standard reward.
+          </p>
         </section>
       )}
 

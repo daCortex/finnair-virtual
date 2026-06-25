@@ -24,7 +24,7 @@ const PRIMARY = [
   { href: "/crew/career", label: "Career" },
   { href: "/crew/cargo", label: "Cargo" },
   { href: "/crew/routes", label: "Routes" },
-  { href: "/crew/map", label: "Live Map" },
+  { href: "/crew/fleet", label: "Live Fleet" },
   { href: "/crew/logbook", label: "Logbook" },
 ];
 
@@ -58,7 +58,7 @@ export function PortalNav({ summary }: { summary: NavSummary | null }) {
 
   const more = [
     { href: "/crew/ranks", label: "Rank ladder" },
-    { href: "/crew/fleet", label: "Live Fleet", lock: false },
+    { href: "/crew/map", label: "Live Map", lock: false },
     { href: "/crew/discover", label: "oneworld Discover", lock: summary ? !summary.gates.discover : true },
     { href: "/crew/leaderboard", label: "Leaderboard" },
     { href: "/crew/loa", label: "Request LOA" },

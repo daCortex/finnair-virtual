@@ -16,7 +16,8 @@ export type CareerLeg = {
   haul: string;
   spotlight: boolean;
   potentialAp: number;
-  windowHours: number;
+  punctualBonus: number;
+  windowMinutes: number;
 };
 
 const HAUL_COLOR: Record<string, string> = { Short: "#12B5A8", Medium: "#3B6FE0", Long: "#A855C7", Ultra: "#D63A5E" };
@@ -57,7 +58,7 @@ export function CareerDispatch({ legs }: { legs: CareerLeg[] }) {
       {legs.map((leg, i) => {
         const at = accepted[leg.id];
         const isAccepted = !!at;
-        const dueAt = at ? at + leg.windowHours * 3600_000 : 0;
+        const dueAt = at ? at + leg.windowMinutes * 60_000 : 0;
         const remaining = dueAt - now;
         const expired = isAccepted && remaining <= 0;
         const color = HAUL_COLOR[leg.haul] ?? "#3B6FE0";
@@ -75,8 +76,9 @@ export function CareerDispatch({ legs }: { legs: CareerLeg[] }) {
             {!isAccepted ? (
               <div className="mt-auto flex items-center justify-between border-t border-obsidian/70 pt-3.5">
                 <div>
-                  <p className="text-xs text-cream-faint">potential AP</p>
+                  <p className="text-xs text-cream-faint">potential AP{leg.spotlight ? " · 2×" : ""}</p>
                   <p className="font-display text-lg font-semibold text-cream">✦ {leg.potentialAp.toLocaleString()}</p>
+                  <p className="text-[0.65rem] text-cream-faint">+{leg.punctualBonus} on-time bonus</p>
                 </div>
                 <button onClick={() => accept(leg.id)} className="rounded-full bg-gold px-4 py-2 text-xs font-semibold text-white transition-all hover:brightness-125">Accept</button>
               </div>
@@ -90,10 +92,13 @@ export function CareerDispatch({ legs }: { legs: CareerLeg[] }) {
                   <div>
                     <p className="text-xs text-cream-faint">potential AP</p>
                     <p className="font-display text-base font-semibold text-cream">✦ {leg.potentialAp.toLocaleString()}</p>
+                    {!expired && <p className="text-[0.65rem] text-cream-faint">+{leg.punctualBonus} if filed in time</p>}
                   </div>
                   <Link href={fileHref(leg, expired)} className="rounded-full bg-gold px-4 py-2 text-xs font-semibold text-white transition-all hover:brightness-125">File PIREP</Link>
                 </div>
-                {expired && <p className="mt-2 text-[0.65rem] text-rose">Filed late — the punctuality bonus no longer applies.</p>}
+                {expired
+                  ? <p className="mt-2 text-[0.65rem] text-rose">Filed late — the {leg.punctualBonus} AP on-time bonus no longer applies.</p>
+                  : <p className="mt-2 text-[0.65rem] text-cream-faint">Window = flight time + 2h.</p>}
               </div>
             )}
           </div>

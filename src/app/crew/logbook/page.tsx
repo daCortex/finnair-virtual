@@ -73,9 +73,9 @@ export default async function LogbookPage() {
         )}
       </div>
 
-      {/* AP reference */}
+      {/* Reward reference */}
       <p className="mt-4 text-xs text-cream-faint">
-        AP table — Regional &lt;2h: ✦{AP_TABLE.regional.net} · Continental 2–6h: ✦{AP_TABLE.continental.net.toLocaleString()} · Long-haul &gt;6h: ✦{AP_TABLE.longhaul.net.toLocaleString()} net. Punctual filing ×1.25, spotlight ×2{d.rankMultiplier > 1 ? `, your rank ×${d.rankMultiplier}` : ""}.
+        AP payout — Short &lt;2h ✦{AP_TABLE.regional.net} · Medium 2–6h ✦{AP_TABLE.continental.net.toLocaleString()} · Long 6–15h ✦{AP_TABLE.longhaul.net.toLocaleString()} · Ultra-long 15h+ ✦{AP_TABLE.ultralong.net.toLocaleString()}. On-time filing adds a flat licence bonus (PPL +100 · CPL +200 · Command +300 AP); spotlight sectors pay 2×. Cargo flights earn Logistic Coins (◈ LC) instead of AP.
       </p>
     </div>
   );

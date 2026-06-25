@@ -223,10 +223,43 @@ export type LoaNotice = {
 };
 
 export async function notifyLoa(n: LoaNotice): Promise<{ ok: boolean }> {
+  const isExt = n.kind === "extend";
+
+  // Simple webhook path (no bot token needed) — posts an embed to the LOA
+  // channel. Set DISCORD_LOA_WEBHOOK to enable. Approve/Reject still happen in
+  // the Crew Center.
+  const webhook = process.env.DISCORD_LOA_WEBHOOK;
+  if (webhook) {
+    try {
+      const res = await fetch(webhook, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: "Finnair Virtual · LOA",
+          embeds: [
+            {
+              title: isExt ? "🌙 LOA · extension request" : "🌙 LOA · application",
+              color: GOLD,
+              fields: [
+                { name: "Pilot", value: `${n.callsign} · ${n.username}`, inline: true },
+                { name: isExt ? "Extra days" : "Length", value: `${n.days} day${n.days === 1 ? "" : "s"}`, inline: true },
+                { name: "Reason", value: n.reason || "—" },
+              ],
+              footer: { text: "Finnair Virtual · review in the Crew Center" },
+              timestamp: new Date().toISOString(),
+            },
+          ],
+        }),
+      });
+      return { ok: res.ok };
+    } catch {
+      return { ok: false };
+    }
+  }
+
   const token = process.env.DISCORD_BOT_TOKEN;
   if (!token || !REGISTER_CHANNEL_ID) return { ok: false };
   const headers = { Authorization: `Bot ${token}`, "Content-Type": "application/json" };
-  const isExt = n.kind === "extend";
   const buttons = [
     {
       type: ComponentType.BUTTON,

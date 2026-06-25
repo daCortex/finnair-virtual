@@ -17,7 +17,8 @@ export type CargoLeg = {
   scenario: string;
   potentialLc: number;
   lcMin: number;
-  windowHours: number;
+  punctualBonus: number;
+  windowMinutes: number;
 };
 
 const RISK_CLASS: Record<string, string> = {
@@ -61,7 +62,7 @@ export function CargoDispatch({ legs }: { legs: CargoLeg[] }) {
       {legs.map((leg, i) => {
         const at = accepted[leg.id];
         const isAccepted = !!at;
-        const remaining = at ? at + leg.windowHours * 3600_000 - now : 0;
+        const remaining = at ? at + leg.windowMinutes * 60_000 - now : 0;
         const expired = isAccepted && remaining <= 0;
         return (
           <div key={leg.id} className="rise flex flex-col rounded-2xl border border-obsidian bg-ink-900 p-5 lift" style={{ animationDelay: `${i * 60}ms` }}>
@@ -78,7 +79,9 @@ export function CargoDispatch({ legs }: { legs: CargoLeg[] }) {
                 <div>
                   <p className="text-xs text-cream-faint">potential payout</p>
                   <p className="font-display text-lg font-semibold text-cream">◈ {leg.potentialLc.toLocaleString()} LC</p>
-                  {leg.risk === "high" && <p className="text-[0.65rem] text-rose">min ◈ {leg.lcMin.toLocaleString()} (−20% risk)</p>}
+                  {leg.risk === "high"
+                    ? <p className="text-[0.65rem] text-rose">min ◈ {leg.lcMin.toLocaleString()} (−20% risk) · +{leg.punctualBonus} on-time</p>
+                    : <p className="text-[0.65rem] text-cream-faint">+{leg.punctualBonus} LC on-time bonus</p>}
                 </div>
                 <button onClick={() => accept(leg.id)} className="rounded-full px-4 py-2 text-xs font-semibold text-white transition-all hover:brightness-125" style={{ background: "var(--color-rose)" }}>Accept</button>
               </div>
@@ -92,9 +95,13 @@ export function CargoDispatch({ legs }: { legs: CargoLeg[] }) {
                   <div>
                     <p className="text-xs text-cream-faint">potential payout</p>
                     <p className="font-display text-base font-semibold text-cream">◈ {leg.potentialLc.toLocaleString()} LC</p>
+                    {!expired && <p className="text-[0.65rem] text-cream-faint">+{leg.punctualBonus} if filed in time</p>}
                   </div>
                   <Link href={fileHref(leg, expired)} className="rounded-full px-4 py-2 text-xs font-semibold text-white transition-all hover:brightness-125" style={{ background: "var(--color-rose)" }}>File PIREP</Link>
                 </div>
+                {expired
+                  ? <p className="mt-2 text-[0.65rem] text-rose">Filed late — the {leg.punctualBonus} LC on-time bonus no longer applies.</p>
+                  : <p className="mt-2 text-[0.65rem] text-cream-faint">Window = flight time + 2h.</p>}
               </div>
             )}
           </div>

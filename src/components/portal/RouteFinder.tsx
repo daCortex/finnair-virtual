@@ -13,7 +13,7 @@ export type EnrichedRoute = {
   aircraft: string;
   minutes: number;
   airline: string;
-  category: "regional" | "continental" | "longhaul";
+  category: "regional" | "continental" | "longhaul" | "ultralong";
   ap: number;
   spotlight: boolean;
   rotw: boolean;
@@ -22,9 +22,10 @@ export type EnrichedRoute = {
 
 const CATS = [
   { id: "all", label: "All" },
-  { id: "regional", label: "Regional" },
-  { id: "continental", label: "Continental" },
-  { id: "longhaul", label: "Long-haul" },
+  { id: "regional", label: "Short" },
+  { id: "continental", label: "Medium" },
+  { id: "longhaul", label: "Long" },
+  { id: "ultralong", label: "Ultra-long" },
 ];
 
 function fmt(min: number) {

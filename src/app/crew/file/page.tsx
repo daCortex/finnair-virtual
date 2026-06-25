@@ -2,6 +2,7 @@ import Link from "next/link";
 import { AIRCRAFT_GROUPS } from "@/lib/aircraft";
 import { MULTIPLIERS } from "@/lib/data";
 import { getPilotDashboard } from "@/lib/portal";
+import { punctualityBonus } from "@/lib/career";
 import { FilePirep, type PirepPrefill } from "@/components/portal/FilePirep";
 
 export const metadata = { title: "File a PIREP" };
@@ -31,7 +32,7 @@ export default async function FilePage({ searchParams }: { searchParams: Promise
         <h1 className="mt-2 font-display text-4xl font-semibold text-cream">File a PIREP</h1>
         <p className="mt-3 max-w-2xl text-cream-dim">Log a completed flight. Approved reports credit toward your hours, rank and Aurora-Points balance.</p>
       </header>
-      <FilePirep groups={AIRCRAFT_GROUPS} multipliers={MULTIPLIERS} rankMultiplier={d.rankMultiplier} prefill={prefill} />
+      <FilePirep groups={AIRCRAFT_GROUPS} multipliers={MULTIPLIERS} punctualBonus={punctualityBonus(d.license.current.short)} prefill={prefill} />
     </div>
   );
 }

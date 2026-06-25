@@ -1,8 +1,14 @@
+import Image from "next/image";
 import { getPilotDashboard } from "@/lib/portal";
 import { RANKS, LICENSES, TIERS } from "@/lib/career";
 
 export const metadata = { title: "Rank Ladder" };
 export const dynamic = "force-dynamic";
+
+const RANK_COLOR: Record<string, string> = {
+  Aurora: "#14A88F", Polaris: "#3B7BE0", Elysian: "#7A5CF0", Solstice: "#D98A1F",
+  Zenith: "#D63A5E", Astralis: "#4A5BF0", Celestia: "#B645C8", Sovereign: "#C99A2E", Luminary: "#8AA0C8",
+};
 
 export default async function RanksPage() {
   const d = await getPilotDashboard();
@@ -28,7 +34,7 @@ export default async function RanksPage() {
           return (
             <li key={r.name} className="rise" style={{ animationDelay: `${i * 50}ms` }}>
               <div className={`flex items-stretch gap-4 rounded-2xl border p-4 transition-colors lift ${isCurrent ? "border-gold bg-gold/5" : reached ? "border-obsidian bg-ink-900" : "border-dashed border-obsidian bg-ink-900/60"}`}>
-                <RankBadge n={r.n} group={r.group} dimmed={!reached} />
+                <RankBadge name={r.name} n={r.n} dimmed={!reached} />
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-center gap-2">
                     <h2 className={`font-display text-xl font-semibold ${reached ? "text-cream" : "text-cream-faint"}`}>{r.name}</h2>
@@ -59,9 +65,9 @@ export default async function RanksPage() {
             {LICENSES.map((l) => (
               <li key={l.short} className="flex items-start justify-between gap-3 border-t border-obsidian/60 pt-2.5 text-sm">
                 <div>
-                  <span className="font-semibold text-cream">{l.short}</span>
+                  <span className="font-semibold text-cream">{l.name}</span>
                   <span className="ml-2 text-xs text-cream-faint">{l.apCost === 0 ? "Free" : `${l.apCost.toLocaleString()} AP`}</span>
-                  <p className="text-xs text-cream-faint">{l.fleet.join(" · ")} · ≤{l.maxHours}h</p>
+                  <p className="text-xs text-cream-faint">Max flight time ≤{l.maxHours}h</p>
                 </div>
                 {(d?.apBalance ?? 0) >= l.cumulativeAp && <span className="text-xs text-gold">✓</span>}
               </li>
@@ -88,12 +94,19 @@ export default async function RanksPage() {
   );
 }
 
-function RankBadge({ n, group, dimmed }: { n: number; group: string; dimmed: boolean }) {
-  const grad = group === "exclusive" ? "linear-gradient(135deg,#7f1894,#0c0243)" : "linear-gradient(135deg,#0c0243,#3a1f7a)";
+function RankBadge({ name, n, dimmed }: { name: string; n: number; dimmed: boolean }) {
+  const color = RANK_COLOR[name] ?? "#3B7BE0";
   return (
-    <div className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl text-white" style={{ background: dimmed ? "var(--color-ink-800)" : grad, opacity: dimmed ? 0.5 : 1 }}>
-      <span className="font-display text-xl font-semibold">{n}</span>
-      {group === "exclusive" && <span className="absolute -right-1 -top-1 text-sm">✦</span>}
+    <div className="relative shrink-0 self-center">
+      <Image
+        src={`/ranks/${name.toLowerCase()}.png`}
+        alt={`${name} insignia`}
+        width={720}
+        height={1440}
+        className="h-20 w-auto object-contain"
+        style={{ opacity: dimmed ? 0.4 : 1, filter: dimmed ? "grayscale(0.6)" : `drop-shadow(0 0 12px color-mix(in srgb, ${color} 45%, transparent))` }}
+      />
+      <span className="absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full text-[0.6rem] font-semibold text-white ring-2 ring-ink-900" style={{ background: dimmed ? "var(--color-ink-700)" : color }}>{n}</span>
     </div>
   );
 }

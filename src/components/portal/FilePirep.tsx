@@ -21,12 +21,12 @@ const FLIGHT_TYPES = ["Casual", "Career", "Cargo"];
 export function FilePirep({
   groups,
   multipliers,
-  rankMultiplier,
+  punctualBonus = 0,
   prefill,
 }: {
   groups: Group[];
   multipliers: Mult[];
-  rankMultiplier: number;
+  punctualBonus?: number;
   prefill?: PirepPrefill;
 }) {
   const router = useRouter();
@@ -49,8 +49,8 @@ export function FilePirep({
   const rawMin = (Number(f.hours) || 0) * 60 + (Number(f.minutes) || 0);
   const ap = useMemo(() => {
     if (rawMin <= 0) return null;
-    return computeAp(rawMin, { punctual: f.punctual, rankMultiplier });
-  }, [rawMin, f.punctual, rankMultiplier]);
+    return computeAp(rawMin, { punctual: f.punctual, punctualBonus });
+  }, [rawMin, f.punctual, punctualBonus]);
   const cat = rawMin > 0 ? categoryForMinutes(rawMin) : null;
 
   async function submit(e: React.FormEvent) {
@@ -114,7 +114,7 @@ export function FilePirep({
         <div><label className={label}>Remarks</label><textarea className={`${input} min-h-[80px]`} placeholder="Anything notable about the flight…" value={f.remarks} onChange={(e) => set("remarks", e.target.value)} /></div>
         <label className={`flex items-center gap-2.5 text-sm ${lockPunctual ? "text-cream-faint" : "text-cream-dim"}`}>
           <input type="checkbox" checked={f.punctual} disabled={lockPunctual} onChange={(e) => set("punctual", e.target.checked)} className="h-4 w-4 accent-[var(--color-gold)] disabled:opacity-50" />
-          Filed within the punctuality window (+25% AP)
+          Filed within the punctuality window (+{punctualBonus} AP on-time bonus)
         </label>
         {lockPunctual && <p className="-mt-2 text-xs text-rose">Your accepted flight&apos;s completion window has expired — the punctuality bonus is unavailable.</p>}
         {error && <p className="rounded-xl bg-rose-500/10 px-3 py-2 text-sm text-rose-500">{error}</p>}
@@ -134,9 +134,8 @@ export function FilePirep({
           </div>
           <div className="space-y-2 bg-ink-900 px-5 py-4 text-sm">
             <Row k="Category" v={cat ? AP_TABLE[cat].label : "—"} />
-            <Row k="Base net AP" v={ap ? `✦ ${ap.base.toLocaleString()}` : "—"} />
-            <Row k="Punctuality" v={f.punctual ? "×1.25" : "—"} dim={!f.punctual} />
-            {rankMultiplier > 1 && <Row k="Rank bonus" v={`×${rankMultiplier}`} />}
+            <Row k="Base AP" v={ap ? `✦ ${ap.base.toLocaleString()}` : "—"} />
+            <Row k="On-time bonus" v={f.punctual && punctualBonus ? `+${punctualBonus}` : "—"} dim={!f.punctual} />
             <div className="mt-1 border-t border-obsidian/60 pt-2"><Row k="Total" v={ap ? `✦ ${ap.net.toLocaleString()}` : "—"} strong /></div>
           </div>
         </div>

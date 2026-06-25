@@ -177,13 +177,15 @@ export type Dispatch = {
   dep: string;
   arr: string;
   aircraft: string;
+  airline: string;
   minutes: number;
   category: FlightCategory;
   haul: DispatchHaul;
-  baseAp: number;
+  baseAp: number; // band payout (the headline max)
+  potentialAp: number; // base, or ×2 when a spotlight sector
+  punctualBonus: number; // flat on-time licence bonus added on top
   spotlight: boolean;
-  maxAp: number; // potential — with punctuality + spotlight + rank multiplier
-  windowHours: number; // 24h daily window to complete & file once accepted
+  windowMinutes: number; // completion window = flight time + 2h
   priority: "standard" | "priority";
 };
 
@@ -191,18 +193,22 @@ export type Dispatch = {
    fits inside ~22h — leaving room to complete and file all of them within the
    24h window. An ultra-long-haul (15h+) is issued as the ONLY flight that day. */
 const ROSTER_MAX_MINUTES = 22 * 60; // 1,320 min
+const WINDOW_GRACE_MINUTES = 120; // +2h on top of flight time to complete & file
 
 export function getDispatches(
   pilotId: number,
-  opts: { authorizedFleet?: string[]; rankMultiplier?: number; maxCodeshareHours?: number } = {},
+  opts: { authorizedFleet?: string[]; rankMultiplier?: number; punctualBonus?: number; codeshareAirlines?: string[] } = {},
   d = new Date(),
 ): Dispatch[] {
   const r = rng((pilotId + 1) * 2654435761 + dayIndex(d));
   const spotlights = new Set(getSpotlightRoutes(d).map((x) => x.routeNumber));
-  const rankMult = opts.rankMultiplier ?? 1;
+  const punctualBonus = opts.punctualBonus ?? 0;
 
-  // Eligible routes: prefer Finnair mainline the pilot can fly.
+  // Eligible routes: Finnair mainline plus any unlocked codeshare networks.
   let pool = finnairRoutes.slice();
+  if (opts.codeshareAirlines?.length) {
+    pool = pool.concat(allRoutes().filter((rt) => opts.codeshareAirlines!.includes(rt.airline)));
+  }
   if (opts.authorizedFleet?.length) {
     const ok = pool.filter((rt) =>
       opts.authorizedFleet!.some((f) =>
@@ -220,19 +226,22 @@ export function getDispatches(
   const pickOne = (arr: Route[]): Route | null => (arr.length ? arr[Math.floor(r() * arr.length)] : null);
   const mk = (rt: Route, haul: DispatchHaul): Dispatch => {
     const spotlight = spotlights.has(rt.routeNumber);
+    const base = computeAp(rt.minutes).base; // band payout = headline max
     return {
       id: `${rt.routeNumber}-${dayIndex(d)}`,
       flightNo: firstFlightNo(rt),
       dep: rt.dep,
       arr: rt.arr,
       aircraft: rt.aircraft,
+      airline: rt.airline,
       minutes: rt.minutes,
       category: categoryForMinutes(rt.minutes),
       haul,
-      baseAp: computeAp(rt.minutes, { rankMultiplier: rankMult }).net,
+      baseAp: base,
+      potentialAp: spotlight ? base * 2 : base,
+      punctualBonus,
       spotlight,
-      maxAp: computeAp(rt.minutes, { punctual: true, spotlight, rankMultiplier: rankMult }).net,
-      windowHours: 24,
+      windowMinutes: rt.minutes + WINDOW_GRACE_MINUTES,
       priority: spotlight ? "priority" : "standard",
     };
   };

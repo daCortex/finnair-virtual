@@ -123,7 +123,7 @@ export const CAREER_CODESHARES: Codeshare[] = [
 
 /* ======================= AURORA POINTS (AP) ======================= */
 
-export type FlightCategory = "regional" | "continental" | "longhaul";
+export type FlightCategory = "regional" | "continental" | "longhaul" | "ultralong";
 
 export const AP_TABLE: Record<
   FlightCategory,
@@ -131,56 +131,69 @@ export const AP_TABLE: Record<
 > = {
   regional: { label: "Short-haul · under 2h", maxHours: 2, gross: 350, overhead: 50, net: 300 },
   continental: { label: "Medium-haul · 2–6h", maxHours: 6, gross: 1300, overhead: 60, net: 1240 },
-  longhaul: { label: "Long-haul · over 6h", maxHours: 14, gross: 4000, overhead: 300, net: 3700 },
+  longhaul: { label: "Long-haul · 6–15h", maxHours: 15, gross: 4000, overhead: 300, net: 3700 },
+  ultralong: { label: "Ultra-long-haul · 15h+", maxHours: null, gross: 4800, overhead: 300, net: 4500 },
 };
 
-export const PUNCTUALITY_MULTIPLIER = 1.25;
 export const SPOTLIGHT_MULTIPLIER = 2;
+
+/* On-time bonus is a FLAT amount by pilot licence (added, not multiplied). */
+export const PUNCTUALITY_BONUS: Record<string, number> = { PPL: 100, CPL: 200, Command: 300 };
+export function punctualityBonus(licenseShort: string): number {
+  return PUNCTUALITY_BONUS[licenseShort] ?? 100;
+}
+/* Cargo on-time bonus (LC) by certification — same 100/200/300 ladder. */
+export const CARGO_PUNCTUALITY_BONUS: Record<string, number> = {
+  Entry: 100, "Load Master": 200, "Freight Architect": 300,
+};
+export function cargoPunctualityBonus(certName: string): number {
+  return CARGO_PUNCTUALITY_BONUS[certName] ?? 100;
+}
 
 export function categoryForMinutes(minutes: number): FlightCategory {
   const h = minutes / 60;
   if (h < 2) return "regional";
   if (h <= 6) return "continental";
-  return "longhaul";
+  if (h <= 15) return "longhaul";
+  return "ultralong";
 }
 
 export type ApBreakdown = {
   category: FlightCategory;
   gross: number;
   overhead: number;
-  base: number;
-  punctual: boolean;
+  base: number; // band payout (the headline "max")
   spotlight: boolean;
-  rankMultiplier: number;
-  multiplier: number; // combined applied multiplier
-  net: number; // final AP awarded
+  spotlightBonus: number; // +base when a spotlight sector
+  punctual: boolean;
+  punctualBonus: number; // flat on-time licence bonus
+  net: number; // base (+spotlight)(+on-time)
 };
 
-/* Compute AP for a flight. Multipliers stack: punctuality (1.25×), spotlight
-   (2×) and the pilot's rank multiplier (Sovereign 1.2× / Luminary 1.5×). */
+/* Compute AP for a flight. The band payout is the headline max — spotlight
+   doubles it (+base), and filing on time adds a FLAT licence bonus. No rank or
+   ×1.25 inflation (rankMultiplier is accepted for back-compat but ignored). */
 export function computeAp(
   minutes: number,
-  opts: { punctual?: boolean; spotlight?: boolean; rankMultiplier?: number } = {},
+  opts: { punctual?: boolean; spotlight?: boolean; punctualBonus?: number; rankMultiplier?: number } = {},
 ): ApBreakdown {
   const category = categoryForMinutes(minutes);
   const row = AP_TABLE[category];
-  const punctual = !!opts.punctual;
+  const base = row.net;
   const spotlight = !!opts.spotlight;
-  const rankMultiplier = opts.rankMultiplier ?? 1;
-  const multiplier =
-    (punctual ? PUNCTUALITY_MULTIPLIER : 1) *
-    (spotlight ? SPOTLIGHT_MULTIPLIER : 1) *
-    rankMultiplier;
-  const net = Math.round(row.net * multiplier);
+  const spotlightBonus = spotlight ? base : 0;
+  const punctual = !!opts.punctual;
+  const punctualBonus = punctual ? Math.round(opts.punctualBonus ?? 0) : 0;
+  const net = base + spotlightBonus + punctualBonus;
   return {
     category,
     gross: row.gross,
     overhead: row.overhead,
-    base: row.net,
-    punctual,
+    base,
     spotlight,
-    rankMultiplier,
-    multiplier,
+    spotlightBonus,
+    punctual,
+    punctualBonus,
     net,
   };
 }
