@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SITE } from "@/lib/site";
+import { RANKS } from "@/lib/career";
 
 export const metadata = { title: "Career" };
 
@@ -92,6 +93,26 @@ export default function CareerPage() {
                 </div>
               </div>
               <p className="mt-3 text-sm leading-relaxed text-cream-dim">{c.body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* The nine ranks at a glance */}
+      <section className="mt-14">
+        <div className="flex flex-wrap items-end justify-between gap-2">
+          <h2 className="font-display text-2xl font-semibold text-cream">The nine ranks</h2>
+          <Link href="/ranks" className="text-sm text-gold-soft hover:underline">Full rank ladder →</Link>
+        </div>
+        <p className="mt-1 max-w-2xl text-sm text-cream-dim">Your flight hours move you up a nine-rank ladder — each one unlocking more of the fleet and new privileges.</p>
+        <div className="mt-5 grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-3">
+          {RANKS.map((r) => (
+            <div key={r.name} className={`flex items-center justify-between rounded-xl border px-3.5 py-2.5 ${r.group === "exclusive" ? "border-rose/30 bg-rose/[0.04]" : "border-obsidian bg-ink-900"}`}>
+              <span className="flex items-center gap-2 text-sm">
+                <span className="font-mono text-xs text-cream-faint">{String(r.n).padStart(2, "0")}</span>
+                <span className="font-medium text-cream">{r.name}</span>
+              </span>
+              <span className="text-xs text-cream-faint">{r.hours.toLocaleString()}h</span>
             </div>
           ))}
         </div>

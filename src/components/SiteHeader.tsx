@@ -51,7 +51,7 @@ export function SiteHeader() {
         <Link href="/staff" className="group flex shrink-0 items-center gap-2.5" aria-label="Finnair Virtual Staff — home">
           {/* Navy wing-emblem on light backgrounds, white on dark */}
           <Image
-            src="/brand/finnair-emblem-navy.png"
+            src="/brand/finnair-emblem-navy-transparent.png"
             alt="Finnair Virtual"
             width={1050}
             height={590}
@@ -59,7 +59,7 @@ export function SiteHeader() {
             className="logo-light-theme h-5 w-auto transition-transform duration-500 group-hover:scale-105"
           />
           <Image
-            src="/brand/finnair-emblem-white.png"
+            src="/brand/finnair-emblem-white-transparent.png"
             alt="Finnair Virtual"
             width={510}
             height={287}

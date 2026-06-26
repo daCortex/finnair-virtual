@@ -89,7 +89,10 @@ export default function AboutPage() {
             ))}
           </div>
         </div>
-        <p className="mt-4 text-sm text-cream-dim">Interested in a vacant role? <Link href="/join" className="font-medium text-gold-soft hover:underline">Apply to join the staff team →</Link></p>
+        <div className="mt-5 flex flex-wrap items-center gap-3">
+          <p className="text-sm text-cream-dim">Interested in one of the vacant roles?</p>
+          <Link href="/join" className="inline-flex items-center gap-2 rounded-full bg-gold px-5 py-2.5 text-sm font-medium text-white transition-all hover:brightness-125">Apply for Staff <span aria-hidden>→</span></Link>
+        </div>
       </section>
 
       {/* oneworld alliance */}

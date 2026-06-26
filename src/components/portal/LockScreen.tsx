@@ -45,7 +45,7 @@ export function LockScreen() {
 
       <div className="relative w-full max-w-sm">
         <div className="mb-7 flex flex-col items-center text-center">
-          <Image src="/brand/finnair-emblem-white.png" alt="Finnair Virtual" width={510} height={287} className="h-7 w-auto" priority />
+          <Image src="/brand/finnair-emblem-white-transparent.png" alt="Finnair Virtual" width={510} height={287} className="h-7 w-auto" priority />
           <p className="mt-5 text-xs uppercase tracking-[0.3em] text-white/55">Crew Centre</p>
           <h1 className="mt-2 font-display text-3xl font-semibold text-white">Members only</h1>
           <p className="mt-2 text-sm leading-relaxed text-white/65">

@@ -16,8 +16,8 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
           <div className="grid gap-10 md:grid-cols-[1.4fr_1fr]">
             <div>
               <div className="flex items-center gap-2.5">
-                <Image src="/brand/finnair-emblem-navy.png" alt="" width={1050} height={590} className="logo-light-theme h-7 w-auto" />
-                <Image src="/brand/finnair-emblem-white.png" alt="" width={510} height={287} className="logo-dark-theme h-7 w-auto" />
+                <Image src="/brand/finnair-emblem-navy-transparent.png" alt="" width={1050} height={590} className="logo-light-theme h-7 w-auto" />
+                <Image src="/brand/finnair-emblem-white-transparent.png" alt="" width={510} height={287} className="logo-dark-theme h-7 w-auto" />
                 <span className="text-xl tracking-tight text-cream"><span className="font-semibold">Finnair</span><span className="font-light text-cream-dim"> Virtual</span></span>
               </div>
               <p className="mt-4 max-w-md text-sm leading-relaxed text-cream-faint">{SITE.mission}</p>

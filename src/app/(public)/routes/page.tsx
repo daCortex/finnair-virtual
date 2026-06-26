@@ -34,6 +34,7 @@ export default function RoutesPage() {
         <p className="eyebrow">The route database</p>
         <h1 className="mt-2 font-display text-4xl font-semibold text-cream lg:text-5xl">From Helsinki, to the world.</h1>
         <p className="mt-4 max-w-2xl text-cream-dim">{SITE.network.routes} routes. One search. Three runways at Helsinki-Vantaa form one bridge between Europe and Asia.</p>
+        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-cream-faint">Every route mirrors a real Finnair sector. Our Route Coordinators build the network from Finnair&apos;s published schedule, keep flight numbers and aircraft types accurate, and add new destinations and codeshare sectors over time — so what you fly here matches the real airline.</p>
       </header>
 
       <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">

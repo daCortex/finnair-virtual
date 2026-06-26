@@ -9,14 +9,14 @@ export function SiteFooter() {
         <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-2.5">
             <Image
-              src="/brand/finnair-emblem-navy.png"
+              src="/brand/finnair-emblem-navy-transparent.png"
               alt="Finnair Virtual"
               width={1050}
               height={590}
               className="logo-light-theme h-5 w-auto"
             />
             <Image
-              src="/brand/finnair-emblem-white.png"
+              src="/brand/finnair-emblem-white-transparent.png"
               alt="Finnair Virtual"
               width={510}
               height={287}

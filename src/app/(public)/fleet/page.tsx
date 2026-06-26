@@ -13,6 +13,17 @@ const RENDER: Record<string, string> = {
 /* Types without an official Finnair livery in Infinite Flight (flown generic). */
 const GENERIC = new Set(["Airbus A319", "Airbus A320"]);
 
+/* A representative route each type typically operates. */
+const TYPICAL: Record<string, string> = {
+  "Embraer E190": "Helsinki–Tampere (EFHK–EFTP)",
+  "Airbus A319": "Helsinki–Stockholm (EFHK–ESSA)",
+  "Airbus A320": "Helsinki–Copenhagen (EFHK–EKCH)",
+  "Airbus A321": "Helsinki–London (EFHK–EGLL)",
+  "Airbus A330-300": "Helsinki–Dubai (EFHK–OMDB)",
+  "Airbus A350-900": "Helsinki–Tokyo (EFHK–RJTT)",
+  "Boeing 757-200": "Group flights & events only",
+};
+
 export default function FleetPage() {
   return (
     <div className="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-20">
@@ -59,6 +70,9 @@ export default function FleetPage() {
                 )}
               </div>
               <p className="mt-1.5 text-sm leading-relaxed text-cream-dim">{a.role}</p>
+              {TYPICAL[a.type] && (
+                <p className="mt-2 text-xs text-cream-faint"><span className="font-medium text-cream-dim">Typical route:</span> {TYPICAL[a.type]}</p>
+              )}
               <dl className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2.5 text-sm">
                 {[["PAX", a.pax], ["Range", `${a.rangeNm.toLocaleString()} nm`], ["Cruise alt", a.cruiseAlt], ["Cruise", a.cruiseSpeed], ["Engines", a.engines], ["Acquired", a.acquired]].map(([k, v]) => (
                   <div key={k as string} className="border-t border-obsidian/50 pt-2">

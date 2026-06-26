@@ -73,9 +73,9 @@ export function PortalNav({ summary }: { summary: NavSummary | null }) {
       <div className="mx-auto flex h-16 max-w-7xl items-center gap-4 px-5 lg:px-8">
         {/* Brand */}
         <Link href="/crew" className="group flex shrink-0 items-center gap-2.5" aria-label="Finnair Virtual">
-          <Image src="/brand/finnair-emblem-navy.png" alt="" width={1050} height={590}
+          <Image src="/brand/finnair-emblem-navy-transparent.png" alt="" width={1050} height={590}
             className="logo-light-theme h-[18px] w-auto transition-transform duration-500 group-hover:scale-105" priority />
-          <Image src="/brand/finnair-emblem-white.png" alt="" width={510} height={287}
+          <Image src="/brand/finnair-emblem-white-transparent.png" alt="" width={510} height={287}
             className="logo-dark-theme h-[18px] w-auto transition-transform duration-500 group-hover:scale-105" priority />
           <span className="text-[1.05rem] tracking-tight text-cream">
             <span className="font-semibold">Finnair</span>

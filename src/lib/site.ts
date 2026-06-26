@@ -67,7 +67,7 @@ export type SiteHub = {
 
 export const SITE_HUBS: SiteHub[] = [
   { name: "Helsinki-Vantaa", icao: "EFHK", iata: "HEL", city: "Helsinki", country: "Finland", role: "Main Hub", coords: "60.3172° N · 24.9633° E", careerCount: 220, blurb: "Primary operating base. Every long-haul rotation and most short-haul rotations originate or terminate here. Helsinki's northern geography makes it the shortest physical bridge between Europe and East Asia." },
-  { name: "Brussels-Zaventem", icao: "EBBR", iata: "BRU", city: "Brussels", country: "Belgium", role: "Cargo Ops", coords: "50.9014° N · 4.4844° E", blurb: "European cargo gateway — freighter turnarounds and belly-cargo feeders." },
+  { name: "Brussels-Zaventem", icao: "EBBR", iata: "BRU", city: "Brussels", country: "Belgium", role: "Cargo Ops", coords: "50.9014° N · 4.4844° E", blurb: "Our continental cargo gateway. Sitting at the heart of Western Europe, Brussels feeds freight into the EU network with quick freighter turnarounds and belly-cargo connections — the launch point for most of our short and medium-haul Logistics Command contracts." },
   { name: "London Heathrow", icao: "EGLL", iata: "LHR", city: "London", country: "United Kingdom", role: "Cargo Ops", coords: "51.4700° N · 0.4543° W", blurb: "Our transatlantic interchange — belly-hold freight and high-value express consignments connecting onward to North America." },
 ];
 

@@ -41,7 +41,7 @@ export default function Home() {
       <section className="aurora relative overflow-hidden">
         <HeroSlideshow />
         <div className="pointer-events-none absolute -right-32 -top-24 h-96 w-96 rounded-full opacity-40 blur-3xl" style={{ background: "radial-gradient(circle,#3b6fe0,transparent 70%)" }} />
-        <div className="relative mx-auto max-w-7xl px-5 py-24 lg:px-8 lg:py-32">
+        <div className="relative mx-auto max-w-7xl px-5 py-16 sm:py-24 lg:px-8 lg:py-32">
           <p className="reveal text-xs uppercase tracking-[0.32em] text-white/55">Finnair Virtual · Infinite Flight</p>
           <h1 className="reveal mt-4 max-w-3xl font-display text-5xl font-semibold leading-[1.02] tracking-tight lg:text-7xl" style={{ animationDelay: "80ms" }}>
             <span className="nitro-shine">Elevating virtual aviation.</span>
@@ -58,8 +58,34 @@ export default function Home() {
         </div>
       </section>
 
+      {/* MISSION + STATS */}
+      <section className="mx-auto max-w-7xl px-5 py-12 lg:px-8 lg:py-16">
+        <p className="eyebrow">Our mission</p>
+        <p className="mt-3 max-w-3xl font-display text-xl leading-relaxed text-cream lg:text-2xl">
+          To run the most realistic, rewarding virtual airline on Infinite Flight — a structured operation where every flight is logged, every hour is credited, and every pilot has a clear path from their first sortie to command.
+        </p>
+        <p className="mt-3 max-w-3xl text-sm leading-relaxed text-cream-dim">
+          Our goal is simple: build a welcoming, well-organised community that flies like a real airline, with genuine progression, an in-house economy, and a global route network operated with Nordic precision.
+        </p>
+        <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+          {[
+            { v: SITE.fleetCount, k: "Aircraft" },
+            { v: `${SITE.network.airports}`, k: "Destinations" },
+            { v: SITE.network.routes, k: "Routes" },
+            { v: "9", k: "Ranks" },
+            { v: "3", k: "Hubs" },
+            { v: SITE.longestSector, k: "Longest sector" },
+          ].map((s) => (
+            <div key={s.k} className="rounded-xl border border-obsidian bg-ink-900 p-4 text-center lift">
+              <p className="font-display text-2xl font-semibold text-cream">{s.v}</p>
+              <p className="mt-0.5 text-xs uppercase tracking-wide text-cream-faint">{s.k}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* GLOBAL NETWORK */}
-      <section className="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-20">
+      <section className="mx-auto max-w-7xl px-5 py-12 lg:px-8 lg:py-16">
         <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="eyebrow">The network</p>
@@ -73,7 +99,7 @@ export default function Home() {
 
       {/* VALUE PROP */}
       <section className="tint-blue border-y border-obsidian/60">
-        <div className="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-20">
+        <div className="mx-auto max-w-7xl px-5 py-12 lg:px-8 lg:py-16">
           <p className="eyebrow">Why Finnair Virtual?</p>
           <h2 className="mt-2 font-display text-3xl font-semibold text-cream lg:text-4xl">More than a flight log — a career in the sky.</h2>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
