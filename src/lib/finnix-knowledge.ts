@@ -10,7 +10,7 @@ export function renderFinnixKnowledge(): string {
   const L: string[] = [];
   const add = (id: string, text: string) => L.push(`[#${id}] ${text}`);
 
-  add("airline.overview", `Finnair Virtual (FNVA) is an independent Infinite Flight virtual airline inspired by Finnair, based at Helsinki-Vantaa (EFHK). Tagline: "The Nordic Way to Fly". It is not affiliated with the real Finnair, Finavia, or the oneworld alliance.`);
+  add("airline.overview", `Finnair Virtual (FVA) is an independent Infinite Flight virtual airline inspired by Finnair, based at Helsinki-Vantaa (EFHK). Tagline: "The Nordic Way to Fly". It is not affiliated with the real Finnair, Finavia, or the oneworld alliance.`);
   add("network.stats", `The network has ${SITE.network.airports} destinations across roughly ${SITE.network.routes} scheduled sectors from the Helsinki (EFHK) hub. ${ROUTES.length} routes are published. Regions served: ${REGIONS.map((r) => r.name).join(", ")}.`);
 
   // Ranks

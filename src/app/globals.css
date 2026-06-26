@@ -20,7 +20,7 @@
   --color-fin-black: #121212;
 
   /* Brand accents — Icy White × Finnair Blue (brighter royal blue, from the
-     official FNVA palette). `gold` = Finnair Blue (primary), `rose` = Heather. */
+     official FVA palette). `gold` = Finnair Blue (primary), `rose` = Heather. */
   --color-gold: oklch(0.52 0.18 250); /* Finnair Blue */
   --color-gold-soft: oklch(0.47 0.16 250); /* accent text (AA on icy white) */
   --color-rose: #7c1791;

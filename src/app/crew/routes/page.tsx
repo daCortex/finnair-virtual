@@ -4,6 +4,7 @@ import { getPilotDashboard } from "@/lib/portal";
 import { airportCity } from "@/lib/airports";
 import { simbriefUrl } from "@/lib/simbrief";
 import { RouteFinder, type EnrichedRoute } from "@/components/portal/RouteFinder";
+import { HubFlipCard } from "@/components/public/HubFlipCard";
 
 export const metadata = { title: "Route Database" };
 export const dynamic = "force-dynamic";
@@ -61,6 +62,12 @@ export default async function RoutesPage() {
           each card shows the Aurora Points you’d earn{rankMult > 1 ? ` at your ${d?.rank.current.name} rank` : ""}.
         </p>
       </header>
+
+      {/* Helsinki-Vantaa — aerial & airport chart */}
+      <div className="rise mb-6">
+        <HubFlipCard />
+      </div>
+
       <RouteFinder routes={routes} airlines={["All", ...allAirlines()]} />
     </div>
   );

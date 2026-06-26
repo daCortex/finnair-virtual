@@ -4,7 +4,7 @@
    Aurora Points (AP), Finnair Plus tiers, the Cargo (Logistics
    Command) track, and auto-dispatch generation.
 
-   Mirrors the FNVA Operations Handbook v4.0 ("Nordic Excellence").
+   Mirrors the FVA Operations Handbook v4.0 ("Nordic Excellence").
 ------------------------------------------------------------------- */
 
 /* ======================= RANK LADDER ======================= */

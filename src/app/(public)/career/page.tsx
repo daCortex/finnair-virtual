@@ -3,7 +3,7 @@ import { SITE } from "@/lib/site";
 
 export const metadata = { title: "Career" };
 
-/* What a pilot actually does day-to-day at FNVA. */
+/* What a pilot actually does day-to-day at FVA. */
 const DO = [
   { icon: "M5 19 19 5M10 5h9v9", title: "Fly real-world routes", body: `Pick from ${SITE.network.routes} scheduled sectors out of Helsinki — short domestic hops to ultra-long-haul to Asia and across the Atlantic.` },
   { icon: "M4 4h16v16H4zM8 9h8M8 13h6", title: "File PIREPs & build a logbook", body: "Every flight you fly is logged, reviewed and credited. Your hours, routes and history follow you for your whole career." },

@@ -113,7 +113,7 @@ export const PLUS_EARN = [
 /* About — leadership & org */
 export const SITE_LEADERS = [
   {
-    role: "Founder & Chairman of the Board",
+    role: "Founder & CEO",
     name: "Ayaz Molla",
     ifc: "ayaz_molla",
     pfp: "/staff/zyrex.png",
@@ -122,8 +122,8 @@ export const SITE_LEADERS = [
       "When we started this journey, our vision was to create more than just a virtual airline; we wanted to build a family of aviation enthusiasts united by a love of realistic operations and Nordic precision. Thank you to every member of staff and every pilot who makes Finnair Virtual what it is.",
   },
   {
-    role: "Chief Executive Officer",
-    name: "Lucian Y.",
+    role: "Chief Operating Officer",
+    name: "Luca",
     ifc: "randomaviator2",
     pfp: "/staff/lucian.png",
     title: "A tight, professional operation",
@@ -133,7 +133,7 @@ export const SITE_LEADERS = [
 ] as const;
 
 export const SITE_ORG = [
-  { unit: "Operations", roles: [{ role: "COO", who: "Vacant" }, { role: "HR Officer", who: "Vacant" }] },
+  { unit: "Operations", roles: [{ role: "CHRO", who: "Vacant" }, { role: "Codeshare Officer", who: "Vacant" }] },
   { unit: "Marketing", roles: [{ role: "CMO", who: "Vacant" }, { role: "Social Manager", who: "Vacant" }] },
   { unit: "Route Coordinators", roles: [{ role: "Route Manager", who: "Vacant" }, { role: "Event Manager", who: "Vacant" }, { role: "Event Manager", who: "Vacant" }, { role: "Event Manager", who: "Vacant" }] },
   { unit: "Training", roles: [{ role: "Training Manager", who: "Vacant" }, { role: "Flight Instructor", who: "Vacant" }, { role: "Flight Instructor", who: "Vacant" }, { role: "Flight Instructor", who: "Vacant" }, { role: "Flight Instructor", who: "Vacant" }] },

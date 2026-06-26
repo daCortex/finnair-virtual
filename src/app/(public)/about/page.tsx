@@ -9,8 +9,8 @@ export default function AboutPage() {
       <header className="reveal">
         <p className="eyebrow">About</p>
         <h1 className="mt-2 font-display text-4xl font-semibold text-cream lg:text-5xl">A virtual airline built like a real one.</h1>
-        <p className="lead mt-4 max-w-3xl text-lg text-cream-dim">Finnair Virtual (FNVA) is an independent Infinite Flight virtual airline inspired by Finland’s flag carrier. We fly a structured, simulated operation out of Helsinki-Vantaa — every flight logged, every hour credited, every rank earned.</p>
-        <p className="mt-4 max-w-3xl leading-relaxed text-cream-dim">From your first Aurora sortie to the Luminary command seat, pilots progress through nine ranks, purchase fleet licences and codeshare networks with Aurora Points, and fly across passenger, career and cargo operations. Behind the scenes, a real org structure — a Founder, a CEO, a Board and four staff units — keeps the airline running with Nordic precision and a genuinely welcoming community at its heart.</p>
+        <p className="lead mt-4 max-w-3xl text-lg text-cream-dim">Finnair Virtual (FVA) is an independent Infinite Flight virtual airline inspired by Finland’s flag carrier. We fly a structured, simulated operation out of Helsinki-Vantaa — every flight logged, every hour credited, every rank earned.</p>
+        <p className="mt-4 max-w-3xl leading-relaxed text-cream-dim">From your first Aurora sortie to the Luminary command seat, pilots progress through nine ranks, purchase fleet licences and codeshare networks with Aurora Points, and fly across passenger, career and cargo operations. Behind the scenes, a real org structure — a Founder & CEO, a COO and four staff units — keeps the airline running with Nordic precision and a genuinely welcoming community at its heart.</p>
       </header>
 
       {/* Leadership — pfp + message + IFC link */}
@@ -34,7 +34,6 @@ export default function AboutPage() {
             </div>
           ))}
         </div>
-        <p className="mt-3 text-xs text-cream-faint">Staff profile photos and IFC handles can be dropped in to personalise these cards.</p>
       </section>
 
       {/* Org chart */}
@@ -42,12 +41,12 @@ export default function AboutPage() {
         <h2 className="font-display text-2xl font-semibold text-cream">Organisation</h2>
         <div className="mt-4 space-y-3">
           <div className="rounded-2xl border border-gold/40 bg-gold/[0.03] p-5 text-center">
-            <p className="text-xs uppercase tracking-wide text-cream-faint">Founder & Chairman</p>
-            <p className="font-display text-lg font-semibold text-cream">Ayaz Molla</p>
+            <p className="text-xs uppercase tracking-wide text-cream-faint">Founder & CEO</p>
+            <p className="font-display text-lg font-semibold text-cream">Ayaz Molla <span className="text-cream-faint">(ZYREX)</span></p>
           </div>
           <div className="rounded-2xl border border-obsidian bg-ink-900 p-5 text-center">
-            <p className="text-xs uppercase tracking-wide text-cream-faint">Chief Executive Officer</p>
-            <p className="font-display text-lg font-semibold text-cream">Lucian Y.</p>
+            <p className="text-xs uppercase tracking-wide text-cream-faint">Chief Operating Officer</p>
+            <p className="font-display text-lg font-semibold text-cream">Luca</p>
           </div>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {SITE_ORG.map((u) => (
