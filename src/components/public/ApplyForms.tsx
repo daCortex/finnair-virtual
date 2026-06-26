@@ -18,8 +18,20 @@ const PILOT: FieldDef[] = [
 const STAFF: FieldDef[] = [
   { name: "ifc", label: "IFC username", required: true, placeholder: "your_ifc_name" },
   { name: "discord", label: "Discord username", required: true, placeholder: "username" },
-  { name: "department", label: "Department", type: "select", options: ["Operations", "Marketing", "Route Coordinators", "Training", "Human Resources"], required: true },
-  { name: "role", label: "Role you're applying for", placeholder: "e.g. Route Manager" },
+  {
+    name: "role", label: "Role you're applying for", type: "select", required: true,
+    options: [
+      "Chief Human Resources Officer (CHRO)",
+      "Codeshare Officer",
+      "Chief Marketing Officer (CMO)",
+      "Social Media Manager",
+      "Route Manager",
+      "Event Manager",
+      "Training Manager",
+      "Flight Instructor",
+      "Other / open to any role",
+    ],
+  },
   { name: "experience", label: "Relevant experience", type: "textarea", placeholder: "Previous staff roles, skills (design, dispatch, events)…" },
   { name: "availability", label: "Weekly availability", type: "select", options: ["1–3 hours", "3–6 hours", "6+ hours"] },
   { name: "why", label: "Why would you be a great fit?", type: "textarea", required: true },

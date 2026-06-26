@@ -91,17 +91,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* CTA — compact */}
-      <section className="mx-auto max-w-5xl px-5 py-12 lg:px-8">
-        <div className="aurora flex flex-col items-center justify-between gap-4 rounded-xl px-6 py-7 text-center sm:flex-row sm:text-left">
-          <div>
-            <h2 className="font-display text-xl font-semibold text-white">Your career starts at Aurora.</h2>
-            <p className="mt-1 text-sm text-white/65">Join a community built on realism and Nordic precision.</p>
-          </div>
-          <Link href="/join" className="shrink-0 rounded-full bg-white px-6 py-2.5 text-sm font-semibold text-fin-blue transition-transform hover:scale-[1.03]">Apply to Finnair Virtual</Link>
-        </div>
-      </section>
     </div>
   );
 }

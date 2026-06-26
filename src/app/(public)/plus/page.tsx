@@ -95,6 +95,30 @@ export default function PlusPage() {
         })}
       </section>
 
+      {/* Tier benefits — what each milestone unlocks */}
+      <section className="mt-14">
+        <h2 className="font-display text-2xl font-semibold text-cream">What each tier unlocks</h2>
+        <p className="mt-1 max-w-2xl text-sm text-cream-dim">Finnair Plus runs alongside the <Link href="/ranks" className="text-gold-soft hover:underline">rank ladder</Link>: ranks reward your flight hours, Plus rewards your lifetime Aurora Points. Every tier keeps the perks below — and adds its own.</p>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {TIERS.map((t, i) => {
+            const f = FINISH[t.name] ?? FINISH.Classic;
+            return (
+              <div key={t.name} className="rise rounded-2xl border border-obsidian bg-ink-900 p-5 lift" style={{ animationDelay: `${i * 50}ms`, borderTop: `3px solid ${f.accent}` }}>
+                <div className="flex items-baseline justify-between">
+                  <h3 className="font-display text-lg font-semibold text-cream">{t.name}</h3>
+                  <span className="text-xs text-cream-faint">{t.min.toLocaleString()}+ AP</span>
+                </div>
+                <ul className="mt-3 space-y-2 border-t border-obsidian/60 pt-3 text-sm">
+                  {t.perks.map((p) => (
+                    <li key={p} className="flex items-start gap-2 text-cream-dim"><span style={{ color: f.accent }}>✦</span>{p}</li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
       <p className="mt-10 text-sm text-cream-dim">AP is earned through Career and Cargo operations. Pilots can view the full payout structure in the <Link href="/crew" className="text-gold-soft hover:underline">Crew Centre</Link>.</p>
     </div>
   );

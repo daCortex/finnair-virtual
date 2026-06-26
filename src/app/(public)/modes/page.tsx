@@ -58,7 +58,7 @@ export default function ModesPage() {
           <table className="w-full min-w-[560px] text-left text-sm">
             <thead>
               <tr className="border-b border-obsidian/60 text-xs uppercase tracking-wide text-cream-faint">
-                <th className="px-5 py-3 font-normal">Mode</th><th className="px-5 py-3 font-normal">Unlock</th><th className="px-5 py-3 font-normal">Schedule</th><th className="px-5 py-3 font-normal">AP multiplier</th><th className="px-5 py-3 font-normal">Aircraft scope</th>
+                <th className="px-5 py-3 font-normal">Mode</th><th className="px-5 py-3 font-normal">Unlock</th><th className="px-5 py-3 font-normal">Schedule</th><th className="px-5 py-3 font-normal">Reward</th><th className="px-5 py-3 font-normal">Aircraft scope</th>
               </tr>
             </thead>
             <tbody>

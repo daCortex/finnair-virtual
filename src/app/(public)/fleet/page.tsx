@@ -39,7 +39,7 @@ export default function FleetPage() {
             style={a.historic ? ({ animationDelay: `${i * 60}ms`, "--halo": a.accent } as React.CSSProperties) : { animationDelay: `${i * 60}ms` }}
           >
             {/* Image stage — fixed height, graphic centred & uniformly contained */}
-            <div className="relative h-40 overflow-hidden bg-gradient-to-b from-ink-850 to-ink-900" style={a.historic ? { background: `linear-gradient(180deg, color-mix(in srgb, ${a.accent} 18%, transparent), transparent)` } : undefined}>
+            <div className="relative h-48 overflow-hidden bg-gradient-to-b from-ink-850 to-ink-900" style={a.historic ? { background: `linear-gradient(180deg, color-mix(in srgb, ${a.accent} 18%, transparent), transparent)` } : undefined}>
               <div className="absolute inset-0 flex items-center justify-center px-6">
                 <Image src={`/fleet/${RENDER[a.type] ?? "A320"}.webp`} alt={`Finnair ${a.type}`} width={1016} height={706} className="max-h-[90%] w-auto max-w-[96%] object-contain transition-transform duration-700 group-hover:scale-105" />
               </div>
@@ -67,7 +67,7 @@ export default function FleetPage() {
                   </div>
                 ))}
               </dl>
-              <p className="mt-auto border-t border-obsidian/50 pt-3 text-xs text-cream-faint">{a.historic ? "Reserved for group flights & events" : `${a.routesFlown} routes flown`}</p>
+              <p className="mt-auto border-t border-obsidian/50 pt-3 text-xs text-cream-faint">{a.historic ? "Reserved for group flights & events" : `Operates on ${a.routesFlown} routes in our network`}</p>
             </div>
           </div>
         ))}

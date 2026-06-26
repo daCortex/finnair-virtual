@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { SITE_LEADERS, SITE_ORG } from "@/lib/site";
 
 export const metadata = { title: "About" };
@@ -64,16 +65,17 @@ export default function AboutPage() {
             ))}
           </div>
         </div>
+        <p className="mt-4 text-sm text-cream-dim">Interested in a vacant role? <Link href="/join" className="font-medium text-gold-soft hover:underline">Apply to join the staff team →</Link></p>
       </section>
 
       {/* oneworld alliance */}
       <section className="mt-12">
         <h2 className="font-display text-2xl font-semibold text-cream">A oneworld partner</h2>
         <p className="mt-1 text-sm text-cream-dim">Connecting our pilots to the global oneworld alliance network.</p>
-        <div className="halo mt-5 overflow-hidden rounded-[2rem]" style={{ ["--halo" as string]: "var(--color-gold)" }}>
+        <div className="mt-5 overflow-hidden rounded-[2rem]" style={{ boxShadow: "0 14px 44px -18px color-mix(in srgb, var(--color-gold) 50%, transparent)" }}>
           <Image src="/brand/oneworld-ay-lockup.webp" alt="Finnair · oneworld alliance partners" width={1860} height={389} className="block h-auto w-full object-cover" />
         </div>
-        <p className="mt-3 text-xs text-cream-faint">An independent fan project — not affiliated with Finnair Plc or the oneworld alliance.</p>
+        <p className="mt-3 text-xs text-cream-faint">Finnair Virtual is a virtual airline for Infinite Flight and is not affiliated with Finnair or the oneworld alliance.</p>
       </section>
     </div>
   );

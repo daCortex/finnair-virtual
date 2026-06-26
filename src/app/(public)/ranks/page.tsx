@@ -80,7 +80,7 @@ export default function RanksPage() {
                 {/* Hours */}
                 <div className="hidden shrink-0 text-right sm:block">
                   <p className="font-display text-3xl font-semibold" style={{ color }}>{r.hours.toLocaleString()}</p>
-                  <p className="text-[0.65rem] uppercase tracking-widest text-cream-faint">{r.hours === 0 ? "entry" : "hours"}</p>
+                  <p className="text-[0.65rem] uppercase tracking-widest text-cream-faint">hours</p>
                 </div>
               </div>
 

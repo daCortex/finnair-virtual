@@ -84,8 +84,8 @@ html.dark {
   --color-cream-dim: oklch(0.80 0.04 250); /* secondary text */
   --color-cream-faint: oklch(0.66 0.05 250);
 
-  --color-gold: oklch(0.72 0.16 250); /* Finnair Blue, brightened for night */
-  --color-gold-soft: oklch(0.80 0.13 250); /* accent text legible on dark */
+  --color-gold: oklch(0.62 0.145 252); /* Finnair Blue — softened so buttons aren't glaring on night */
+  --color-gold-soft: oklch(0.76 0.12 250); /* accent text legible on dark */
   --color-rose: #c451d6; /* brighter Heather */
   --color-rose-soft: #db83e7;
 }

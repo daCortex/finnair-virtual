@@ -1,7 +1,6 @@
 import { ROUTES } from "@/lib/routes";
 import { airportCity } from "@/lib/airports";
 import { SITE } from "@/lib/site";
-import { HubFlipCard } from "@/components/public/HubFlipCard";
 import { RoutesTable, type RouteRow } from "@/components/public/RoutesTable";
 
 export const metadata = { title: "Routes" };
@@ -45,8 +44,6 @@ export default function RoutesPage() {
           </div>
         ))}
       </div>
-
-      <div className="mt-8"><HubFlipCard /></div>
 
       <h2 className="mt-10 font-display text-xl font-semibold text-cream">The route database</h2>
       <p className="mb-4 mt-1 text-sm text-cream-dim">Search by city, ICAO, aircraft or flight number — and filter by haul length. Every route carries an outbound and a return flight number.</p>
