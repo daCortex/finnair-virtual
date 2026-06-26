@@ -14,6 +14,30 @@ export default function AboutPage() {
         <p className="mt-4 max-w-3xl leading-relaxed text-cream-dim">From your first Aurora sortie to the Luminary command seat, pilots progress through nine ranks, purchase fleet licences and codeshare networks with Aurora Points, and fly across passenger, career and cargo operations. Behind the scenes, a real org structure — a Founder & CEO, a COO and four staff units — keeps the airline running with Nordic precision and a genuinely welcoming community at its heart.</p>
       </header>
 
+      {/* Our journey — milestone timeline */}
+      <section className="mt-12">
+        <h2 className="font-display text-2xl font-semibold text-cream">Our journey</h2>
+        <p className="mt-1 max-w-2xl text-sm text-cream-dim">From a single idea to a full simulated operation — and where we&apos;re heading next.</p>
+        <ol className="relative mt-6 space-y-6 border-l border-obsidian pl-6">
+          {[
+            { phase: "The vision", title: "An airline built like a real one", body: "Founder Ayaz Molla sets out to build a Nordic-precision VA — structured operations, a real org chart, and a genuinely welcoming community." },
+            { phase: "Foundation", title: "The Crew Centre takes off", body: "A full pilot portal goes live: personal logbooks, a daily dispatch board, the route database and a live network map." },
+            { phase: "Economy", title: "Ranks, Aurora Points & Finnair Plus", body: "Nine ranks, the Aurora Points economy and five Finnair Plus tiers give every logged hour a meaningful reward." },
+            { phase: "Operations", title: "Career & Cargo modes", body: "Two structured ways to fly — a rostered passenger career and a freight track paying Logistic Coins — plus codeshare networks." },
+            { phase: "Today", title: "Live operations & Finnix", body: "The Live Fleet system and the Finnix in-app assistant bring the airline to life for every pilot." },
+            { phase: "Roadmap", title: "Where we're heading", body: "Expanding the oneworld network and codeshare partners, growing the events & group-flight calendar, and welcoming our next intake of pilots and staff.", roadmap: true },
+          ].map((m, i) => (
+            <li key={i} className="relative">
+              <span className={`absolute -left-[1.84rem] top-1.5 h-3 w-3 rounded-full ring-4 ring-ink-950 ${m.roadmap ? "bg-rose" : "bg-gold"}`} />
+              <p className="text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-gold-soft">{m.phase}</p>
+              <h3 className="mt-0.5 font-display text-lg font-semibold text-cream">{m.title}</h3>
+              <p className="mt-1 max-w-2xl text-sm leading-relaxed text-cream-dim">{m.body}</p>
+            </li>
+          ))}
+        </ol>
+        <p className="mt-3 text-xs text-cream-faint">Exact launch dates can be added here as the airline&apos;s public history grows.</p>
+      </section>
+
       {/* Leadership — pfp + message + IFC link */}
       <section className="mt-12">
         <h2 className="font-display text-2xl font-semibold text-cream">Leadership</h2>

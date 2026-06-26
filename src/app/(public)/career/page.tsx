@@ -73,6 +73,30 @@ export default function CareerPage() {
         <p className="mt-4 rounded-xl border border-gold/30 bg-gold/[0.04] px-5 py-3 text-sm text-cream-dim">↻ Repeat, and your logbook, balance and rank all grow together — fly at your own pace, no pressure to rush.</p>
       </section>
 
+      {/* The economy, made simple */}
+      <section className="mt-14">
+        <h2 className="font-display text-2xl font-semibold text-cream">One ladder, two wallets</h2>
+        <p className="mt-1 max-w-2xl text-sm text-cream-dim">It&apos;s simpler than it looks. Your <span className="text-cream">flight hours</span> decide your rank — and there are just <span className="text-cream">two currencies</span>, one for each kind of flying.</p>
+        <div className="mt-5 grid gap-4 md:grid-cols-3">
+          {[
+            { sym: "⏱", label: "Flight hours", tag: "Your rank", body: "Every verified hour climbs the nine-rank ladder. Hours aren't spent — they track your seniority and unlock new aircraft.", accent: "#3B6FE0" },
+            { sym: "✦", label: "Aurora Points · AP", tag: "Passenger track", body: "Earned on Casual & Career flights. Spend them on pilot licences, passenger codeshare networks, and your Finnair Plus tier.", accent: "#8A6BF0" },
+            { sym: "◈", label: "Logistic Coins · LC", tag: "Cargo track", body: "Earned only on Cargo contracts. Spend them on cargo certifications and freight codeshares. Kept entirely separate from AP.", accent: "#C2528E" },
+          ].map((c) => (
+            <div key={c.label} className="rounded-2xl border border-obsidian bg-ink-900 p-5" style={{ borderTop: `3px solid ${c.accent}` }}>
+              <div className="flex items-center gap-2.5">
+                <span className="flex h-9 w-9 items-center justify-center rounded-lg text-lg" style={{ background: `color-mix(in srgb, ${c.accent} 16%, transparent)`, color: c.accent }}>{c.sym}</span>
+                <div>
+                  <p className="font-display text-base font-semibold text-cream">{c.label}</p>
+                  <p className="text-[0.65rem] font-semibold uppercase tracking-wide" style={{ color: c.accent }}>{c.tag}</p>
+                </div>
+              </div>
+              <p className="mt-3 text-sm leading-relaxed text-cream-dim">{c.body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* Where you grow — links out */}
       <section className="mt-14">
         <h2 className="font-display text-2xl font-semibold text-cream">Where you&apos;ll grow</h2>
