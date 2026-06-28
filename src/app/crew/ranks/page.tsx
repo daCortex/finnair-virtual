@@ -22,7 +22,7 @@ export default async function RanksPage() {
         <h1 className="mt-2 font-display text-4xl font-semibold text-cream">The rank ladder</h1>
         <p className="mt-3 max-w-2xl text-cream-dim">
           Nine ranks from <span className="text-cream">Aurora</span> to <span className="text-cream">Luminary</span>. Every verified hour
-          banks toward the next. The final three are exclusive ranks with AURORA Bank access and AP multipliers.
+          banks toward the next. The final three are exclusive ranks with special perks and privileges.
         </p>
       </header>
 

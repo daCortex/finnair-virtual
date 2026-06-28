@@ -24,7 +24,7 @@ export default function RanksPage() {
       <header className="reveal">
         <p className="eyebrow">Pilot career progression</p>
         <h1 className="mt-2 font-display text-4xl font-semibold text-cream lg:text-5xl">Nine ranks. One ascent.</h1>
-        <p className="lead mt-4 max-w-2xl text-cream-dim">Each rank earns its own insignia. Climb from Aurora to Luminary as you accumulate flight hours, unlocking new aircraft, routes and privileges — the final three are exclusive ranks with AURORA Bank access.</p>
+        <p className="lead mt-4 max-w-2xl text-cream-dim">Each rank earns its own insignia. Climb from Aurora to Luminary as you accumulate flight hours, unlocking new aircraft, routes and privileges — the final three are exclusive ranks with special perks and privileges.</p>
       </header>
 
       <div className="mt-10 space-y-4">

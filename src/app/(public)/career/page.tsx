@@ -25,7 +25,7 @@ const LOOP = [
 /* Where to go deeper — these LINK OUT rather than repeat the detail. */
 const GROW = [
   { tag: "Choose how you fly", title: "Three flight modes", body: "Casual, Career and Cargo — switch any time as your rank and schedule change.", href: "/modes" },
-  { tag: "Climb the ladder", title: "Nine ranks", body: "From Aurora to Luminary across 5,000 hours, each rung unlocking more of the fleet.", href: "/ranks" },
+  { tag: "Climb the ladder", title: "Nine ranks", body: "From Aurora to Luminary across 5,000 hours — each rank unlocks more of the fleet.", href: "/ranks" },
   { tag: "Bank your points", title: "Finnair Plus tiers", body: "Your lifetime Aurora Points carry you through five recognition tiers.", href: "/plus" },
 ];
 
