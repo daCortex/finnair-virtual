@@ -51,6 +51,9 @@ export function PublicNav() {
         </div>
       </div>
 
+      {/* Brand-gradient accent line — a touch of colour under the nav */}
+      <div aria-hidden className="h-0.5 w-full" style={{ background: "linear-gradient(90deg,#12B5A8,#3B6FE0 45%,#A855C7 80%,#D9A441)" }} />
+
       <div className={`overflow-hidden border-t border-obsidian/60 bg-ink-950 transition-all duration-300 lg:hidden ${open ? "max-h-[90vh]" : "max-h-0"}`}>
         <nav className="flex flex-col gap-0.5 px-5 py-4">
           {PUBLIC_NAV.map((item) => (

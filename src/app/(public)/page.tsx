@@ -29,10 +29,10 @@ function legs() {
 }
 
 const VALUES = [
-  { tag: "Career Ranks", title: "Nine ranks. One ascent.", body: "Climb from Aurora to Luminary across 5,000 hours of structured progression.", href: "/ranks", icon: "M12 21V5M6 11l6-6 6 6" },
-  { tag: "Career Mode", title: "Every flight, credited.", body: "Log hours across seven aircraft and 221 routes — your record follows you.", href: "/career", icon: "M5 4h14v16H5zM9 9h6M9 13h4" },
-  { tag: "Leadership", title: "A crew built on precision.", body: "A real org structure — Founder, CEO, Board and four staff units.", href: "/about", icon: "M20 21a8 8 0 1 0-16 0M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" },
-  { tag: "Aurora Banking", title: "An economy that rewards.", body: "Earn Aurora Points with every flight and rise through Finnair Plus.", href: "/plus", icon: "M12 2 2 9l10 13L22 9 12 2zM3.5 9h17M9 3 7 9l5 13M15 3l2 6-5 13" },
+  { tag: "Career Ranks", title: "Nine ranks. One ascent.", body: "Climb from Aurora to Luminary across 5,000 hours of structured progression.", href: "/ranks", icon: "M12 21V5M6 11l6-6 6 6", accent: "#12B5A8" },
+  { tag: "Career Mode", title: "Every flight, credited.", body: "Log hours across seven aircraft and 221 routes — your record follows you.", href: "/career", icon: "M5 4h14v16H5zM9 9h6M9 13h4", accent: "#3B6FE0" },
+  { tag: "Leadership", title: "A crew built on precision.", body: "A real org structure — Founder, CEO, Board and four staff units.", href: "/about", icon: "M20 21a8 8 0 1 0-16 0M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z", accent: "#A855C7" },
+  { tag: "Aurora Banking", title: "An economy that rewards.", body: "Earn Aurora Points with every flight and rise through Finnair Plus.", href: "/plus", icon: "M12 2 2 9l10 13L22 9 12 2zM3.5 9h17M9 3 7 9l5 13M15 3l2 6-5 13", accent: "#D9A441" },
 ];
 
 export default async function Home() {
@@ -105,11 +105,11 @@ export default async function Home() {
           <h2 className="mt-2 font-display text-3xl font-semibold text-cream lg:text-4xl">More than a flight log — a career in the sky.</h2>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {VALUES.map((v, i) => (
-              <Link key={v.tag} href={v.href} className="rise group relative overflow-hidden rounded-xl border border-obsidian bg-ink-900 p-6 lift" style={{ animationDelay: `${i * 70}ms` }}>
-                <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-gold-soft/30 bg-gold-soft/10 text-gold-soft transition-colors group-hover:bg-gold-soft/15">
+              <Link key={v.tag} href={v.href} className="rise group relative overflow-hidden rounded-xl border border-obsidian bg-ink-900 p-6 lift" style={{ animationDelay: `${i * 70}ms`, borderTop: `3px solid ${v.accent}` }}>
+                <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg" style={{ background: `color-mix(in srgb, ${v.accent} 14%, transparent)`, color: v.accent }}>
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><path d={v.icon} /></svg>
                 </span>
-                <p className="mt-4 text-xs font-semibold uppercase tracking-[0.18em] text-gold-soft">{v.tag}</p>
+                <p className="mt-4 text-xs font-semibold uppercase tracking-[0.18em]" style={{ color: v.accent }}>{v.tag}</p>
                 <h3 className="mt-2 font-display text-lg font-semibold text-cream">{v.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-cream-dim">{v.body}</p>
                 <span className="mt-4 inline-block text-sm text-gold-soft transition-transform group-hover:translate-x-1">Learn more →</span>
