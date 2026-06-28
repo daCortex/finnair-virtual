@@ -35,7 +35,6 @@ export default function AboutPage() {
             </li>
           ))}
         </ol>
-        <p className="mt-3 text-xs text-cream-faint">Exact launch dates can be added here as the airline&apos;s public history grows.</p>
       </section>
 
       {/* Leadership — pfp + message + IFC link */}
@@ -99,8 +98,10 @@ export default function AboutPage() {
       <section className="mt-12">
         <h2 className="font-display text-2xl font-semibold text-cream">A oneworld partner</h2>
         <p className="mt-1 text-sm text-cream-dim">Connecting our pilots to the global oneworld alliance network.</p>
-        <div className="mt-5 overflow-hidden rounded-[2rem]" style={{ boxShadow: "0 14px 44px -18px color-mix(in srgb, var(--color-gold) 50%, transparent)" }}>
-          <Image src="/brand/oneworld-ay-lockup.webp" alt="Finnair · oneworld alliance partners" width={1860} height={389} className="block h-auto w-full object-cover" />
+        {/* Shown as-is (its own oval lockup) — no extra rounded frame, so the
+            container edge can't clash with the image outline on any screen. */}
+        <div className="mt-5">
+          <Image src="/brand/oneworld-ay-lockup.webp" alt="Finnair · oneworld alliance partners" width={1860} height={389} className="mx-auto block h-auto w-full" />
         </div>
         <p className="mt-3 text-xs text-cream-faint">Finnair Virtual is a virtual airline for Infinite Flight and is not affiliated with Finnair or the oneworld alliance.</p>
       </section>

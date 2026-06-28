@@ -23,10 +23,9 @@ export function PublicNav() {
   return (
     <header className={`sticky top-0 z-50 border-b bg-ink-950 transition-shadow duration-300 ${scrolled ? "border-obsidian/70 shadow-[0_4px_24px_-12px_rgba(8,4,30,0.35)]" : "border-obsidian/40"}`}>
       <div className="mx-auto flex h-16 max-w-7xl items-center gap-4 px-5 lg:px-8">
-        <Link href="/" className="group flex shrink-0 items-center gap-2.5" aria-label="Finnair Virtual">
-          <Image src="/brand/finnair-emblem-navy-transparent.png" alt="" width={1050} height={590} priority className="logo-light-theme h-7 w-auto transition-transform duration-500 group-hover:scale-105" />
-          <Image src="/brand/finnair-emblem-white-transparent.png" alt="" width={510} height={287} priority className="logo-dark-theme h-7 w-auto transition-transform duration-500 group-hover:scale-105" />
-          <span className="text-[1.15rem] tracking-tight text-cream"><span className="font-semibold">Finnair</span><span className="font-light text-cream-dim"> Virtual</span></span>
+        <Link href="/" className="group flex shrink-0 items-center" aria-label="Finnair Virtual">
+          <Image src="/brand/fva-logo-light.png" alt="Finnair Virtual" width={1080} height={287} priority className="logo-light-theme h-9 w-auto transition-transform duration-500 group-hover:scale-105" />
+          <Image src="/brand/fva-logo-dark.png" alt="Finnair Virtual" width={1985} height={528} priority className="logo-dark-theme h-9 w-auto transition-transform duration-500 group-hover:scale-105" />
         </Link>
 
         <nav className="mx-auto hidden items-center gap-0.5 lg:flex">

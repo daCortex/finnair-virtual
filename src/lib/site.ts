@@ -117,9 +117,9 @@ export const SITE_LEADERS = [
     name: "Ayaz Molla",
     ifc: "ayaz_molla",
     pfp: "/staff/zyrex.png",
-    title: "When we started this journey",
+    title: "Making the experience realistic and limitless",
     message:
-      "When we started this journey, our vision was to create more than just a virtual airline; we wanted to build a family of aviation enthusiasts united by a love of realistic operations and Nordic precision. Thank you to every member of staff and every pilot who makes Finnair Virtual what it is.",
+      "I have been flying in Infinite Flight for more than 3 years and have been a pilot in many VAs — namely Qatari, Saudia, Indian, Aeroflot and Starlux — and have previously been staff for Qatari Virtual. In my time as a pilot, I noticed most VAs depend on human intervention to run effectively, which also limits the experience of fellow pilots. As Finnair VA CEO & Founder, my aim is to minimise that by making most things pre-planned, automated, simpler and quicker — making the experience of FVA pilots feel very realistic and limitless. Pilots unlock new routes and aircraft types as they progress through their rank. Every FVA pilot is part of the Finnair Plus banking system: they earn Aurora Points in Career mode to unlock passenger codeshare airlines, and Logistic Coins in Cargo mode to unlock cargo codeshare routes. Every play mode has been meticulously crafted and automated, with daily flight dispatches in the crew centre and rewards to be claimed on every flight. Thank you to every member of staff and every pilot who makes Finnair Virtual what it is. Special thanks to my friends Ayush, Victor and Luca for making this possible.",
   },
   {
     role: "Chief Operating Officer",

@@ -7,25 +7,9 @@ export function SiteFooter() {
     <footer className="border-t border-obsidian/40 bg-ink-900">
       <div className="mx-auto max-w-7xl px-6 py-10 lg:px-10">
         <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center gap-2.5">
-            <Image
-              src="/brand/finnair-emblem-navy-transparent.png"
-              alt="Finnair Virtual"
-              width={1050}
-              height={590}
-              className="logo-light-theme h-5 w-auto"
-            />
-            <Image
-              src="/brand/finnair-emblem-white-transparent.png"
-              alt="Finnair Virtual"
-              width={510}
-              height={287}
-              className="logo-dark-theme h-5 w-auto"
-            />
-            <span className="text-base tracking-tight text-cream">
-              <span className="font-semibold">Finnair</span>
-              <span className="font-light text-cream-dim"> Virtual</span>
-            </span>
+          <div className="flex items-center">
+            <Image src="/brand/fva-logo-light.png" alt="Finnair Virtual" width={1080} height={287} className="logo-light-theme h-8 w-auto" />
+            <Image src="/brand/fva-logo-dark.png" alt="Finnair Virtual" width={1985} height={528} className="logo-dark-theme h-8 w-auto" />
           </div>
           <p className="shrink-0 font-mono text-xs tracking-wide text-cream-faint">
             {BRAND.tagline}

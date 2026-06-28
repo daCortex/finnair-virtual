@@ -49,28 +49,12 @@ export function SiteHeader() {
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-5 px-6 py-4 lg:px-10">
         <Link href="/staff" className="group flex shrink-0 items-center gap-2.5" aria-label="Finnair Virtual Staff — home">
-          {/* Navy wing-emblem on light backgrounds, white on dark */}
-          <Image
-            src="/brand/finnair-emblem-navy-transparent.png"
-            alt="Finnair Virtual"
-            width={1050}
-            height={590}
-            priority
-            className="logo-light-theme h-5 w-auto transition-transform duration-500 group-hover:scale-105"
-          />
-          <Image
-            src="/brand/finnair-emblem-white-transparent.png"
-            alt="Finnair Virtual"
-            width={510}
-            height={287}
-            priority
-            className="logo-dark-theme h-5 w-auto transition-transform duration-500 group-hover:scale-105"
-          />
-          <span className="text-lg tracking-tight text-cream">
-            <span className="font-semibold">Finnair</span>
-            <span className="font-light text-cream-dim"> Virtual</span>
-          </span>
-          <span className="ml-1 hidden rounded-full border border-gold/40 px-2.5 py-0.5 text-[0.65rem] uppercase tracking-[0.18em] text-gold-soft sm:inline">
+          {/* Navy wordmark on light backgrounds, white on dark */}
+          <Image src="/brand/fva-logo-light.png" alt="Finnair Virtual" width={1080} height={287} priority
+            className="logo-light-theme h-8 w-auto transition-transform duration-500 group-hover:scale-105" />
+          <Image src="/brand/fva-logo-dark.png" alt="Finnair Virtual" width={1985} height={528} priority
+            className="logo-dark-theme h-8 w-auto transition-transform duration-500 group-hover:scale-105" />
+          <span className="hidden rounded-full border border-gold/40 px-2.5 py-0.5 text-[0.65rem] uppercase tracking-[0.18em] text-gold-soft sm:inline">
             Staff
           </span>
         </Link>

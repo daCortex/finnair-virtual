@@ -225,10 +225,10 @@ export type Tier = {
 
 export const TIERS: Tier[] = [
   { name: "Classic", min: 0, accent: "#AFAFAF", blurb: "Every journey starts here.", perks: ["Finnair Plus member card", "Casual Mode access", "Community Discord role"] },
-  { name: "Signature", min: 2500, accent: "#7F1894", blurb: "A recognised regular of the network.", perks: ["Signature Discord badge", "Priority PIREP review", "Request a custom callsign number"] },
-  { name: "Imperial", min: 50000, accent: "#0C0243", blurb: "A pillar of Finnair Virtual.", perks: ["Imperial badge & profile flair", "Early sign-up for events & group flights", "Codeshare networks unlocked"] },
-  { name: "Prestige", min: 150000, accent: "#1E0B57", blurb: "Among our most decorated aviators.", perks: ["Prestige badge", "Reserved group-flight slots", "A vote on new routes & liveries"] },
-  { name: "Centurion", min: 500000, accent: "#121212", blurb: "Master aviator — the summit of Finnair Plus.", perks: ["Centurion role", "Advisory Board seat", "Bespoke personal callsign", "A place on the Wall of Fame"] },
+  { name: "Signature", min: 2500, accent: "#7F1894", blurb: "A recognised regular of the network.", perks: ["Commercial Pilot Licence (Career Mode)", "Finnair medium-haul routes up to 6 hrs"] },
+  { name: "Imperial", min: 50000, accent: "#0C0243", blurb: "A pillar of Finnair Virtual.", perks: ["Command Pilot Licence (Career Mode)", "Finnair long-haul routes up to 14 hrs", "Unlock Career & Cargo codeshare networks"] },
+  { name: "Prestige", min: 150000, accent: "#1E0B57", blurb: "Among our most decorated aviators.", perks: ["Prestige Discord badge", "Freight Architect (Cargo Mode) — highly specialized cargo dispatches"] },
+  { name: "Centurion", min: 500000, accent: "#121212", blurb: "Master aviator — the summit of Finnair Plus.", perks: ["Centurion Discord badge", "Priority access to Fleet assignment", "Advisory Board seat on the staff Discord"] },
 ];
 
 export function tierForAp(ap: number): { current: Tier; next: Tier | null; pct: number; apToNext: number | null } {

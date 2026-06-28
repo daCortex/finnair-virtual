@@ -70,7 +70,7 @@ export default function PlusPage() {
                 <div className="relative flex h-full flex-col">
                   <div className="flex items-start justify-between">
                     <p className="font-mono text-[0.55rem] uppercase tracking-[0.4em] text-white/55">Finnair Plus</p>
-                    <Image src="/brand/finnair-emblem-white-transparent.png" alt="" width={510} height={287} className="h-3.5 w-auto opacity-80" />
+                    <Image src="/brand/fva-logo-dark.png" alt="Finnair Virtual" width={1985} height={528} className="h-5 w-auto opacity-90" />
                   </div>
                   <p className="mt-1.5 font-display text-2xl font-semibold tracking-wide" style={{ color: f.accent, textShadow: "0 1px 1px rgba(0,0,0,0.4)" }}>
                     {t.name}

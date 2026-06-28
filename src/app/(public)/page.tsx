@@ -6,8 +6,10 @@ import { regionForIcao } from "@/lib/regions";
 import type { RegionLeg } from "@/components/public/RegionMap";
 import { GlobeMap } from "@/components/public/GlobeMap";
 import { HeroSlideshow } from "@/components/public/HeroSlideshow";
+import { getSiteConfig } from "@/lib/siteConfig";
 
 export const metadata = { title: "Finnair Virtual — Elevating Virtual Aviation" };
+export const dynamic = "force-dynamic";
 
 function legs() {
   const hub = AIRPORT_COORDS.EFHK;
@@ -33,8 +35,9 @@ const VALUES = [
   { tag: "Aurora Banking", title: "An economy that rewards.", body: "Earn Aurora Points with every flight and rise through Finnair Plus.", href: "/plus", icon: "M12 2 2 9l10 13L22 9 12 2zM3.5 9h17M9 3 7 9l5 13M15 3l2 6-5 13" },
 ];
 
-export default function Home() {
+export default async function Home() {
   const { out } = legs();
+  const cfg = await getSiteConfig();
   return (
     <div>
       {/* HERO */}
@@ -64,17 +67,15 @@ export default function Home() {
         <p className="mt-3 max-w-3xl font-display text-xl leading-relaxed text-cream lg:text-2xl">
           To run the most realistic, rewarding virtual airline on Infinite Flight — a structured operation where every flight is logged, every hour is credited, and every pilot has a clear path from their first sortie to command.
         </p>
-        <p className="mt-3 max-w-3xl text-sm leading-relaxed text-cream-dim">
-          Our goal is simple: build a welcoming, well-organised community that flies like a real airline, with genuine progression, an in-house economy, and a global route network operated with Nordic precision.
-        </p>
+        <p className="mt-3 max-w-3xl text-sm leading-relaxed text-cream-dim">{cfg.brand.mission}</p>
         <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
           {[
-            { v: SITE.fleetCount, k: "Aircraft" },
-            { v: `${SITE.network.airports}`, k: "Destinations" },
-            { v: SITE.network.routes, k: "Routes" },
-            { v: "9", k: "Ranks" },
-            { v: "3", k: "Hubs" },
-            { v: SITE.longestSector, k: "Longest sector" },
+            { v: cfg.stats.fleetCount, k: "Aircraft" },
+            { v: `${cfg.stats.airports}`, k: "Destinations" },
+            { v: cfg.stats.routes, k: "Routes" },
+            { v: `${cfg.stats.ranks}`, k: "Ranks" },
+            { v: `${cfg.stats.hubs}`, k: "Hubs" },
+            { v: cfg.stats.longestSector, k: "Longest sector" },
           ].map((s) => (
             <div key={s.k} className="rounded-xl border border-obsidian bg-ink-900 p-4 text-center lift">
               <p className="font-display text-2xl font-semibold text-cream">{s.v}</p>
