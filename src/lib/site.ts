@@ -76,10 +76,10 @@ export const SITE_MODES = [
     name: "Casual Mode",
     unlock: "Aurora · 0h",
     tagline: "Fly the line at your own pace",
-    desc: "The default experience for new pilots. File any unlocked route, log the PIREP, and earn Aurora Points without rigid scheduling.",
+    desc: "The default experience for new pilots. File any unlocked route, log the PIREP, and build flight hours toward your rank — no rigid scheduling. (Aurora Points are earned in Career mode.)",
     bestFor: "Pilots who fly when they can and want progression without pressure",
-    pros: ["No schedule windows", "Any unlocked aircraft / route", "Counts toward rank progression"],
-    multiplier: "Standard AP",
+    pros: ["No schedule windows", "Any unlocked aircraft / route", "Builds rank hours (no AP)"],
+    multiplier: "Hours only",
     scope: "Any unlocked",
   },
   {

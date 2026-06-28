@@ -8,7 +8,7 @@ export const metadata = { title: "Career" };
 const DO = [
   { icon: "M5 19 19 5M10 5h9v9", title: "Fly real-world routes", body: `Pick from ${SITE.network.routes} scheduled sectors out of Helsinki — short domestic hops to ultra-long-haul to Asia and across the Atlantic.` },
   { icon: "M4 4h16v16H4zM8 9h8M8 13h6", title: "File PIREPs & build a logbook", body: "Every flight you fly is logged, reviewed and credited. Your hours, routes and history follow you for your whole career." },
-  { icon: "M12 2v20M5 9l7-7 7 7", title: "Earn Aurora Points", body: "Each approved flight pays out Aurora Points — the currency you spend on licences, aircraft and codeshare networks." },
+  { icon: "M12 2v20M5 9l7-7 7 7", title: "Earn Aurora Points", body: "Each approved Career-mode flight pays out Aurora Points — the currency you spend on licences, aircraft and codeshare networks." },
   { icon: "M17 2.1l4 4-4 4M3 12.6v-2a4 4 0 014-4h14M7 21.9l-4-4 4-4M21 11.4v2a4 4 0 01-4 4H3", title: "Group flights & events", body: "Fly together at scheduled community events and group flights — including our heritage Boeing 757 in historic livery." },
   { icon: "M21 8l-9-5-9 5v8l9 5 9-5V8zM3 8l9 5 9-5", title: "Run cargo contracts", body: "Senior pilots take on freight runs from Brussels and London, earning Logistic Coins on long technical sectors." },
   { icon: "M12 2l2.4 7.4H22l-6 4.6 2.3 7.4L12 17l-6.3 4.4L8 14 2 9.4h7.6z", title: "Earn special clearances", body: "Reach the exclusive ranks for Special Operations access, the oneworld network and custom callsigns." },
@@ -81,7 +81,7 @@ export default function CareerPage() {
         <div className="mt-5 grid gap-4 md:grid-cols-3">
           {[
             { sym: "⏱", label: "Flight hours", tag: "Your rank", body: "Every verified hour climbs the nine-rank ladder. Hours aren't spent — they track your seniority and unlock new aircraft.", accent: "#3B6FE0" },
-            { sym: "✦", label: "Aurora Points · AP", tag: "Passenger track", body: "Earned on Casual & Career flights. Spend them on pilot licences, passenger codeshare networks, and your Finnair Plus tier.", accent: "#8A6BF0" },
+            { sym: "✦", label: "Aurora Points · AP", tag: "Passenger track", body: "Earned only on Career-mode flights. Spend them on pilot licences, passenger codeshare networks, and your Finnair Plus tier.", accent: "#8A6BF0" },
             { sym: "◈", label: "Logistic Coins · LC", tag: "Cargo track", body: "Earned only on Cargo contracts. Spend them on cargo certifications and freight codeshares. Kept entirely separate from AP.", accent: "#C2528E" },
           ].map((c) => (
             <div key={c.label} className="rounded-2xl border border-obsidian bg-ink-900 p-5" style={{ borderTop: `3px solid ${c.accent}` }}>
