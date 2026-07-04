@@ -97,9 +97,11 @@ export async function getSession(): Promise<Session | null> {
     const session = verify(token);
     if (session) return session;
   }
-  // No valid session. Pure local dev (nothing configured) gets the demo pilot;
-  // otherwise signed out.
-  if (!authConfigured && !dbConfigured) return DEMO_SESSION;
+  // No valid session. Until Discord OAuth is configured, run in demo mode — the
+  // Crew Centre is usable (and, when DATABASE_URL is set, persists to the real
+  // database). Access to /crew is still protected by the preview password gate.
+  // The moment DISCORD_CLIENT_ID is set, real sign-in takes over.
+  if (!authConfigured) return DEMO_SESSION;
   return null;
 }
 

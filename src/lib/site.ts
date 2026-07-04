@@ -133,7 +133,7 @@ export const SITE_LEADERS = [
 ] as const;
 
 export const SITE_ORG = [
-  { unit: "Operations", roles: [{ role: "CHRO", who: "Vacant" }, { role: "Codeshare Officer", who: "Vacant" }] },
+  { unit: "Operations", roles: [{ role: "CHRO", who: "Baba" }, { role: "Codeshare Officer", who: "Vacant" }] },
   { unit: "Marketing", roles: [{ role: "CMO", who: "Vacant" }, { role: "Social Manager", who: "Vacant" }] },
   { unit: "Route Coordinators", roles: [{ role: "Route Manager", who: "Vacant" }, { role: "Event Manager", who: "Vacant" }, { role: "Event Manager", who: "Vacant" }, { role: "Event Manager", who: "Vacant" }] },
   { unit: "Training", roles: [{ role: "Training Manager", who: "Vacant" }, { role: "Flight Instructor", who: "Vacant" }, { role: "Flight Instructor", who: "Vacant" }, { role: "Flight Instructor", who: "Vacant" }, { role: "Flight Instructor", who: "Vacant" }] },
